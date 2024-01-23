@@ -1,0 +1,27 @@
+{
+  "helloWorld": "Hello World!",
+
+  "login_login":"Log in",
+  "login_tip":"Please enter your phone number and password to log in",
+  "login_login_reg":"Log in & Register",
+  "login_user_term":"Accept the User Terms of Service",
+  "login_forgot_pwd":"Forgot your password?",
+
+  "login_hint_phone_number":"Telephone number",
+  "login_hint_pwd":"Password",
+  "login_hint_enter_pwd":"Enter password",
+  "login_hint_repeat_pwd":"repeat psssword",
+
+  "login_pwd_tip1":"Enter your password to complete the registration",
+  "login_pwd_tip2":"The password consists of A-Z,0-9, and a minimum length of 8 characters",
+  "login_complete":"Complete registration",
+  "login_reset_tip1":"Retrieve password",
+  "login_reset_tip2":"Enter the mobile number used when registering to verify what whatsapp is used for Retrieve password",
+  "login_verify":"Verify and retrieve",
+  "login_reset_tip3":"Enter new password",
+  "login_reset_tip4":"The password consists of A-Z,0-9, and a minimum length of 8 characters",
+  "login_save_pwd":"Save password",
+
+  "send_whatsapp":"Send Verify Code",
+  "verify":"Verify"
+}

@@ -1,0 +1,127 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'user.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+User _$UserFromJson(Map<String, dynamic> json) => User(
+      json['name'] as String,
+      json['email'] as String,
+      json['lastLogin'] as String,
+    );
+
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'name': instance.name,
+      'email': instance.email,
+      'lastLogin': instance.lastLogin,
+    };
+
+Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
+      json['id'] as int,
+      json['title'] as String?,
+      json['icon'] as String?,
+      json['desc'] as String?,
+      json['startTime'] as String?,
+      json['endTime'] as String?,
+      json['status'] as int,
+      json['createTime'] as String?,
+      json['lang'] as String?,
+    );
+
+Map<String, dynamic> _$ActivityToJson(Activity instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('icon', instance.icon);
+  writeNotNull('desc', instance.desc);
+  writeNotNull('startTime', instance.startTime);
+  writeNotNull('endTime', instance.endTime);
+  val['status'] = instance.status;
+  writeNotNull('createTime', instance.createTime);
+  writeNotNull('lang', instance.lang);
+  return val;
+}
+
+Promotion _$PromotionFromJson(Map<String, dynamic> json) => Promotion(
+      json['uid'] as String,
+      json['level'] as int,
+      json['income'] as String,
+      json['allIncome'] as String,
+    );
+
+Map<String, dynamic> _$PromotionToJson(Promotion instance) => <String, dynamic>{
+      'uid': instance.uid,
+      'level': instance.level,
+      'income': instance.income,
+      'allIncome': instance.allIncome,
+    };
+
+Task _$TaskFromJson(Map<String, dynamic> json) => Task(
+      json['id'] as int,
+      json['level'] as int,
+      json['status'] as int,
+      json['title'] as String?,
+      json['desc'] as String?,
+      json['icon'] as String?,
+    );
+
+Map<String, dynamic> _$TaskToJson(Task instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'level': instance.level,
+    'status': instance.status,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('desc', instance.desc);
+  writeNotNull('icon', instance.icon);
+  return val;
+}
+
+UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
+      json['uid'] as int,
+      json['level'] as int,
+      json['balance'] as String?,
+      json['phone'] as String?,
+      json['icon'] as String?,
+      json['chargeWalletAddress'] as String?,
+      json['settleWalletAddress'] as String?,
+      json['chartUrl'] as String?,
+    );
+
+Map<String, dynamic> _$UserInfoToJson(UserInfo instance) {
+  final val = <String, dynamic>{
+    'uid': instance.uid,
+    'level': instance.level,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('balance', instance.balance);
+  writeNotNull('phone', instance.phone);
+  writeNotNull('icon', instance.icon);
+  writeNotNull('chargeWalletAddress', instance.chargeWalletAddress);
+  writeNotNull('settleWalletAddress', instance.settleWalletAddress);
+  writeNotNull('chartUrl', instance.chartUrl);
+  return val;
+}
