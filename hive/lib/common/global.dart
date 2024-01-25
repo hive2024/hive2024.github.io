@@ -13,6 +13,10 @@ class Global {
   static String defaultBanner =
       "https://static-web.bigolive.tv/as/bigo-static/reseller/banner.png";
 
+  static String contectWhatsapp = "+6591291573";
+  static String contectMessenger = "+6591291573";
+  static String contectTelegram= "+6591291573";
+
   static String txtRules = "Rules";
   static String txtExchange = "Exchange";
   static String txtSuccess = "Success";

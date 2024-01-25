@@ -43,13 +43,6 @@ class PageMine extends StatelessWidget {
           ),
           H16,
           MySettingButton(
-            text: Global.txtMeCustomerService,
-            onPressed: () {
-              viewModel.sendWhatsapp();
-            },
-          ),
-          H4,
-          MySettingButton(
             text: Global.txtMeExtension,
             onPressed: () {
               Navigator.push(
@@ -91,6 +84,53 @@ class PageMine extends StatelessWidget {
               );
             },
           ),
+          H10,
+          Text("Contect US", style: TextStyles.header20),
+          H10,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  viewModel.contectWhatsapp();
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset("images/whatsapp.webp", width: 35, height: 35),
+                    H4,
+                    Text("Whatsapp")
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  viewModel.contectMessenger();
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset("images/messeger.webp", width: 35, height: 35),
+                    H4,
+                    Text("Messenger")
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  viewModel.contectTelegram();
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset("images/telegram.webp", width: 35, height: 35),
+                    H4,
+                    Text("Telegram")
+                  ],
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
@@ -142,7 +182,8 @@ class MyProfileView extends StatelessWidget {
                           ),
                           Flexible(
                             flex: 1,
-                            child: Center(child: Text("VIP ${viewModel.userInfo.level}")),
+                            child: Center(
+                                child: Text("VIP ${viewModel.userInfo.level}")),
                           ),
                         ],
                       ),

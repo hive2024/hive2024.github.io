@@ -83,11 +83,8 @@ class HomeTabPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> bottomNavPages = [
-      // PageExtensionDetail(),
-      // PageWithdraw(),
-      // PageTopup(),
+      // PageMine(),
       LoadingView(),
-      // PageTestApi(),
       PageHome2(), //1
       PageActivity(), //2
       PageShare(), //3

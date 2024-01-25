@@ -72,7 +72,9 @@ flutter:
     - images/share_logo.webp
     - images/avatar.webp
     - images/vip_fill.webp
-  #   - images/a_dot_ham.jpeg
+    - images/telegram.webp
+    - images/whatsapp.webp
+    - images/messeger.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

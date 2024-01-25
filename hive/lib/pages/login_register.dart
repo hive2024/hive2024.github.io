@@ -59,7 +59,7 @@ class _PageLoginRegState extends State<PageLoginReg> {
             H16,
             // repeat password
             TextField(
-              obscureText: true,
+              obscureText: pwdShow,
               controller: _pwd2Controller,
               decoration: InputDecoration(
                 hintText: al.login_hint_repeat_pwd,

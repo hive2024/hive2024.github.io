@@ -38,10 +38,12 @@ class MyAppViewModel extends ChangeNotifier {
           showEmpty();
         }
       });
-      queryActivityList();
-      // queryShareInfo();
-      queryUserInfo();
-      queryTask();
+      if (APIS.apiKey.isNotEmpty) {
+        queryActivityList();
+        // queryShareInfo();
+        queryUserInfo();
+        queryTask();
+      }
     }
     loading = false;
   }
@@ -332,10 +334,31 @@ class MyAppViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> sendWhatsapp() async {
-    if (!await launchUrl(
-        Uri.parse('https://wa.me/+6586161190/?text=hello-world'))) {
-      throw Exception('Could not launch');
+  Future<void> contectWhatsapp() async {
+    // if (!await launchUrl(
+    //     Uri.parse('https://wa.me/${Global.appName}/?text=hello'))) {
+    //   throw Exception('Could not launch');
+    // }
+    try {
+      launchUrl(Uri.parse('https://wa.me/${Global.appName}/?text=hello'));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void contectMessenger() {
+    try {
+      launchUrl(Uri.parse('http://m.me/${Global.contectMessenger}'));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void contectTelegram() {
+    try {
+      launchUrl(Uri.parse('https://telegram.me/${Global.contectTelegram}'));
+    } catch (e) {
+      print(e);
     }
   }
 

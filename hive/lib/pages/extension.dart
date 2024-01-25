@@ -81,6 +81,15 @@ class PageExtension extends StatelessWidget {
               _getSmall("Total promotional revenue", 10, context),
             ],
           ),
+          H10,
+          MyButton(
+              text: "Details",
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return PageExtensionDetail();
+                    }),
+                  ))
         ]),
       ),
     );
@@ -90,37 +99,27 @@ class PageExtension extends StatelessWidget {
     return Flexible(
       fit: FlexFit.loose,
       flex: 1,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return PageExtensionDetail();
-            }),
-          );
-        },
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: mainColor,
-              style: BorderStyle.solid,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: mainColor,
+            style: BorderStyle.solid,
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              k,
+              style: TextStyles.header20,
+              textAlign: TextAlign.center,
             ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                k,
-                style: TextStyles.header20,
-                textAlign: TextAlign.center,
-              ),
-              H5,
-              Text("$v", style: TextStyles.header14),
-            ],
-          ),
+            H5,
+            Text("$v", style: TextStyles.header14),
+          ],
         ),
       ),
     );
