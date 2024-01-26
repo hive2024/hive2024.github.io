@@ -1,14 +1,10 @@
 import 'dart:convert';
-import 'dart:html';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
 import 'package:myhive/common/views.dart';
-// import 'package:flutter_html/flutter_html.dart';
-import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
-import 'package:webview_flutter_web/webview_flutter_web.dart';
 
 class Result {
   bool success = true;
@@ -19,11 +15,11 @@ class Result {
 }
 
 class PageTestApi extends StatelessWidget {
-  var testPhone = '18612341234';
-  var otp = '1234';
   @override
   Widget build(BuildContext context) {
-    final userPlatform = window.navigator.platform;
+    var testPhone = '18612341234';
+    var otp = '1234';
+    // final userPlatform = window.navigator.platform;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -41,11 +37,11 @@ class PageTestApi extends StatelessWidget {
                   child: Text(" 1.1 获取首页信息  ")),
               H16,
               OutlinedButton(
-                  onPressed: () => APIS.userCheck(testPhone,1),
+                  onPressed: () => APIS.userCheck(testPhone, 1),
                   child: Text(" 1.2 用户检查  ")),
               H16,
               OutlinedButton(
-                  onPressed: () => APIS.userCheck(testPhone,0),
+                  onPressed: () => APIS.userCheck(testPhone, 0),
                   child: Text(" 1.2 忘记密码 OTP")),
               H16,
               OutlinedButton(

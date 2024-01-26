@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:myhive/common/strings.dart';
 import 'package:myhive/common/views.dart';

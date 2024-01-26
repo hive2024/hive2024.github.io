@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
 import 'package:myhive/common/views.dart';
@@ -31,8 +29,6 @@ class PageHome2 extends StatelessWidget {
         child: Image.network(Global.defaultBanner),
       );
     }
-    final userPlatform = window.navigator.platform;
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,15 +49,14 @@ class HomeHtmlView extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppViewModel>();
     var html = appState.homeHtml;
-    final userPlatform = window.navigator.platform;
-    final PlatformWebViewController _controller = PlatformWebViewController(
+    final PlatformWebViewController controller = PlatformWebViewController(
       const PlatformWebViewControllerCreationParams(),
     )..loadHtmlString(html);
 
     return SizedBox(
       height: 400,
       child: PlatformWebViewWidget(
-        PlatformWebViewWidgetCreationParams(controller: _controller),
+        PlatformWebViewWidgetCreationParams(controller: controller),
       ).build(context),
     );
   }

@@ -1,10 +1,6 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:myhive/common/global.dart';
 import 'package:myhive/common/views.dart';
-import 'package:myhive/pages/AppViewModel.dart';
-import 'package:provider/provider.dart';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
 
 class PageDetail extends StatelessWidget {
@@ -36,15 +32,14 @@ class DetailHtmlView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userPlatform = window.navigator.platform;
-    final PlatformWebViewController _controller = PlatformWebViewController(
+    final PlatformWebViewController controller = PlatformWebViewController(
       const PlatformWebViewControllerCreationParams(),
     )..loadHtmlString(htmlContent);
 
     return SizedBox(
       height: 400,
       child: PlatformWebViewWidget(
-        PlatformWebViewWidgetCreationParams(controller: _controller),
+        PlatformWebViewWidgetCreationParams(controller: controller),
       ).build(context),
     );
   }

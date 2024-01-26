@@ -21,6 +21,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
 Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
       json['id'] as int,
       json['title'] as String?,
+      json['subTitle'] as String?,
       json['icon'] as String?,
       json['desc'] as String?,
       json['startTime'] as String?,
@@ -42,6 +43,7 @@ Map<String, dynamic> _$ActivityToJson(Activity instance) {
   }
 
   writeNotNull('title', instance.title);
+  writeNotNull('subTitle', instance.subTitle);
   writeNotNull('icon', instance.icon);
   writeNotNull('desc', instance.desc);
   writeNotNull('startTime', instance.startTime);

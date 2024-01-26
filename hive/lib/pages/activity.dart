@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myhive/common/strings.dart';
 import 'package:myhive/common/views.dart';
+import 'package:myhive/json/user.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:myhive/pages/detail.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +14,7 @@ class PageActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppViewModel>();
-    var al = appState.activityList.map((e) => NewCard(
-          picutre: e.icon ?? "",
-          name: e.title ?? "",
-          bio: e.desc ?? "",
-        ));
+    var al = appState.activityList.map((e) => NewCard(activity: e));
     return ListView(
       children: [
         ...al,
@@ -30,14 +27,10 @@ class PageActivity extends StatelessWidget {
 class NewCard extends StatelessWidget {
   const NewCard({
     super.key,
-    required this.picutre,
-    required this.name,
-    required this.bio,
+    required this.activity,
   });
 
-  final String picutre;
-  final String name;
-  final String bio;
+  final Activity activity;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +45,8 @@ class NewCard extends StatelessWidget {
         onTap: () =>
             Navigator.push(context, MaterialPageRoute(builder: (context) {
           return PageDetail(
-            htmlContent: bio,
-            title: name,
+            htmlContent: activity.desc ?? "",
+            title: activity.title ?? "",
           );
         })),
         child: Card(
@@ -69,7 +62,7 @@ class NewCard extends StatelessWidget {
             children: [
               // SizedBox(child: Image.network(url1), height: 100, width: double.infinity,),
               Image.network(
-                picutre,
+                activity.icon ?? "",
                 height: 120,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -78,7 +71,7 @@ class NewCard extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     top: 8.0, left: 16, right: 16, bottom: 4),
                 child: Text(
-                  name,
+                  activity.title ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyles.activityHeader,
@@ -87,7 +80,7 @@ class NewCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
                 child: Text(
-                  bio,
+                  activity.subTitle??"",
                   maxLines: 1,
                   style: TextStyles.activityDesc,
                   overflow: TextOverflow.ellipsis,

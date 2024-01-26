@@ -1,11 +1,6 @@
-import 'dart:html';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:myhive/common/global.dart';
 import 'package:myhive/common/strings.dart';
 import 'package:myhive/common/views.dart';
-import 'package:myhive/main.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

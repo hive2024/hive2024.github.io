@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
 import 'package:myhive/common/strings.dart';
@@ -237,7 +236,7 @@ class _VideoAppState extends State<VideoApp> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
-      child: _controller!.value.isInitialized
+      child: _controller.value.isInitialized
           ? AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
               child: VideoPlayer(_controller),

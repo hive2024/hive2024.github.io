@@ -33,11 +33,12 @@ class User {
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)
 class Activity {
-  Activity(this.id, this.title, this.icon, this.desc, this.startTime,
-      this.endTime, this.status, this.createTime, this.lang);
+  Activity(this.id, this.title, this.subTitle, this.icon, this.desc,
+      this.startTime, this.endTime, this.status, this.createTime, this.lang);
 
   int id;
   String? title;
+  String? subTitle;
   String? icon;
   String? desc;
   String? startTime;
@@ -46,7 +47,7 @@ class Activity {
   String? createTime;
   String? lang;
 
-  factory Activity.empty() => Activity(0, "", "", "", "", "", 0, "", "");
+  factory Activity.empty() => Activity(0, "", "", "", "", "", "", 0, "", "");
   //不同的类使用不同的mixin即可
   factory Activity.fromJson(Map<String, dynamic> json) =>
       _$ActivityFromJson(json);

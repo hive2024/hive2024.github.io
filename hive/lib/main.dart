@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get_it/get_it.dart';
-import 'package:myhive/common/views.dart';
-import 'package:myhive/pages/extension.dart';
-import 'package:myhive/pages/extension_detail.dart';
 import 'package:myhive/pages/home2.dart';
 import 'package:myhive/pages/mine.dart';
 import 'package:myhive/pages/share.dart';
 import 'package:myhive/pages/task.dart';
-import 'package:myhive/pages/topup.dart';
-import 'package:myhive/pages/withdraw.dart';
 import 'package:myhive/test/test_api.dart';
-import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
-import 'package:webview_flutter_web/webview_flutter_web.dart';
 import 'common/strings.dart';
 import 'pages/AppViewModel.dart';
-import 'pages/login.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'dart:html';
 import 'common/global.dart';
 import 'pages/activity.dart';
 
@@ -26,7 +17,7 @@ import 'pages/activity.dart';
 
 void main() {
   // getIt.registerSingleton<MyAppViewModel>(MyAppViewModel(), signalsReady: true);
-  WebViewPlatform.instance = WebWebViewPlatform();
+  // final userPlatform = window.navigator.platform;
   Global.init().then((e) => runApp(MyApp()));
   // runApp(VideoApp3());
 }
@@ -36,6 +27,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userPlatform = window.navigator.platform;
+    print("userPlatform = $userPlatform");
     return ChangeNotifierProvider(
       create: (context) => MyAppViewModel(),
       child: MaterialApp(
@@ -52,12 +45,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: false,
           primarySwatch: Global.mainColor,
-          // colorScheme: ColorScheme.fromSeed(seedColor: const Color(0XFF4CB2B6)),
         ),
         home: HomeTabPage2(),
-        // home: VideoPlayerScreen(),
-        // home: PageTask(),
-        // home: PagePlay(myTitle: ""),
       ),
     );
   }

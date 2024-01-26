@@ -6,7 +6,6 @@ import 'package:myhive/pages/AppViewModel.dart';
 import 'package:myhive/pages/login_reset.dart';
 import 'package:myhive/pages/extension.dart';
 import 'package:myhive/pages/topup.dart';
-import 'package:myhive/pages/withdraw.dart';
 import 'package:myhive/test/test_api.dart';
 import 'package:provider/provider.dart';
 
