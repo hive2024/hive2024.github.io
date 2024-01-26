@@ -58,6 +58,7 @@ class Global {
   static String txtWithdrawInfo =
       "Withdrawal instructions: Please confirm that the withdrawal address is correct. If the loss caused by the wrong address is borne by yourself";
   static String txtFullBlance = "Full blance";
+  static String txtOther = "Other";
 
   //Extension
   static String txtExtensionCenter = "Extension center";

@@ -17,6 +17,7 @@ class PageWithdraw extends StatefulWidget {
 class _PageWithdrawState extends State<PageWithdraw> {
   TextEditingController _rechargeController = TextEditingController();
   TextEditingController _walletController = TextEditingController();
+  FocusNode _focusNode = FocusNode();
   late Widget verifyWidget;
   late AppLocalizations al;
 
@@ -69,12 +70,15 @@ class _PageWithdrawState extends State<PageWithdraw> {
               getAmountWidget(Global.txtFullBlance, () {
                 _rechargeController.text = "$fullBlance";
               }),
-              getAmountEmptyWidget(),
+              W12,
+              getAmountWidget(Global.txtOther,
+                  () => FocusScope.of(context).requestFocus(_focusNode)),
             ],
           ),
           H10,
           TextField(
             enabled: !saveMode,
+            focusNode: _focusNode,
             controller: _rechargeController,
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -134,14 +138,14 @@ class _PageWithdrawState extends State<PageWithdraw> {
     );
   }
 
-  Widget getAmountEmptyWidget() {
-    return Flexible(
-      flex: 1,
-      fit: FlexFit.loose,
-      child: SizedBox(
-        width: double.infinity,
-        child: Container(),
-      ),
-    );
-  }
+  // Widget getAmountEmptyWidget() {
+  //   return Flexible(
+  //     flex: 1,
+  //     fit: FlexFit.loose,
+  //     child: SizedBox(
+  //       width: double.infinity,
+  //       child: Container(),
+  //     ),
+  //   );
+  // }
 }

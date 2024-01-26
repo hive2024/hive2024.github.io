@@ -29,41 +29,62 @@ class PageExtensionDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             H10,
-            DropdownMenu<String>(
-              width: 300,
-              label: const Text('Team'),
-              dropdownMenuEntries: [
-                DropdownMenuEntry<String>(
-                  value: "1",
-                  label: "primary team",
-                  leadingIcon: Icon(Icons.diversity_1),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DropdownMenu<String>(
+                      width: 300,
+                      label: const Text('Team'),
+                      onSelected: (value) => viewModel.onSelectTeam(value),
+                      dropdownMenuEntries: [
+                        DropdownMenuEntry<String>(
+                          value: "1",
+                          label: "primary team",
+                          leadingIcon: Icon(Icons.diversity_1),
+                        ),
+                        DropdownMenuEntry<String>(
+                          value: "1",
+                          label: "Secondary income today",
+                          leadingIcon: Icon(Icons.diversity_1),
+                        ),
+                        DropdownMenuEntry<String>(
+                          value: "1",
+                          label:
+                              "Secondary income today Secondary income today ",
+                          leadingIcon: Icon(Icons.diversity_1),
+                        ),
+                      ],
+                    ),
+                    H10,
+                    SizedBox(
+                      width: 300,
+                      child: TextField(
+                        controller: detailDateStart,
+                        decoration: InputDecoration(
+                          labelText: "date",
+                          border: OutlineInputBorder(),
+                        ),
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          showTopupDialog(context);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                DropdownMenuEntry<String>(
-                  value: "1",
-                  label: "Secondary income today",
-                  leadingIcon: Icon(Icons.diversity_1),
-                ),
-                DropdownMenuEntry<String>(
-                  value: "1",
-                  label: "Secondary income today Secondary income today ",
-                  leadingIcon: Icon(Icons.diversity_1),
+                FloatingActionButton(
+                  onPressed: () => viewModel.search(),
+                  elevation: 0,
+                  child: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
                 ),
               ],
-            ),
-            H10,
-            SizedBox(
-              width: 300,
-              child: TextField(
-                controller: detailDateStart,
-                decoration: InputDecoration(
-                  labelText: "date",
-                  border: OutlineInputBorder(),
-                ),
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                  showTopupDialog(context);
-                },
-              ),
             ),
             H10,
             H10,

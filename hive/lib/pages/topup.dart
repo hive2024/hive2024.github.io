@@ -5,7 +5,6 @@ import 'package:myhive/common/strings.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:myhive/pages/mine.dart';
-import 'package:myhive/pages/withdraw.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -18,6 +17,7 @@ class _PageTopupState extends State<PageTopup> {
   TextEditingController _amountController = TextEditingController();
   TextEditingController _rechargeController = TextEditingController();
   TextEditingController _walletController = TextEditingController();
+  FocusNode _amountFocus = FocusNode();
   late AppLocalizations al;
 
   @override
@@ -55,11 +55,12 @@ class _PageTopupState extends State<PageTopup> {
               W12,
               getAmountWidget("\$500", () => _amountController.text = '500'),
               W12,
-              getAmountWidget("\$1000", () => _amountController.text = '1000'),
+              getAmountWidget(Global.txtOther, () => FocusScope.of(context).requestFocus(_amountFocus)),
             ],
           ),
           H10,
           TextField(
+            focusNode: _amountFocus,
             controller: _amountController,
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],

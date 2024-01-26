@@ -457,6 +457,14 @@ class MyAppViewModel extends ChangeNotifier {
     detailList.addAll(news);
     notifyListeners();
   }
+
+  search() {
+    detailLoadmore();
+  }
+
+  onSelectTeam(String? value) {
+
+  }
 }
 
 void toast(BuildContext context, String s) {

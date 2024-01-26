@@ -23,7 +23,7 @@ class PageMine extends StatelessWidget {
         children: [
           getProfileView(),
           SizedBox(height: 20),
-          MySettingButton(
+          MyOutlineButton(
             text: Global.txtMeRecharge,
             onPressed: () {
               Navigator.push(
@@ -35,14 +35,14 @@ class PageMine extends StatelessWidget {
             },
           ),
           H4,
-          MySettingButton(
+          MyOutlineButton(
             text: Global.txtMeWithdraw,
             onPressed: () {
               viewModel.settingOpenWithdraw(context);
             },
           ),
           H16,
-          MySettingButton(
+          MyOutlineButton(
             text: Global.txtMeExtension,
             onPressed: () {
               Navigator.push(
@@ -54,7 +54,7 @@ class PageMine extends StatelessWidget {
             },
           ),
           H4,
-          MySettingButton(
+          MyOutlineButton(
             text: Global.txtMeChangePassword,
             onPressed: () {
               Navigator.push(
