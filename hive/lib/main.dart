@@ -16,6 +16,11 @@ import 'pages/activity.dart';
 // GetIt getIt = GetIt.instance;
 
 void main() {
+  final userPlatform = window.navigator.platform;
+  var params = Uri.base.queryParameters;
+  print("userPlatform = $userPlatform");
+  print("params = $params");
+  Global.setFrom(userPlatform,params);
   Global.init().then((e) => runApp(MyApp()));
 }
 

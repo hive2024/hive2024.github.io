@@ -33,6 +33,7 @@ class PageHome2 extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Text("platform=${Global.platform};${Global.urlParams}"),
         bannerWidget,
         Expanded(flex: 1, child: HomeHtmlView()),
       ],

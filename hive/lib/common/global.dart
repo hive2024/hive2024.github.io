@@ -7,7 +7,7 @@ import 'package:myhive/test/test_api.dart';
 class Global {
   // static late SharedPreferences _prefs;
   static String appName = "App";
-  static String baseServer = "https://app.genesiscapitalgs.com/ ";
+  static String baseServer = "https://api.genesiscapitalgs.com/";
 
   static String defaultBanner =
       "https://static-web.bigolive.tv/as/bigo-static/reseller/banner.png";
@@ -68,6 +68,13 @@ class Global {
   static saveAPIKey(String apiKey) async {
     print("saveAPIKey >> $apiKey");
     _localStorage["api_key"] = apiKey;
+  }
+
+  static String platform = "";
+  static Map<String, String> urlParams = {};
+  static void setFrom(String? userPlatform, Map<String, String> params) {
+    platform = userPlatform ?? "";
+    urlParams = params;
   }
 
   // static saveUser() async {
