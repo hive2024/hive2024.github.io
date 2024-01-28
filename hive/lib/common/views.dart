@@ -44,7 +44,7 @@ const SizedBox W10 = SizedBox(width: 10);
 const SizedBox W12 = SizedBox(width: 12);
 const SizedBox W16 = SizedBox(width: 16);
 
-AppBar getAppBar(BuildContext context,String title) {
+AppBar getAppBar(BuildContext context, String title) {
   return AppBar(
     backgroundColor: Colors.white,
     leading: BackButton(onPressed: () => Navigator.of(context).pop()),
@@ -242,7 +242,9 @@ class _VideoAppState extends State<VideoApp> {
               child: VideoPlayer(_controller),
             )
           : Container(
-              color: Colors.yellow,
+              color: Colors.white,
+              width: 200,
+              height: 200,
               child: CircularProgressIndicator(color: Global.mainColor),
             ),
     );

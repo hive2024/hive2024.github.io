@@ -65,7 +65,12 @@ class LoadingView extends StatelessWidget {
       child: SizedBox(
           width: 200,
           height: 200,
-          child: CircularProgressIndicator(color: Global.mainColor)),
+          child: Column(
+            children: [
+              Text("platform=${Global.platform};${Global.urlParams}"),
+              CircularProgressIndicator(color: Global.mainColor),
+            ],
+          )),
     );
   }
 }
