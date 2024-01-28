@@ -16,7 +16,7 @@ class PageExtension extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: BackButton(onPressed: () => Navigator.of(context).pop()),
-        title: Text(Global.txtExtensionCenter),
+        title: Text(al.txtExtensionCenter),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
@@ -38,11 +38,11 @@ class PageExtension extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.only(right: 55),
                   width: double.infinity,
-                  child: Text(Global.txtShareLink + viewModel.shareLink),
+                  child: Text(al.txtShareLink + viewModel.shareLink),
                 ),
               ),
               MyLiteButton(
-                t: Global.txtCopy,
+                t: al.txtCopy,
                 click: () {
                   viewModel.copyShareLink(context);
                 },
@@ -52,38 +52,38 @@ class PageExtension extends StatelessWidget {
           H10,
           Row(
             children: [
-              _getSmall("New today", 10, context),
+              _getSmall(al.new_today, 10, context),
               W10,
-              _getSmall("Total team size", 10, context),
+              _getSmall(al.total_team_size, 10, context),
             ],
           ),
           H10,
           Row(
             children: [
-              _getSmall("Primary income today", 10, context),
+              _getSmall(al.primary_income_today, 10, context),
               W10,
-              _getSmall("Secondary income today", 10, context),
+              _getSmall(al.secondary_income_today, 10, context),
             ],
           ),
           H10,
           Row(
             children: [
-              _getSmall("My income today", 10, context),
+              _getSmall(al.my_income_today, 10, context),
               W10,
-              _getSmall("Total revenue today", 10, context),
+              _getSmall(al.total_revenue_today, 10, context),
             ],
           ),
           H10,
           Row(
             children: [
-              _getSmall("Promotion income for the month", 10, context),
+              _getSmall(al.promotion_income_for_the_month, 10, context),
               W10,
-              _getSmall("Total promotional revenue", 10, context),
+              _getSmall(al.total_promotional_revenue, 10, context),
             ],
           ),
           H10,
           MyButton(
-              text: "Details",
+              text: al.details,
               onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {

@@ -89,7 +89,7 @@ class Task {
 @JsonSerializable(includeIfNull: false, explicitToJson: true)
 class UserInfo {
   UserInfo(this.uid, this.level, this.balance, this.phone, this.icon,
-      this.chargeWalletAddress, this.settleWalletAddress, this.chartUrl);
+      this.chargeWalletAddress, this.settleWalletAddress, this.chartUrl, this.whatsappUrl, this.telegramUrl, this.messagerUrl);
 
   int uid;
   int level;
@@ -100,8 +100,11 @@ class UserInfo {
   String? chargeWalletAddress;
   String? settleWalletAddress;
   String? chartUrl;
+  String? whatsappUrl;
+  String? telegramUrl;
+  String? messagerUrl;
 
-  factory UserInfo.empty() => UserInfo(0, 0, "", "", "", "", "", "");
+  factory UserInfo.empty() => UserInfo(0, 0, "", "", "", "", "", "", "", "", "");
   //不同的类使用不同的mixin即可
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);

@@ -40,16 +40,16 @@ class _PageLoginPwdState extends State<PageLoginPwd> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            MyTextTitle(text: al.login_login),
+            MyTextTitle(text: al.login),
             H16,
-            MyTextTip(text: al.login_tip),
+            MyTextTip(text: al.tip_login),
             H16,
             //phone number
             TextField(
               enabled: false,
               controller: _phoneController,
               decoration: InputDecoration(
-                hintText: al.login_hint_phone_number,
+                hintText: al.hint_phone_number,
                 focusedBorder: forcedInputBorder,
                 enabledBorder: enableInputBorder,
                 disabledBorder: disableInputBorder,
@@ -61,7 +61,7 @@ class _PageLoginPwdState extends State<PageLoginPwd> {
               obscureText: true,
               controller: _pwdController,
               decoration: InputDecoration(
-                hintText: al.login_hint_enter_pwd,
+                hintText: al.enter_pwd,
                 focusedBorder: forcedInputBorder,
                 enabledBorder: enableInputBorder,
                 suffixIcon:
@@ -81,7 +81,7 @@ class _PageLoginPwdState extends State<PageLoginPwd> {
                     .read<MyAppViewModel>().clickForgot(context);
                     },
                     child: Text(
-                      al.login_forgot_pwd,
+                      al.forgot_pwd,
                       style: TextStyles.header2,
                     ),
                   ),
@@ -91,7 +91,7 @@ class _PageLoginPwdState extends State<PageLoginPwd> {
             H16,
             // button
             MyButton(
-              text: al.login_login,
+              text: al.login,
               onPressed: () {
                 context
                     .read<MyAppViewModel>()

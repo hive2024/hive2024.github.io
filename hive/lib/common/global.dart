@@ -7,66 +7,10 @@ import 'package:myhive/test/test_api.dart';
 class Global {
   // static late SharedPreferences _prefs;
   static String appName = "App";
-  static String baseServer = "http://207.246.97.25:9018/";
+  static String baseServer = "https://app.genesiscapitalgs.com/ ";
 
   static String defaultBanner =
       "https://static-web.bigolive.tv/as/bigo-static/reseller/banner.png";
-
-  static String contectWhatsapp = "+6591291573";
-  static String contectMessenger = "+6591291573";
-  static String contectTelegram= "+6591291573";
-
-  static String txtRules = "Rules";
-  static String txtExchange = "Exchange";
-  static String txtSuccess = "Success";
-  static String txtCopy = "Copy";
-  static String txtEdit = "Edit";
-  static String txtSave = "Save";
-
-  static String txtShareTitle = "Invitation and reward rules";
-  static String txtShareDesc = '''
-1. Share links to social platforms and invite friends to register
-2、被邀请者完成任务，则分享任务奖励的5%给邀请者。
-3、XXXXXXXX
-''';
-  static String txtShareLink = "Your invitation link is: \r";
-  static String txtShareCopyLink = "Copy Link";
-  static String txtShareShareTo = "Share to";
-
-  static String txtMeRecharge = "Recharge application";
-  static String txtMeWithdraw = "Withdraw application (with wallet)";
-  static String txtMeCustomerService = "Dedicated customer service";
-  static String txtMeExtension = "Extension center";
-  static String txtMeChangePassword = "Change password";
-  static String txtMeLogOut = "Log out";
-
-  //topup
-  static String txtRecharge = "Recharge";
-  static String txtOtherAmount = "Other amount";
-  static String txtRechargeAddress = "Recharge address";
-  static String txtWalletAddress = "Wallet address";
-  static String txtConfirmRecharge = "Confirm recharge";
-  static String txtTopupInfo1 =
-      "Recharge instructions: You need to recharge USDT, please make sure to transfer the money The package address is the same as the wallet address bound to the user account. Recharge will arrive at the latest 24 hours, please wait patiently, if not, please contact customer service";
-  static String txtTopupInfo2 =
-      "Please use the wallet address attached to the account to recharge. If the wallet address is incorrect, change the wallet address";
-
-  //withdraw
-  static String txtWithdraw = "Withdraw";
-  static String txtWithdrawApplication = "Withdraw application";
-  static String txtWithdrawInfo =
-      "Withdrawal instructions: Please confirm that the withdrawal address is correct. If the loss caused by the wrong address is borne by yourself";
-  static String txtFullBlance = "Full blance";
-  static String txtOther = "Other";
-
-  //Extension
-  static String txtExtensionCenter = "Extension center";
-  static String txtPromotionDetails = "Promotion details";
-
-  //task
-  static String txtTaskRule =
-      "Recharge instructions: You need to recharge USDT, please make sure to transfer the money The package address is the same as the wallet address bound to the user account. Recharge will arrive at the latest 24 hours, please wait patiently, if not, please contact customer service";
-
 
   static User user = User.empty();
   static late Storage _localStorage;

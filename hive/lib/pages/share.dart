@@ -7,10 +7,12 @@ import 'package:myhive/common/strings.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PageShare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AppLocalizations al = AppLocalizations.of(context)!;
     var viewModel = context.watch<MyAppViewModel>();
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
@@ -26,17 +28,17 @@ class PageShare extends StatelessWidget {
           ),
           SizedBox(height: 16),
           Text(
-            Global.txtShareTitle,
+            al.txtShareTitle,
             style: TextStyles.header20,
           ),
           SizedBox(height: 4),
           Text(
-            Global.txtShareDesc,
+            al.txtShareDesc,
             style: TextStyles.header14,
           ),
           Flexible(flex: 1, child: Container()),
           Text(
-            Global.txtShareLink,
+            al.txtShareLink,
             style: TextStyles.header20,
           ),
           Text(
@@ -49,7 +51,7 @@ class PageShare extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: MyOutlineButton(
-                  text: Global.txtShareCopyLink,
+                  text: al.txtShareCopyLink,
                   onPressed: () {
                     //todo tess clip on phone.
                     Clipboard.setData(
@@ -63,7 +65,7 @@ class PageShare extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: MyButton(
-                  text: Global.txtShareShareTo,
+                  text: al.txtShareShareTo,
                   onPressed: () {
                     //todo tess clip on phone.
                     //https://pub.dev/packages/url_launcher

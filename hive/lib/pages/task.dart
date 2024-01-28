@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
 import 'package:myhive/common/strings.dart';
@@ -51,7 +50,7 @@ class PageTask extends StatelessWidget {
       children: [
         // PageTask PageTask:file:///Users/daining/ddai_workspace/flutter_project/hive/lib/main.dart:89:7
         H10,
-        Text("Mining for revenue", style: TextStyles.headerTask),
+        Text(al.mining_for_revenue, style: TextStyles.headerTask),
         H16,
         Row(children: r1),
         H16,
@@ -60,7 +59,7 @@ class PageTask extends StatelessWidget {
         Row(children: r3),
         H16,
         Text(
-          "Your coin balance is ${viewModel.userIntegral}",
+          "${al.your_coin_balance_is} ${viewModel.userIntegral}",
           style: TextStyles.headerTask,
         ),
         H16,
@@ -69,7 +68,7 @@ class PageTask extends StatelessWidget {
             Expanded(
               flex: 1,
               child: MyOutlineButton(
-                text: Global.txtRules,
+                text: al.txtRules,
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
@@ -82,7 +81,7 @@ class PageTask extends StatelessWidget {
             Expanded(
               flex: 1,
               child: MyButton(
-                text: Global.txtExchange,
+                text: al.txtExchange,
                 onPressed: () {
                   viewModel.exchange(context);
                 },
@@ -268,7 +267,7 @@ class _MyWorkProgressState extends State<MyWorkProgress>
         ? Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: MyButton(
-                text: Global.txtSuccess,
+                text: AppLocalizations.of(context)!.txtSuccess,
                 onPressed: () {
                   context
                       .read<MyAppViewModel>()

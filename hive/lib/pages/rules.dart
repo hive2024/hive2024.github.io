@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
 import 'package:myhive/common/views.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PageRules extends StatelessWidget {
   @override
@@ -11,7 +12,7 @@ class PageRules extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: ListView(
           scrollDirection: Axis.vertical,
-          children: [Text(Global.txtTaskRule)],
+          children: [Text(AppLocalizations.of(context)!.txtTaskRule)],
         ),
       ),
     );

@@ -54,7 +54,7 @@ class _PageWithdrawState extends State<PageWithdraw> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: BackButton(onPressed: () => Navigator.of(context).pop()),
-        title: Text(Global.txtWithdrawApplication),
+        title: Text(al.txtWithdrawApplication),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -67,11 +67,11 @@ class _PageWithdrawState extends State<PageWithdraw> {
                 _rechargeController.text = "5";
               }),
               W12,
-              getAmountWidget(Global.txtFullBlance, () {
+              getAmountWidget(al.txtFullBlance, () {
                 _rechargeController.text = "$fullBlance";
               }),
               W12,
-              getAmountWidget(Global.txtOther,
+              getAmountWidget(al.txtOther,
                   () => FocusScope.of(context).requestFocus(_focusNode)),
             ],
           ),
@@ -85,14 +85,14 @@ class _PageWithdrawState extends State<PageWithdraw> {
             decoration: InputDecoration(
                 filled: saveMode,
                 fillColor: Colors.grey[300],
-                hintText: Global.txtOtherAmount,
+                hintText: al.txtOtherAmount,
                 focusedBorder: forcedInputBorder,
                 enabledBorder: enableInputBorder,
                 disabledBorder: enableInputBorder,
                 prefixIcon: Icon(Icons.attach_money_outlined)),
           ),
           H10,
-          Text(Global.txtWalletAddress),
+          Text(al.txtWalletAddress),
           H10,
           Stack(
             alignment: Alignment.centerRight,
@@ -103,14 +103,14 @@ class _PageWithdrawState extends State<PageWithdraw> {
                 decoration: InputDecoration(
                   filled: !saveMode,
                   fillColor: Colors.grey[300],
-                  hintText: Global.txtWalletAddress,
+                  hintText: al.txtWalletAddress,
                   focusedBorder: forcedInputBorder,
                   enabledBorder: enableInputBorder,
                   disabledBorder: enableInputBorder,
                 ),
               ),
               MyLiteButton(
-                t: saveMode ? Global.txtCopy : Global.txtEdit,
+                t: saveMode ? al.txtCopy : al.txtEdit,
                 click: () {
                   if (saveMode) {
                     viewModel.withDrawCopy(context);
@@ -123,7 +123,7 @@ class _PageWithdrawState extends State<PageWithdraw> {
           ),
           H10,
           MyButton(
-              text: saveMode ? Global.txtSave : Global.txtWithdraw,
+              text: saveMode ? al.txtSave : al.txtWithdraw,
               onPressed: () {
                 if (saveMode) {
                   viewModel.saveWallet(context, _walletController.text);
@@ -132,7 +132,7 @@ class _PageWithdrawState extends State<PageWithdraw> {
                 }
               }),
           H10,
-          Text(Global.txtWithdrawInfo),
+          Text(al.txtWithdrawInfo),
         ]),
       ),
     );

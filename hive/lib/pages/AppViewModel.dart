@@ -12,7 +12,7 @@ import 'package:myhive/pages/withdraw.dart';
 import 'package:myhive/test/test_api.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'login_pwd.dart';
 
 class MyAppViewModel extends ChangeNotifier {
@@ -138,7 +138,7 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   /// share
-  String shareLink = "https://www.111.com/source?from=1234";
+  String shareLink = "";
   String shareCopyContent = "CopyContent https://www.111.com/source?from=1234";
 
   void queryShareInfo() {
@@ -156,7 +156,7 @@ class MyAppViewModel extends ChangeNotifier {
 
   var needVerifyLogin = false;
   String otp = "";
-  String otpReceiver = "+65 86161190";
+  String otpReceiver = "";
   String currentPhone = "";
 
   void tryLogin(String phone, BuildContext context) {
@@ -178,7 +178,7 @@ class MyAppViewModel extends ChangeNotifier {
           otp = result.data['result'] as String;
           notifyListeners();
           whatsapp(otpReceiver, otp);
-          toast(context, "send whatsapp for register");
+          // toast(context, "send whatsapp for register");
         }
       } else {
         toast(context, result.error);
@@ -197,7 +197,7 @@ class MyAppViewModel extends ChangeNotifier {
             return PageLoginReg();
           }));
         } else {
-          toast(context, "otp incorrect");
+          toast(context, AppLocalizations.of(context)!.otp_incorrect);
         }
       } else {
         toast(context, result.error);
@@ -256,7 +256,7 @@ class MyAppViewModel extends ChangeNotifier {
         forgotOtpSent = true;
         notifyListeners();
         whatsapp(otpReceiver, forgotOtp);
-        toast(context, "send whatsapp for register");
+        // toast(context, "send whatsapp for register");
       } else {
         toast(context, result.error);
       }
@@ -276,7 +276,7 @@ class MyAppViewModel extends ChangeNotifier {
             }),
           );
         } else {
-          toast(context, "otp incorrect");
+          toast(context, AppLocalizations.of(context)!.otp_incorrect);
         }
       } else {
         toast(context, result.error);
@@ -340,7 +340,7 @@ class MyAppViewModel extends ChangeNotifier {
     //   throw Exception('Could not launch');
     // }
     try {
-      launchUrl(Uri.parse('https://wa.me/${Global.appName}/?text=hello'));
+      launchUrl(Uri.parse('https://wa.me/${userInfo.whatsappUrl}/?text=hello'));
     } catch (e) {
       print(e);
     }
@@ -348,7 +348,7 @@ class MyAppViewModel extends ChangeNotifier {
 
   void contectMessenger() {
     try {
-      launchUrl(Uri.parse('http://m.me/${Global.contectMessenger}'));
+      launchUrl(Uri.parse('http://m.me/${userInfo.messagerUrl}'));
     } catch (e) {
       print(e);
     }
@@ -356,7 +356,7 @@ class MyAppViewModel extends ChangeNotifier {
 
   void contectTelegram() {
     try {
-      launchUrl(Uri.parse('https://telegram.me/${Global.contectTelegram}'));
+      launchUrl(Uri.parse('https://telegram.me/${userInfo.telegramUrl}'));
     } catch (e) {
       print(e);
     }
@@ -387,7 +387,7 @@ class MyAppViewModel extends ChangeNotifier {
   ///withdraw
   bool saveMode = false;
   String walletAddress = "todo";
-  double fullBlance = 1088.8;
+  double fullBlance = 0;
   bool fromTopup = false;
 
   void withDrawSaveMode(bool bool) {
@@ -462,9 +462,7 @@ class MyAppViewModel extends ChangeNotifier {
     detailLoadmore();
   }
 
-  onSelectTeam(String? value) {
-
-  }
+  onSelectTeam(String? value) {}
 }
 
 void toast(BuildContext context, String s) {

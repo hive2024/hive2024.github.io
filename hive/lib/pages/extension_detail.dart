@@ -20,7 +20,7 @@ class PageExtensionDetail extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: BackButton(onPressed: () => Navigator.of(context).pop()),
-        title: Text(Global.txtPromotionDetails),
+        title: Text(al.txtPromotionDetails),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
@@ -38,24 +38,23 @@ class PageExtensionDetail extends StatelessWidget {
                   children: [
                     DropdownMenu<String>(
                       width: 300,
-                      label: const Text('Team'),
+                      label: Text(al.team),
                       onSelected: (value) => viewModel.onSelectTeam(value),
                       dropdownMenuEntries: [
                         DropdownMenuEntry<String>(
-                          value: "1",
-                          label: "primary team",
+                          value: "0",
+                          label: al.level_1,
                           leadingIcon: Icon(Icons.diversity_1),
                         ),
                         DropdownMenuEntry<String>(
                           value: "1",
-                          label: "Secondary income today",
+                          label: al.level_2,
                           leadingIcon: Icon(Icons.diversity_1),
                         ),
                         DropdownMenuEntry<String>(
-                          value: "1",
-                          label:
-                              "Secondary income today Secondary income today ",
-                          leadingIcon: Icon(Icons.diversity_1),
+                          value: "2",
+                          label: al.level_3,
+                          leadingIcon: Icon(Icons.diversity_3),
                         ),
                       ],
                     ),
@@ -65,7 +64,7 @@ class PageExtensionDetail extends StatelessWidget {
                       child: TextField(
                         controller: detailDateStart,
                         decoration: InputDecoration(
-                          labelText: "date",
+                          labelText: "Date",
                           border: OutlineInputBorder(),
                         ),
                         onTap: () {
@@ -107,8 +106,8 @@ class PageExtensionDetail extends StatelessWidget {
                         ? OutlinedButton(
                             onPressed: viewModel.detailLoadmore,
                             child: Text(viewModel.detailHasLoadmore
-                                ? "Load More"
-                                : "No More"),
+                                ? al.load_more
+                                : al.no_more),
                           )
                         : PromotionInfo(info: viewModel.detailList[index]);
                   },
@@ -132,6 +131,7 @@ class PromotionInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations al = AppLocalizations.of(context)!;
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -144,7 +144,7 @@ class PromotionInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Promotion Id  ${info.uid}', style: TextStyles.header14),
+          Text('${al.promotion_id} ${info.uid}', style: TextStyles.header14),
           H10,
           Row(
             children: [
@@ -158,13 +158,13 @@ class PromotionInfo extends StatelessWidget {
                   flex: 3,
                   child: SizedBox(
                       width: double.infinity,
-                      child: Text('earning ${info.income}',
+                      child: Text('${al.earning} ${info.income}',
                           style: TextStyles.header14))),
               Flexible(
                   flex: 3,
                   child: SizedBox(
                       width: double.infinity,
-                      child: Text('Promotion income ${info.allIncome}',
+                      child: Text('${al.promotion_income} ${info.allIncome}',
                           style: TextStyles.header14))),
             ],
           )

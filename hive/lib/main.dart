@@ -16,10 +16,7 @@ import 'pages/activity.dart';
 // GetIt getIt = GetIt.instance;
 
 void main() {
-  // getIt.registerSingleton<MyAppViewModel>(MyAppViewModel(), signalsReady: true);
-  // final userPlatform = window.navigator.platform;
   Global.init().then((e) => runApp(MyApp()));
-  // runApp(VideoApp3());
 }
 
 class MyApp extends StatelessWidget {

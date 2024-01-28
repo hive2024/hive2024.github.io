@@ -29,7 +29,7 @@ class _PageLoginResetState extends State<PageLoginReset> {
   Widget build(BuildContext context) {
     AppLocalizations al = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: getAppBar(context,"Reset Password"),
+      appBar: getAppBar(context,al.reset_pwd),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
         child: Column(
@@ -37,9 +37,9 @@ class _PageLoginResetState extends State<PageLoginReset> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            MyTextTitle(text: al.login_reset_tip3),
+            MyTextTitle(text: al.enter_new_pwd),
             H16,
-            MyTextTip(text: al.login_reset_tip4),
+            MyTextTip(text: al.pwd_limit),
             H16,
             //password
             Padding(
@@ -48,7 +48,7 @@ class _PageLoginResetState extends State<PageLoginReset> {
                 obscureText: obscurePwd1,
                 controller: _pwdController,
                 decoration: InputDecoration(
-                  hintText: al.login_hint_enter_pwd,
+                  hintText: al.enter_pwd,
                   focusedBorder: forcedInputBorder,
                   enabledBorder: enableInputBorder,
                   suffixIcon: IconButton(
@@ -65,7 +65,7 @@ class _PageLoginResetState extends State<PageLoginReset> {
               obscureText: obscurePwd2,
               controller: _pwd2Controller,
               decoration: InputDecoration(
-                hintText: al.login_hint_repeat_pwd,
+                hintText: al.repeat_pwd,
                 focusedBorder: forcedInputBorder,
                 enabledBorder: enableInputBorder,
                 suffixIcon: IconButton(
@@ -78,14 +78,14 @@ class _PageLoginResetState extends State<PageLoginReset> {
             // button
             H16,
             MyButton(
-              text: al.login_save_pwd,
+              text: al.save_pwd,
               onPressed: () {
                 if (_pwdController.text == _pwd2Controller.text) {
                   context
                       .read<MyAppViewModel>()
                       .resetPwd(context, _pwdController.text);
                 } else {
-                  toast(context, "Password different.");
+                  toast(context, al.password_different);
                 }
               },
             ),

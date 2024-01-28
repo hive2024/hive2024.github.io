@@ -6,12 +6,13 @@ import 'package:myhive/pages/AppViewModel.dart';
 import 'package:myhive/pages/login_reset.dart';
 import 'package:myhive/pages/extension.dart';
 import 'package:myhive/pages/topup.dart';
-import 'package:myhive/test/test_api.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PageMine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AppLocalizations al = AppLocalizations.of(context)!;
     var viewModel = context.watch<MyAppViewModel>();
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -23,7 +24,7 @@ class PageMine extends StatelessWidget {
           getProfileView(),
           SizedBox(height: 20),
           MyOutlineButton(
-            text: Global.txtMeRecharge,
+            text: al.txtMeRecharge,
             onPressed: () {
               Navigator.push(
                 context,
@@ -35,14 +36,14 @@ class PageMine extends StatelessWidget {
           ),
           H4,
           MyOutlineButton(
-            text: Global.txtMeWithdraw,
+            text: al.txtMeWithdraw,
             onPressed: () {
               viewModel.settingOpenWithdraw(context);
             },
           ),
           H16,
           MyOutlineButton(
-            text: Global.txtMeExtension,
+            text: al.txtMeExtension,
             onPressed: () {
               Navigator.push(
                 context,
@@ -54,7 +55,7 @@ class PageMine extends StatelessWidget {
           ),
           H4,
           MyOutlineButton(
-            text: Global.txtMeChangePassword,
+            text: al.txtMeChangePassword,
             onPressed: () {
               Navigator.push(
                 context,
@@ -66,23 +67,23 @@ class PageMine extends StatelessWidget {
           ),
           H16,
           MyOutlineButton(
-            text: Global.txtMeLogOut,
+            text: al.txtMeLogOut,
             onPressed: () {
               context.read<MyAppViewModel>().logout(context);
             },
           ),
-          H16,
-          MyOutlineButton(
-            text: 'Test API',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return PageTestApi();
-                }),
-              );
-            },
-          ),
+          // H16,
+          // MyOutlineButton(
+          //   text: 'Test API',
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) {
+          //         return PageTestApi();
+          //       }),
+          //     );
+          //   },
+          // ),
           H10,
           Text("Contect US", style: TextStyles.header20),
           H10,

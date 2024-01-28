@@ -33,7 +33,7 @@ class _PageTopupState extends State<PageTopup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(context,Global.txtMeRecharge),
+      appBar: getAppBar(context,al.txtMeRecharge),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView(scrollDirection: Axis.vertical, children: [
@@ -55,7 +55,7 @@ class _PageTopupState extends State<PageTopup> {
               W12,
               getAmountWidget("\$500", () => _amountController.text = '500'),
               W12,
-              getAmountWidget(Global.txtOther, () => FocusScope.of(context).requestFocus(_amountFocus)),
+              getAmountWidget(al.txtOther, () => FocusScope.of(context).requestFocus(_amountFocus)),
             ],
           ),
           H10,
@@ -65,7 +65,7 @@ class _PageTopupState extends State<PageTopup> {
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
-              hintText: Global.txtOtherAmount,
+              hintText: al.txtOtherAmount,
               focusedBorder: forcedInputBorder,
               enabledBorder: enableInputBorder,
               prefixIcon: Icon(Icons.attach_money_outlined),
@@ -73,16 +73,16 @@ class _PageTopupState extends State<PageTopup> {
           ),
           H10,
           MyButton(
-              text: Global.txtRecharge,
+              text: al.txtRecharge,
               onPressed: () {
                 if (_amountController.text.isNotEmpty) {
                   showTopupDialog();
                 } else {
-                  toast(context, "input amount");
+                  toast(context, al.input_amount);
                 }
               }),
           H10,
-          Text(Global.txtTopupInfo1),
+          Text(al.txtTopupInfo1),
         ]),
       ),
     );
@@ -104,7 +104,7 @@ class _PageTopupState extends State<PageTopup> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                Global.txtRechargeAddress,
+                al.txtRechargeAddress,
                 style: TextStyles.header16,
               ),
               H16,
@@ -112,7 +112,7 @@ class _PageTopupState extends State<PageTopup> {
                 readOnly: true,
                 controller: _rechargeController,
                 decoration: InputDecoration(
-                  hintText: Global.txtRechargeAddress,
+                  hintText: al.txtRechargeAddress,
                   focusedBorder: forcedInputBorder,
                   enabledBorder: enableInputBorder,
                   suffixIcon: Padding(
@@ -128,18 +128,18 @@ class _PageTopupState extends State<PageTopup> {
                             toast(context, "Copy: ${_rechargeController.text}");
                           });
                         },
-                        child: Text(Global.txtCopy, style: TextStyles.btn4)),
+                        child: Text(al.txtCopy, style: TextStyles.btn4)),
                   ),
                 ),
               ),
               H16,
-              Text(Global.txtWalletAddress),
+              Text(al.txtWalletAddress),
               H16,
               TextField(
                 readOnly: true,
                 controller: _walletController,
                 decoration: InputDecoration(
-                  hintText: Global.txtWalletAddress,
+                  hintText: al.txtWalletAddress,
                   focusedBorder: forcedInputBorder,
                   enabledBorder: enableInputBorder,
                   suffixIcon: Padding(
@@ -151,15 +151,15 @@ class _PageTopupState extends State<PageTopup> {
                         onPressed: () {
                           context.read<MyAppViewModel>().topupEditWallet(context);
                         },
-                        child: Text(Global.txtEdit, style: TextStyles.btn4)),
+                        child: Text(al.txtEdit, style: TextStyles.btn4)),
                   ),
                 ),
               ),
               H16,
-              Text(Global.txtTopupInfo2),
+              Text(al.txtTopupInfo2),
               H16,
               MyButton(
-                  text: Global.txtConfirmRecharge,
+                  text: al.txtConfirmRecharge,
                   onPressed: () {
                     context.read<MyAppViewModel>().topup(context,
                         _amountController.text, _walletController.text);

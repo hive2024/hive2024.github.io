@@ -24,7 +24,7 @@ class PageTestApi extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: BackButton(onPressed: () => Navigator.of(context).pop()),
-        title: Text(Global.txtWithdrawApplication),
+        title: Text("test"),
       ),
       body: Center(
         child: SizedBox(

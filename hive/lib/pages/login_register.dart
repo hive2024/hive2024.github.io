@@ -35,16 +35,16 @@ class _PageLoginRegState extends State<PageLoginReg> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            MyTextTitle(text: al.login_pwd_tip1),
+            MyTextTitle(text: al.tip_reg),
             H16,
-            MyTextTip(text: al.login_pwd_tip2),
+            MyTextTip(text: al.pwd_limit),
             H16,
             //password
             TextField(
               obscureText: pwdShow,
               controller: _pwdController,
               decoration: InputDecoration(
-                hintText: al.login_hint_enter_pwd,
+                hintText: al.enter_pwd,
                 focusedBorder: forcedInputBorder,
                 enabledBorder: enableInputBorder,
                 suffixIcon: IconButton(
@@ -60,7 +60,7 @@ class _PageLoginRegState extends State<PageLoginReg> {
               obscureText: pwdShow,
               controller: _pwd2Controller,
               decoration: InputDecoration(
-                hintText: al.login_hint_repeat_pwd,
+                hintText: al.repeat_pwd,
                 focusedBorder: forcedInputBorder,
                 enabledBorder: enableInputBorder,
                 suffixIcon: IconButton(
@@ -73,7 +73,7 @@ class _PageLoginRegState extends State<PageLoginReg> {
             H16,
             // button
             MyButton(
-              text: al.login_complete,
+              text: al.complete_reg,
               onPressed: () {
                 if (_pwdController.text == _pwd2Controller.text) {
                   context

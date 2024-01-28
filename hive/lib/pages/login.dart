@@ -46,7 +46,7 @@ class _PageLoginState extends State<PageLogin> {
     var appState = context.watch<MyAppViewModel>();
     buttons = [
       MyButton(
-        text: al.login_login_reg,
+        text: al.login_register,
         onPressed: () {
           if (_checkboxSelected) {
             appState.tryLogin(_unameController.text, context);
@@ -78,7 +78,7 @@ class _PageLoginState extends State<PageLogin> {
   Widget build(BuildContext context) {
     // MyAppViewModel viewModel = context.watch<MyAppViewModel>();
     return Scaffold(
-      appBar: getAppBar(context, al.login_login),
+      appBar: getAppBar(context, al.login),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
         child: Column(
@@ -86,9 +86,9 @@ class _PageLoginState extends State<PageLogin> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            MyTextTitle(text: al.login_login),
+            MyTextTitle(text: al.login),
             H16,
-            MyTextTip(text: al.login_tip),
+            MyTextTip(text: al.tip_login),
             H16,
             Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 16),
@@ -96,7 +96,7 @@ class _PageLoginState extends State<PageLogin> {
                 autofocus: _nameAutoFocus,
                 controller: _unameController,
                 decoration: InputDecoration(
-                  hintText: al.login_hint_phone_number,
+                  hintText: al.hint_phone_number,
                   focusedBorder: forcedInputBorder,
                   enabledBorder: enableInputBorder,
                 ),
@@ -117,7 +117,7 @@ class _PageLoginState extends State<PageLogin> {
                   },
                 ),
                 Text(
-                  al.login_user_term,
+                  al.accept_user_term,
                   style: TextStyles.header2,
                 )
               ],

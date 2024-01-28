@@ -47,7 +47,7 @@ class _PageRetrievePwdState extends State<PageRetrievePwd> {
   Widget build(BuildContext context) {
     AppLocalizations al = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: getAppBar(context, al.login_forgot_pwd),
+      appBar: getAppBar(context, al.forgot_pwd),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
         child: Column(
@@ -55,15 +55,15 @@ class _PageRetrievePwdState extends State<PageRetrievePwd> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            MyTextTitle(text: al.login_reset_tip1),
+            MyTextTitle(text: al.retrieve_pwd),
             H16,
-            MyTextTip(text: al.login_reset_tip2),
+            MyTextTip(text: al.tip_whatsapp),
             H16,
             //phone number
             TextField(
               controller: _phoneController,
               decoration: InputDecoration(
-                hintText: al.login_hint_phone_number,
+                hintText: al.hint_phone_number,
                 focusedBorder: forcedInputBorder,
                 enabledBorder: enableInputBorder,
                 disabledBorder: disableInputBorder,
