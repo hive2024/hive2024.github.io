@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:myhive/pages/event.dart';
 import 'package:myhive/pages/home2.dart';
 import 'package:myhive/pages/mine.dart';
 import 'package:myhive/pages/share.dart';
@@ -20,12 +21,34 @@ void main() {
   var params = Uri.base.queryParameters;
   print("userPlatform = $userPlatform");
   print("params = $params");
-  Global.setFrom(userPlatform,params);
+  Global.setFrom(userPlatform, params);
   Global.init().then((e) => runApp(MyApp()));
 }
 
+RegExp eventReg = RegExp(r'^/act/([\w-]+)$');
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    String path = settings.name ?? "";
+    print("onGenerateRoute; path=$path");
+    if (eventReg.hasMatch(path)) {
+      final firstMatch = eventReg.firstMatch(path);
+      final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
+      print("onGenerateRoute; >> PageEvent; match=$match");
+      return MaterialPageRoute<void>(
+        builder: (context) => PageEvent(eventId: match ?? ""),
+        settings: settings,
+      );
+    }
+    // If no match is found, [WidgetsApp.onUnknownRoute] handles it.
+    print("onGenerateRoute; >> HomeTabPage2");
+    return MaterialPageRoute<void>(
+      builder: (context) => HomeTabPage2(),
+      settings: settings,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +58,11 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppViewModel(),
       child: MaterialApp(
         title: Global.appName,
+        initialRoute: "/",
+        routes: {
+          "/": (context) => HomeTabPage2(),
+        },
+        onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),
         // locale: Locale('es'),
         localizationsDelegates: [
@@ -48,7 +76,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: false,
           primarySwatch: Global.mainColor,
         ),
-        home: HomeTabPage2(),
+        // home: HomeTabPage2(),
       ),
     );
   }

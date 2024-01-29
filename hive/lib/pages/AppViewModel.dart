@@ -340,7 +340,7 @@ class MyAppViewModel extends ChangeNotifier {
     //   throw Exception('Could not launch');
     // }
     try {
-      launchUrl(Uri.parse('https://wa.me/${userInfo.whatsappUrl}/?text=hello'));
+      launchUrl(Uri.parse(userInfo.whatsappUrl ?? ""));
     } catch (e) {
       print(e);
     }
@@ -348,7 +348,7 @@ class MyAppViewModel extends ChangeNotifier {
 
   void contectMessenger() {
     try {
-      launchUrl(Uri.parse('http://m.me/${userInfo.messagerUrl}'));
+      launchUrl(Uri.parse(userInfo.messagerUrl ?? ""));
     } catch (e) {
       print(e);
     }
@@ -356,7 +356,7 @@ class MyAppViewModel extends ChangeNotifier {
 
   void contectTelegram() {
     try {
-      launchUrl(Uri.parse('https://telegram.me/${userInfo.telegramUrl}'));
+      launchUrl(Uri.parse(userInfo.telegramUrl ?? ""));
     } catch (e) {
       print(e);
     }
@@ -463,6 +463,26 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   onSelectTeam(String? value) {}
+
+  //activity detail
+  Activity activityDetail = Activity.empty();
+  String currentActId = "";
+
+  void getActDetail(String actId) {
+    if (actId == currentActId) {
+      print("same event $actId");
+      return;
+    }
+    currentActId = actId;
+    print("getActDetail $actId");
+    APIS.actInfo(actId).then((result) {
+      activityDetail = Activity.fromJson(result.data);
+      notifyListeners();
+    }, onError: (e) {
+      activityDetail.desc = "<H1>Not Found Event: $actId <H1>";
+      notifyListeners();
+    });
+  }
 }
 
 void toast(BuildContext context, String s) {

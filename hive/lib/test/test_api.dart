@@ -78,10 +78,6 @@ class PageTestApi extends StatelessWidget {
               //     onPressed: () => APIS.api9(1), child: Text("  1.9 查询活动信息  ")),
               // H16,
               OutlinedButton(
-                  onPressed: () => APIS.tasksInfo(),
-                  child: Text("  1.11 查询用户任务  ")),
-              H16,
-              OutlinedButton(
                   onPressed: () => APIS.taskJoin(1),
                   child: Text("  1.12 参加活动  ")),
               H16,
@@ -287,17 +283,33 @@ class APIS {
   }
 
   ///1.11. 查询用户任务
-  static Future<Result> tasksInfo() async {
-    var tag = "tasksInfo";
+  static Future<Result> actInfo(String id) async {
+    var tag = "actInfo";
     print("$tag <<<<<");
     Response response = await dio.get(
-      "v1/app/tasks/info",
-      // queryParameters: {"phone": phone},
+      "v1/app/act/info",
+      queryParameters: {"id": id},
       options: language.option(),
     );
     print("$tag Uri >> ${response.realUri}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
+  }
+
+  static Future<Result> tasksInfo() async {
+    var tag = "tasksInfo";
+    print("$tag <<<<<");
+    try {
+      Response response = await dio.get(
+        "v1/app/tasks/info",
+        options: language.option(),
+      );
+      print("$tag Uri >> ${response.realUri}");
+      print("$tag Response >> ${response.data}");
+      return handleResponse(response);
+    } catch (e) {
+      return Result()..success = false;
+    }
   }
 
   ///1.12. 参加活动

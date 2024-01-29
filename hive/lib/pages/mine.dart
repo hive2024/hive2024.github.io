@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myhive/common/global.dart';
 import 'package:myhive/common/strings.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/pages/AppViewModel.dart';
