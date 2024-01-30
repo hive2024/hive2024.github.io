@@ -17,19 +17,6 @@ class Global {
 
   static bool login = true;
 
-  static MaterialColor mainColor = MaterialColor(0XFF4CB2B6, {
-    50: Color(0XFF4CB2B6),
-    100: Color(0XFF4CB2B6),
-    200: Color(0XFF4CB2B6),
-    300: Color(0XFF4CB2B6),
-    400: Color(0XFF4CB2B6),
-    500: Color(0XFF4CB2B6),
-    600: Color(0XFF4CB2B6),
-    700: Color(0XFF4CB2B6),
-    800: Color(0XFF4CB2B6),
-    900: Color(0XFF4CB2B6),
-  });
-
   //初始化全局信息，会在APP启动时执行
   static Future init() async {
     WidgetsFlutterBinding.ensureInitialized();

@@ -133,3 +133,37 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) {
   writeNotNull('messagerUrl', instance.messagerUrl);
   return val;
 }
+
+UserRevenue _$UserRevenueFromJson(Map<String, dynamic> json) => UserRevenue(
+      json['uid'] as int,
+      json['todaySum'] as int,
+      json['teamSum'] as int,
+      json['todayLevel1IncomeSum'] as String?,
+      json['todayLevel2IncomeSum'] as String?,
+      json['todaySelfIncomeSum'] as String?,
+      json['todayAllIncomeSum'] as String?,
+      json['mouthADIncomeSum'] as String?,
+      json['adAllIncomeSum'] as String?,
+    );
+
+Map<String, dynamic> _$UserRevenueToJson(UserRevenue instance) {
+  final val = <String, dynamic>{
+    'uid': instance.uid,
+    'todaySum': instance.todaySum,
+    'teamSum': instance.teamSum,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('todayLevel1IncomeSum', instance.todayLevel1IncomeSum);
+  writeNotNull('todayLevel2IncomeSum', instance.todayLevel2IncomeSum);
+  writeNotNull('todaySelfIncomeSum', instance.todaySelfIncomeSum);
+  writeNotNull('todayAllIncomeSum', instance.todayAllIncomeSum);
+  writeNotNull('mouthADIncomeSum', instance.mouthADIncomeSum);
+  writeNotNull('adAllIncomeSum', instance.adAllIncomeSum);
+  return val;
+}

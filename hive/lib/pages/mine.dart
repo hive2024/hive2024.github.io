@@ -44,6 +44,7 @@ class PageMine extends StatelessWidget {
           MyOutlineButton(
             text: al.txtMeExtension,
             onPressed: () {
+              viewModel.loadUserRevenue();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {

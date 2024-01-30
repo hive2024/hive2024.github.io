@@ -29,11 +29,6 @@ class _PageLoginState extends State<PageLogin> {
 
   @override
   void initState() {
-    // 自动填充上次登录的用户名，填充后将焦点定位到密码输入框
-    // _unameController.text = Global.user.lastLogin;
-    // if (_unameController.text.isNotEmpty) {
-    //   _nameAutoFocus = false;
-    // }
     super.initState();
     print("PageLogin.initState()");
   }
@@ -128,27 +123,3 @@ class _PageLoginState extends State<PageLogin> {
     );
   }
 }
-
-// class BaseView<T extends ChangeNotifier> extends StatefulWidget {
-//   final Widget Function(BuildContext context, T value, Widget child) builder;
-//   final Function(T) onModelReady;
-
-//   BaseView({required this.builder, required this.onModelReady});
-//   @override
-//   _BaseViewState<T> createState() => _BaseViewState<T>();
-// }
-
-// class _BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ChangeNotifierProvider<T>(
-//       create: (context) => model,
-//       child: build(context),
-//     );
-//   }
-// }

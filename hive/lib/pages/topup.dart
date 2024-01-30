@@ -32,7 +32,7 @@ class _PageTopupState extends State<PageTopup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(context,al.txtMeRecharge),
+      appBar: getAppBar(context, al.txtMeRecharge),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView(scrollDirection: Axis.vertical, children: [
@@ -54,7 +54,8 @@ class _PageTopupState extends State<PageTopup> {
               W12,
               getAmountWidget("\$500", () => _amountController.text = '500'),
               W12,
-              getAmountWidget(al.txtOther, () => FocusScope.of(context).requestFocus(_amountFocus)),
+              getAmountWidget(al.txtOther,
+                  () => FocusScope.of(context).requestFocus(_amountFocus)),
             ],
           ),
           H10,
@@ -148,7 +149,9 @@ class _PageTopupState extends State<PageTopup> {
                           backgroundColor: MaterialStateProperty.all(MColorF4),
                         ),
                         onPressed: () {
-                          context.read<MyAppViewModel>().topupEditWallet(context);
+                          context
+                              .read<MyAppViewModel>()
+                              .topupEditWallet(context);
                         },
                         child: Text(al.txtEdit, style: TextStyles.btn4)),
                   ),
@@ -173,6 +176,29 @@ class _PageTopupState extends State<PageTopup> {
 }
 
 Widget getAmountWidget(String text, VoidCallback click) {
+  return Flexible(
+    flex: 1,
+    fit: FlexFit.loose,
+    child: SizedBox(
+      width: double.infinity,
+      child: FilledButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              // side: BorderSide(color: color6D, width: 1),
+            ),
+          ),
+          backgroundColor: MaterialStateProperty.all(mainColor),
+        ),
+        onPressed: click,
+        child: Text(text,style: TextStyles.btn1,),
+      ),
+    ),
+  );
+}
+
+Widget getAmountWidget2(String text, VoidCallback click) {
   return Flexible(
     flex: 1,
     fit: FlexFit.loose,

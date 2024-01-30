@@ -47,6 +47,7 @@ const SizedBox W16 = SizedBox(width: 16);
 AppBar getAppBar(BuildContext context, String title) {
   return AppBar(
     backgroundColor: Colors.white,
+    foregroundColor: Colors.black87,
     leading: BackButton(onPressed: () => Navigator.of(context).pop()),
     title: Text(title),
   );
@@ -151,7 +152,7 @@ class MyOutlineButton extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Text(
                 text,
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.start,
                 style: TextStyles.btn2,
               ),
             ),
@@ -245,7 +246,7 @@ class _VideoAppState extends State<VideoApp> {
               color: Colors.white,
               width: 200,
               height: 200,
-              child: CircularProgressIndicator(color: Global.mainColor),
+              child: CircularProgressIndicator(color: mainColor),
             ),
     );
   }

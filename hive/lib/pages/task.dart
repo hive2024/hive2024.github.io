@@ -151,9 +151,10 @@ class MyTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String bg = "images/vip${(task.level <= 6) ? task.level : 6}.webp";
+    String defaultBg = "images/vip1.webp";
     List<Widget> views = [
-      Image.asset(bg, width: double.infinity, fit: BoxFit.fitWidth)
+      Image.network(task.icon ?? defaultBg,
+          width: double.infinity, fit: BoxFit.fitWidth)
     ];
     var status = task.status;
     if (status == 0) {
@@ -284,7 +285,7 @@ class _MyWorkProgressState extends State<MyWorkProgress>
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: LinearProgressIndicator(
         backgroundColor: Colors.grey[200],
-        valueColor: AlwaysStoppedAnimation(Global.mainColor),
+        valueColor: AlwaysStoppedAnimation(mainColor),
         value: _animationController.value,
       ),
     );

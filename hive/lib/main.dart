@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:myhive/pages/event.dart';
@@ -74,7 +76,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
           useMaterial3: false,
-          primarySwatch: Global.mainColor,
+          primarySwatch: mainColors,
         ),
         // home: HomeTabPage2(),
       ),
@@ -96,7 +98,7 @@ class LoadingView extends StatelessWidget {
           child: Column(
             children: [
               Text("platform=${Global.platform};${Global.urlParams}"),
-              CircularProgressIndicator(color: Global.mainColor),
+              CircularProgressIndicator(color: mainColor),
             ],
           )),
     );
@@ -130,14 +132,14 @@ class HomeTabPage2 extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.home,
-                color: Colors.white,
+                color: colorF5,
               ),
               onPressed: () => viewModel.selecte(context, 1),
             ),
             IconButton(
               icon: Icon(
                 Icons.card_giftcard,
-                color: Colors.white,
+                color: colorF5,
               ),
               onPressed: () => viewModel.selecte(context, 2),
             ),
@@ -145,14 +147,14 @@ class HomeTabPage2 extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.share,
-                color: Colors.white,
+                color: colorF5,
               ),
               onPressed: () => viewModel.selecte(context, 3),
             ),
             IconButton(
               icon: Icon(
                 Icons.person,
-                color: Colors.white,
+                color: colorF5,
               ),
               onPressed: () => viewModel.selecte(context, 4),
             ),
@@ -160,11 +162,11 @@ class HomeTabPage2 extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        foregroundColor: Colors.white,
+        foregroundColor: colorF5,
         backgroundColor: mainColor,
         shape: CircleBorder(),
         onPressed: () => viewModel.selecte(context, 5),
-        child: Icon(Icons.diamond),
+        child: Transform.rotate(angle: pi/4, child: Icon(Icons.grid_view)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

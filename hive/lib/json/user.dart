@@ -88,8 +88,18 @@ class Task {
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)
 class UserInfo {
-  UserInfo(this.uid, this.level, this.balance, this.phone, this.icon,
-      this.chargeWalletAddress, this.settleWalletAddress, this.chartUrl, this.whatsappUrl, this.telegramUrl, this.messagerUrl);
+  UserInfo(
+      this.uid,
+      this.level,
+      this.balance,
+      this.phone,
+      this.icon,
+      this.chargeWalletAddress,
+      this.settleWalletAddress,
+      this.chartUrl,
+      this.whatsappUrl,
+      this.telegramUrl,
+      this.messagerUrl);
 
   int uid;
   int level;
@@ -104,9 +114,41 @@ class UserInfo {
   String? telegramUrl;
   String? messagerUrl;
 
-  factory UserInfo.empty() => UserInfo(0, 0, "", "", "", "", "", "", "", "", "");
+  factory UserInfo.empty() =>
+      UserInfo(0, 0, "", "", "", "", "", "", "", "", "");
   //不同的类使用不同的mixin即可
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
+}
+
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
+class UserRevenue {
+  UserRevenue(
+    this.uid,
+    this.todaySum,
+    this.teamSum,
+    this.todayLevel1IncomeSum,
+    this.todayLevel2IncomeSum,
+    this.todaySelfIncomeSum,
+    this.todayAllIncomeSum,
+    this.mouthADIncomeSum,
+    this.adAllIncomeSum,
+  );
+
+  int uid;
+  int todaySum;
+  int teamSum;
+  String? todayLevel1IncomeSum;
+  String? todayLevel2IncomeSum;
+  String? todaySelfIncomeSum;
+  String? todayAllIncomeSum;
+  String? mouthADIncomeSum;
+  String? adAllIncomeSum;
+
+  factory UserRevenue.empty() => UserRevenue(0, 0, 0, "", "", "", "", "", "");
+  //不同的类使用不同的mixin即可
+  factory UserRevenue.fromJson(Map<String, dynamic> json) =>
+      _$UserRevenueFromJson(json);
+  Map<String, dynamic> toJson() => _$UserRevenueToJson(this);
 }

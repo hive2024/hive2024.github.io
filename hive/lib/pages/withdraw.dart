@@ -50,11 +50,7 @@ class _PageWithdrawState extends State<PageWithdraw> {
   Widget build(BuildContext context) {
     var viewModel = context.read<MyAppViewModel>();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: BackButton(onPressed: () => Navigator.of(context).pop()),
-        title: Text(al.txtWithdrawApplication),
-      ),
+      appBar: getAppBar(context, al.txtWithdrawApplication),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView(scrollDirection: Axis.vertical, children: [

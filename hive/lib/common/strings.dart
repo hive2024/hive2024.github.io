@@ -2,13 +2,27 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-const Color mainColor = Color(0XFF4CB2B6);
+// const Color mainColor = Color(0XFF4CB2B6);
+const Color mainColor = Color(0XFF113A56);
 const Color color3C = Color(0xFF3C3A36);
 const Color color4C = Color(0xFFD2EBED);
 const Color color6D = Color(0xFF6D6D78);
 const Color color1A = Color(0xFF1A1A1A);
 const Color colorF4 = Color(0xFFF4F4F4);
-const Color colorEE = Color(0xFFEEEEEE);
+const Color colorF5 = Color(0XFFf5b435);
+
+const MaterialColor mainColors = MaterialColor(0XFF113A56, {
+  50: Color(0XFF113A56),
+  100: Color(0XFF113A56),
+  200: Color(0XFF113A56),
+  300: Color(0XFF113A56),
+  400: Color(0XFF113A56),
+  500: Color(0XFF113A56),
+  600: Color(0XFF113A56),
+  700: Color(0XFF113A56),
+  800: Color(0XFF113A56),
+  900: Color(0XFF113A56),
+});
 
 class TextStyles {
   static TextStyle debug = TextStyle(color: Colors.red, fontSize: 14);
@@ -16,7 +30,7 @@ class TextStyles {
       TextStyle(color: color3C, fontSize: 24, fontWeight: FontWeight.bold);
   static TextStyle header1 = TextStyle(color: Color(0xFF78746d), fontSize: 14);
   static TextStyle header2 = TextStyle(color: Color(0xFF1A1A1A), fontSize: 14);
-  static TextStyle btn1 = TextStyle(color: Colors.white, fontSize: 17);
+  static TextStyle btn1 = TextStyle(color: colorF5, fontSize: 17);
   static TextStyle btn2 = TextStyle(color: mainColor, fontSize: 17);
   static TextStyle btn3 = TextStyle(color: color3C, fontSize: 20);
   static TextStyle btn4 = TextStyle(color: color1A, fontSize: 12);
@@ -67,21 +81,21 @@ class TextColor {
 const OutlineInputBorder mainInputBorder = OutlineInputBorder(
   borderSide: BorderSide(
     width: 2,
-    color: Color(0XFF4CB2B6),
+    color: mainColor,
   ),
 );
 
 const OutlineInputBorder forcedInputBorder = OutlineInputBorder(
   borderSide: BorderSide(
     width: 2,
-    color: Color(0XFF4CB2B6),
+    color: mainColor,
   ),
 );
 
 const OutlineInputBorder enableInputBorder = OutlineInputBorder(
   borderSide: BorderSide(
     width: 1,
-    color: Color(0XFF4CB2B6),
+    color: mainColor,
   ),
 );
 
@@ -89,6 +103,6 @@ const OutlineInputBorder disableInputBorder = OutlineInputBorder(
   borderSide: BorderSide(
     style: BorderStyle.solid,
     width: 1,
-    color: Color(0XFF4CB2B6),
+    color: mainColor,
   ),
 );

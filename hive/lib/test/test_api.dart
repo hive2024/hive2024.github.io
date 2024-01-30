@@ -147,7 +147,7 @@ class APIS {
       "v1/app/home/info",
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
@@ -161,7 +161,7 @@ class APIS {
       queryParameters: {"phone": phone, "type": type},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
@@ -175,7 +175,7 @@ class APIS {
       queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
@@ -188,7 +188,7 @@ class APIS {
       "v1/app/exchange",
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
@@ -264,7 +264,7 @@ class APIS {
       // queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
   }
 
@@ -277,7 +277,7 @@ class APIS {
       // queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
@@ -291,7 +291,7 @@ class APIS {
       queryParameters: {"id": id},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
@@ -304,7 +304,8 @@ class APIS {
         "v1/app/tasks/info",
         options: language.option(),
       );
-      print("$tag Uri >> ${response.realUri}");
+      print(
+          "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
       print("$tag Response >> ${response.data}");
       return handleResponse(response);
     } catch (e) {
@@ -321,7 +322,7 @@ class APIS {
       queryParameters: {"taskId": taskId},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
@@ -382,7 +383,7 @@ class APIS {
       // queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
@@ -390,19 +391,24 @@ class APIS {
   ///1.17. 我的信息接口
   static Future<Result> userInfo() async {
     var tag = "userInfo";
-    print("$tag <<<<<");
-    Response response = await dio.get(
-      "v1/app/user/info",
-      // queryParameters: {"phone": phone},
-      options: language.option(),
-    );
-    print("$tag Uri >> ${response.realUri}");
-    print("$tag Response >> ${response.data}");
-    return handleResponse(response);
+    print("$tag <<<<< ${APIS.apiKey}");
+    Response? response;
+    try {
+      response = await dio.get(
+        "v1/app/user/info",
+        // queryParameters: {"phone": phone},
+        options: language.option(),
+      );
+    } catch (e) {
+      print(e);
+    }
+    print("$tag Uri >> ${response?.realUri} ; ${response?.requestOptions.data??language.option()}");
+    print("$tag Response >> ${response?.data}");
+    return response!=null? handleResponse(response) : Result();
   }
 
   ///1.18. 我的推广收益接口
-  static Future<void> userRevenue() async {
+  static Future<Result> userRevenue() async {
     var tag = "userRevenue";
     print("$tag <<<<<");
     Response response = await dio.get(
@@ -410,12 +416,13 @@ class APIS {
       // queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
+    return handleResponse(response);
   }
 
   ///1.19. 分页查询 推广数据. 0、今日一级收益；1、今日二级收益；2、今日自身（三级）收益
-  static Future<void> revenueInfos(int page, int pageSize, int type,
+  static Future<Result> revenueInfos(int page, int pageSize, int type,
       String startTime, String endTime) async {
     var tag = "revenueInfos";
     print("$tag <<<<<");
@@ -430,8 +437,9 @@ class APIS {
       },
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri}");
+    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     print("$tag Response >> ${response.data}");
+    return handleResponse(response);
   }
 
   static Result handleResponse(Response response) {
@@ -466,7 +474,7 @@ extension addLanguage on String {
     return Options(
       headers: {
         HttpHeaders.acceptLanguageHeader: this,
-        "API_KEY": APIS.apiKey,
+        "Authorization": APIS.apiKey,
       },
     );
   }
@@ -475,7 +483,7 @@ extension addLanguage on String {
     return Options(
       headers: {
         HttpHeaders.acceptLanguageHeader: this,
-        "API_KEY": APIS.apiKey,
+        "Authorization": APIS.apiKey,
       },
       contentType: Headers.jsonContentType,
     );

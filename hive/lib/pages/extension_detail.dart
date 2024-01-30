@@ -16,11 +16,7 @@ class PageExtensionDetail extends StatelessWidget {
     AppLocalizations al = AppLocalizations.of(context)!;
     var viewModel = context.watch<MyAppViewModel>();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: BackButton(onPressed: () => Navigator.of(context).pop()),
-        title: Text(al.txtPromotionDetails),
-      ),
+      appBar: getAppBar(context, al.txtPromotionDetails),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
         child: Column(
@@ -38,6 +34,7 @@ class PageExtensionDetail extends StatelessWidget {
                     DropdownMenu<String>(
                       width: 300,
                       label: Text(al.team),
+                      initialSelection: "0",
                       onSelected: (value) => viewModel.onSelectTeam(value),
                       dropdownMenuEntries: [
                         DropdownMenuEntry<String>(
@@ -75,7 +72,7 @@ class PageExtensionDetail extends StatelessWidget {
                   ],
                 ),
                 FloatingActionButton(
-                  onPressed: () => viewModel.search(),
+                  onPressed: () => viewModel.search(0),
                   elevation: 0,
                   child: Icon(
                     Icons.search,

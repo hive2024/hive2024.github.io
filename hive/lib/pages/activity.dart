@@ -68,8 +68,7 @@ class NewCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                    top: 8.0, left: 16, right: 16, bottom: 4),
+                padding: const EdgeInsets.only(top: 8.0, left: 16, right: 16),
                 child: Text(
                   activity.title ?? "",
                   maxLines: 1,
@@ -77,13 +76,18 @@ class NewCard extends StatelessWidget {
                   style: TextStyles.activityHeader,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
-                child: Text(
-                  activity.subTitle??"",
-                  maxLines: 1,
-                  style: TextStyles.activityDesc,
-                  overflow: TextOverflow.ellipsis,
+              Container(
+                color: colorF5,
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, bottom: 8, top: 4),
+                  child: Text(
+                    activity.subTitle ?? "",
+                    maxLines: 1,
+                    style: TextStyles.activityDesc,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ],

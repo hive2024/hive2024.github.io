@@ -40,7 +40,7 @@ class MyAppViewModel extends ChangeNotifier {
       });
       if (APIS.apiKey.isNotEmpty) {
         queryActivityList();
-        // queryShareInfo();
+        queryShareInfo();
         queryUserInfo();
         queryTask();
       }
@@ -219,7 +219,11 @@ class MyAppViewModel extends ChangeNotifier {
     print("register pwd=$pwd ");
     APIS.userCreat(currentPhone, pwd).then((result) {
       if (result.success) {
-        Navigator.of(context).pop();
+        // Navigator.of(context).pop();
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return PageLoginPwd();
+        }));
       } else {
         toast(context, result.error);
       }
@@ -430,39 +434,99 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   /// Extension
+  UserRevenue userRevenue = UserRevenue.empty();
+
   void copyShareLink(BuildContext context) {
     print("copyShareLink");
     Clipboard.setData(ClipboardData(text: shareLink)).then((value) {});
   }
 
-  TextEditingController detailDateStart = TextEditingController();
-  TextEditingController detailDateEnd = TextEditingController();
+  void loadUserRevenue() {
+    APIS.userRevenue().then((result) {
+      if (result.success) {
+        userRevenue = UserRevenue.fromJson(result.data);
+        notifyListeners();
+      }
+    });
+  }
+
+  static DateFormat formater = DateFormat("y-M-d");
+
+  TextEditingController detailTeam = TextEditingController();
+  TextEditingController detailDateStart = TextEditingController()
+    ..text = formater.format(DateTime.now());
+  // TextEditingController detailDateEnd = TextEditingController();
+  DateTime? start = DateTime.now();
+  DateTime? end;
+  int page = 0;
+  String type = "0";
 
   void updateDate(PickerDateRange p0) {
-    DateTime start = p0.startDate ?? DateTime.now();
-    DateTime end = p0.endDate ?? DateTime.now();
-    detailDateStart.text =
-        "${DateFormat.yMd().format(start)} - ${DateFormat.yMd().format(end)}";
+    start = p0.startDate;
+    end = p0.endDate;
+    if (start != null && end != null) {
+      detailDateStart.text =
+          "${formater.format(start!)} - ${formater.format(end!)}";
+    } else if (start != null) {
+      detailDateStart.text = formater.format(start!);
+    } else if (end != null) {
+      detailDateStart.text = formater.format(end!);
+    } else {
+      start = DateTime.now();
+      detailDateStart.text = formater.format(start!);
+    }
     notifyListeners();
   }
 
-  var detailList =
-      List<Promotion>.generate(10, (i) => Promotion("uid-$i", i, "$i", "$i"));
+  var detailList = [];
+  // List<Promotion>.generate(10, (i) => Promotion("uid-$i", i, "$i", "$i"));
   var detailHasLoadmore = true;
 
   void detailLoadmore() {
     // var s = detailList.length;
-    var news =
-        List<Promotion>.generate(10, (i) => Promotion("uid-$i", i, "$i", "$i"));
-    detailList.addAll(news);
-    notifyListeners();
+    // var news =
+    //     List<Promotion>.generate(10, (i) => Promotion("uid-$i", i, "$i", "$i"));
+    // detailList.addAll(news);
+    // notifyListeners();
+    search(page + 1);
   }
 
-  search() {
-    detailLoadmore();
+  search(int p) {
+    page = p;
+    String startDay = formater.format(DateTime.now());
+    String endDay = startDay;
+
+    if (start != null && end != null) {
+      startDay = formater.format(start!);
+      endDay = formater.format(end!);
+    } else if (start != null) {
+      startDay = formater.format(start!);
+      endDay = startDay;
+    } else if (end != null) {
+      endDay = formater.format(end!);
+      startDay = endDay;
+    }
+    String startTime = "$startDay 00:00:00";
+    String endTime = "$endDay 23:59:59";
+    APIS
+        .revenueInfos(page, 10, int.parse(type), startTime, endTime)
+        .then((result) {
+      if (result.success) {
+        var rs = result.dataList.map((e) => Promotion.fromJson(e)).toList();
+        if (page == 0) {
+          detailList = rs;
+        } else {
+          detailList.addAll(rs);
+        }
+        detailHasLoadmore = rs.length >= 10;
+        notifyListeners();
+      }
+    });
   }
 
-  onSelectTeam(String? value) {}
+  onSelectTeam(String? value) {
+    type = value ?? "0";
+  }
 
   //activity detail
   Activity activityDetail = Activity.empty();
