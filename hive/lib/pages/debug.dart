@@ -23,7 +23,7 @@ class PageDebug extends StatelessWidget {
             H16,
             Text("${Global.urlParams}"),
             H16,
-            Text("${Global.webBrowserInfo?.data}"),
+            Text(Localizations.localeOf(context).toLanguageTag()),
           ],
         ),
       ),

@@ -25,7 +25,6 @@ class Global {
   static Map<String, String> urlParams = {};
   static String shareCode = "";
   static bool isApp = false;
-  static WebBrowserInfo? webBrowserInfo;
 
   //初始化全局信息，会在APP启动时执行
   static Future init() async {
@@ -46,8 +45,6 @@ class Global {
       shareCode = newSC;
       _localStorage[urlShareCode] = newSC;
     }
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    webBrowserInfo = await deviceInfo.webBrowserInfo;
   }
 
   static bool isApple() {
