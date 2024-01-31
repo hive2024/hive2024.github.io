@@ -7,12 +7,19 @@ import 'package:myhive/common/views.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
 
 class PageShare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations al = AppLocalizations.of(context)!;
     var viewModel = context.watch<MyAppViewModel>();
+    PlatformWebViewController? controller;
+    if (viewModel.shareCopyContent.isNotEmpty) {
+      controller = PlatformWebViewController(
+        const PlatformWebViewControllerCreationParams(),
+      )..hiveLoad(viewModel.shareCopyContent);
+    }
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
@@ -20,22 +27,30 @@ class PageShare extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            "images/share_logo.webp",
-            height: 160,
-            width: double.infinity,
-          ),
-          SizedBox(height: 16),
-          Text(
-            al.txtShareTitle,
-            style: TextStyles.header20,
-          ),
-          SizedBox(height: 4),
-          Text(
-            al.txtShareDesc,
-            style: TextStyles.header14,
-          ),
-          Flexible(flex: 1, child: Container()),
+          // Image.asset(
+          //   "images/share_logo.webp",
+          //   height: 160,
+          //   width: double.infinity,
+          // ),
+          // SizedBox(height: 16),
+          // Text(
+          //   al.txtShareTitle,
+          //   style: TextStyles.header20,
+          // ),
+          // SizedBox(height: 4),
+          // Text(
+          //   viewModel.shareCopyContent,
+          //   style: TextStyles.header14,
+          // ),
+          // Flexible(flex: 1, child: Container()),
+          controller != null
+              ? Flexible(
+                  flex: 1,
+                  child: PlatformWebViewWidget(
+                    PlatformWebViewWidgetCreationParams(controller: controller),
+                  ).build(context),
+                )
+              : CircularProgressIndicator(color: mainColor),
           Text(
             al.txtShareLink,
             style: TextStyles.header20,
@@ -51,12 +66,12 @@ class PageShare extends StatelessWidget {
                 flex: 1,
                 child: MyOutlineButton(
                   text: al.txtShareCopyLink,
+                  textAlign: TextAlign.center,
                   onPressed: () {
                     //todo tess clip on phone.
                     Clipboard.setData(
                             ClipboardData(text: viewModel.shareCopyContent))
-                        .then((value) {
-                    });
+                        .then((value) {});
                   },
                 ),
               ),
@@ -69,9 +84,9 @@ class PageShare extends StatelessWidget {
                     //todo tess clip on phone.
                     //https://pub.dev/packages/url_launcher
                     var shareData = {
-                      "title": 'MDN',
-                      "text": 'Learn web development on MDN!',
-                      "url": 'https://developer.mozilla.org',
+                      // "title": 'MDN',
+                      // "text": 'Learn web development on MDN!',
+                      "url": viewModel.shareLink,
                     };
                     window.navigator.share(shareData);
                   },
@@ -79,7 +94,8 @@ class PageShare extends StatelessWidget {
               ),
             ],
           ),
-          Flexible(flex: 1, child: Container()),
+          H16,
+          H16,
         ],
       ),
     );

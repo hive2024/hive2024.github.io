@@ -23,7 +23,7 @@ class MyAppViewModel extends ChangeNotifier {
   void startLoading(BuildContext context) {
     print("startLoading");
     if (loading) {
-      APIS.homeInfo().then((result) {
+      APIS.homeInfo(Global.shareCode).then((result) {
         if (result.success) {
           var videos = result.data['videos'];
           if (videos != null) {
@@ -40,7 +40,6 @@ class MyAppViewModel extends ChangeNotifier {
       });
       if (APIS.apiKey.isNotEmpty) {
         queryActivityList();
-        queryShareInfo();
         queryUserInfo();
         queryTask();
       }
@@ -139,14 +138,15 @@ class MyAppViewModel extends ChangeNotifier {
 
   /// share
   String shareLink = "";
-  String shareCopyContent = "CopyContent https://www.111.com/source?from=1234";
+  String shareCopyContent = "";
 
   void queryShareInfo() {
     print("queryShareInfo");
     APIS.advInfo().then((result) {
       if (result.success) {
-        shareLink = result.data['url'];
+        shareLink = result.data['url'] + "?sc=${userInfo.uid}";
         shareCopyContent = result.data['contents'];
+        print(shareCopyContent);
         notifyListeners();
       }
     });
@@ -217,7 +217,7 @@ class MyAppViewModel extends ChangeNotifier {
 
   void register(BuildContext context, String pwd) {
     print("register pwd=$pwd ");
-    APIS.userCreat(currentPhone, pwd).then((result) {
+    APIS.userCreat(currentPhone, pwd, Global.shareCode).then((result) {
       if (result.success) {
         // Navigator.of(context).pop();
         Navigator.pushReplacement(context,
@@ -307,6 +307,7 @@ class MyAppViewModel extends ChangeNotifier {
         userInfo = UserInfo.fromJson(result.data);
         userLevel = userInfo.level;
         notifyListeners();
+        queryShareInfo();
       }
     });
   }
@@ -322,6 +323,7 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   void settingOpenWithdraw(BuildContext context) {
+    saveMode = false;
     fromTopup = false;
     Navigator.push(
       context,
@@ -547,6 +549,38 @@ class MyAppViewModel extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  //download
+  int loadTime = 0;
+  void loadDownload() {
+    print("loadDownload = $loadTime");
+    if (loadTime > 0) {
+      return;
+    }
+    loadTime++;
+    APIS.homeInfo(Global.shareCode).then((result) {
+      if (result.success) {
+        var videos = result.data['videos'];
+        if (videos != null) {
+          bannerVideo = videos['url'];
+        }
+        var contents = result.data['contents'];
+        homeHtml = contents['text'];
+        appUrl = result.data['appUrl'];
+        notifyListeners();
+      }
+    });
+  }
+
+  void clickDownload() {
+    try {
+      launchUrl(Uri.parse(appUrl));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  showDebug(BuildContext context) {}
 }
 
 void toast(BuildContext context, String s) {

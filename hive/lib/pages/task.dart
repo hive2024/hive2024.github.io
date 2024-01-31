@@ -68,6 +68,7 @@ class PageTask extends StatelessWidget {
             Expanded(
               flex: 1,
               child: MyOutlineButton(
+                textAlign: TextAlign.center,
                 text: al.txtRules,
                 onPressed: () => Navigator.push(
                   context,

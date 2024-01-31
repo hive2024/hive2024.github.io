@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:myhive/common/global.dart';
 import 'package:myhive/common/strings.dart';
 import 'package:video_player/video_player.dart';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
+
+extension addHive on PlatformWebViewController {
+  hiveLoad(String html) {
+    var newHtml = html.replaceAll("<img src=", "<img width='95%' src=");
+    loadHtmlString(newHtml);
+  }
+}
 
 class MyTextTitle extends StatelessWidget {
   const MyTextTitle({
@@ -130,10 +137,12 @@ class MyOutlineButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.onPressed,
+    this.textAlign,
   });
 
   final String text;
   final VoidCallback? onPressed;
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +161,7 @@ class MyOutlineButton extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Text(
                 text,
-                textAlign: TextAlign.start,
+                textAlign: textAlign??TextAlign.start,
                 style: TextStyles.btn2,
               ),
             ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:myhive/common/views.dart';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
@@ -16,7 +15,7 @@ class PageDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getAppBar(context,title),
+      appBar: getAppBar(context, title),
       body: DetailHtmlView(htmlContent: htmlContent),
     );
   }
@@ -34,7 +33,7 @@ class DetailHtmlView extends StatelessWidget {
   Widget build(BuildContext context) {
     final PlatformWebViewController controller = PlatformWebViewController(
       const PlatformWebViewControllerCreationParams(),
-    )..loadHtmlString(htmlContent);
+    )..hiveLoad(htmlContent);
 
     return SizedBox(
       height: 400,

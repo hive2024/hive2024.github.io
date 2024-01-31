@@ -33,7 +33,6 @@ class PageHome2 extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("platform=${Global.platform};${Global.urlParams}"),
         bannerWidget,
         Expanded(flex: 1, child: HomeHtmlView()),
       ],
@@ -52,7 +51,7 @@ class HomeHtmlView extends StatelessWidget {
     var html = appState.homeHtml;
     final PlatformWebViewController controller = PlatformWebViewController(
       const PlatformWebViewControllerCreationParams(),
-    )..loadHtmlString(html);
+    )..hiveLoad(html);
 
     return SizedBox(
       height: 400,

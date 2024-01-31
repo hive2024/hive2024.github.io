@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myhive/common/strings.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/pages/AppViewModel.dart';
+import 'package:myhive/pages/debug.dart';
 import 'package:myhive/pages/login_reset.dart';
 import 'package:myhive/pages/extension.dart';
 import 'package:myhive/pages/topup.dart';
@@ -72,18 +73,18 @@ class PageMine extends StatelessWidget {
               context.read<MyAppViewModel>().logout(context);
             },
           ),
-          // H16,
-          // MyOutlineButton(
-          //   text: 'Test API',
-          //   onPressed: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (context) {
-          //         return PageTestApi();
-          //       }),
-          //     );
-          //   },
-          // ),
+          H16,
+          MyOutlineButton(
+            text: 'Debug Info',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return PageDebug();
+                }),
+              );
+            },
+          ),
           H10,
           Text("Contect US", style: TextStyles.header20),
           H10,
@@ -150,17 +151,25 @@ class MyProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     var viewModel = context.watch<MyAppViewModel>();
     double blance = viewModel.fullBlance;
+    var userIcon = viewModel.userInfo.icon;
+    var levelIcon = viewModel.userInfo.levelIcon;
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
       child: Container(
         child: Row(
           children: [
-            Image.asset(
-              "images/avatar.webp",
-              height: 80,
-              width: 80,
-            ),
-            SizedBox(width: 10),
+            userIcon != null
+                ? Image.network(
+                    userIcon,
+                    height: 80,
+                    width: 80,
+                  )
+                : Image.asset(
+                    "images/avatar.webp",
+                    height: 80,
+                    width: 80,
+                  ),
+            SizedBox(width: 20),
             Flexible(
               flex: 1,
               child: Container(
@@ -169,25 +178,32 @@ class MyProfileView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Image.asset(
+                    // Container(
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     crossAxisAlignment: CrossAxisAlignment.center,
+                    //     mainAxisSize: MainAxisSize.max,
+                    //     children: [
+                    //       Image.asset(
+                    //         "images/vip_fill.webp",
+                    //         height: 24,
+                    //         width: 24,
+                    //       ),
+                    //       Flexible(
+                    //         flex: 1,
+                    //         child: Center(
+                    //             child: Text("VIP ${viewModel.userInfo.level}")),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    levelIcon != null
+                        ? Image.network(levelIcon, height: 24, width: 24)
+                        : Image.asset(
                             "images/vip_fill.webp",
                             height: 24,
                             width: 24,
                           ),
-                          Flexible(
-                            flex: 1,
-                            child: Center(
-                                child: Text("VIP ${viewModel.userInfo.level}")),
-                          ),
-                        ],
-                      ),
-                    ),
                     H16,
                     Text("Blacnce:$blance"),
                   ],

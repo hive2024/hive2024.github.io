@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
 import 'package:myhive/common/strings.dart';
+import 'package:myhive/common/views.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
@@ -22,7 +23,7 @@ class PageEvent extends StatelessWidget {
     if (html != null) {
       controller = PlatformWebViewController(
         const PlatformWebViewControllerCreationParams(),
-      )..loadHtmlString(html);
+      )..hiveLoad(html);
     }
 
     return Scaffold(

@@ -56,6 +56,7 @@ class NewCard extends StatelessWidget {
           ),
           clipBehavior: Clip.antiAlias,
           semanticContainer: false,
+          color: colorF5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

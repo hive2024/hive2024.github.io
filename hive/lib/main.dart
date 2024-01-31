@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:myhive/pages/download.dart';
 import 'package:myhive/pages/event.dart';
 import 'package:myhive/pages/home2.dart';
 import 'package:myhive/pages/mine.dart';
@@ -19,11 +20,6 @@ import 'pages/activity.dart';
 // GetIt getIt = GetIt.instance;
 
 void main() {
-  final userPlatform = window.navigator.platform;
-  var params = Uri.base.queryParameters;
-  print("userPlatform = $userPlatform");
-  print("params = $params");
-  Global.setFrom(userPlatform, params);
   Global.init().then((e) => runApp(MyApp()));
 }
 
@@ -62,7 +58,7 @@ class MyApp extends StatelessWidget {
         title: Global.appName,
         initialRoute: "/",
         routes: {
-          "/": (context) => HomeTabPage2(),
+          "/": (context) => Global.isApple() ? HomeTabPage2() : PageDownload(),
         },
         onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),
@@ -97,7 +93,6 @@ class LoadingView extends StatelessWidget {
           height: 200,
           child: Column(
             children: [
-              Text("platform=${Global.platform};${Global.urlParams}"),
               CircularProgressIndicator(color: mainColor),
             ],
           )),
@@ -166,7 +161,7 @@ class HomeTabPage2 extends StatelessWidget {
         backgroundColor: mainColor,
         shape: CircleBorder(),
         onPressed: () => viewModel.selecte(context, 5),
-        child: Transform.rotate(angle: pi/4, child: Icon(Icons.grid_view)),
+        child: Transform.rotate(angle: pi / 4, child: Icon(Icons.grid_view)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

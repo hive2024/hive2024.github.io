@@ -21,7 +21,7 @@ class _PageWithdrawState extends State<PageWithdraw> {
   late AppLocalizations al;
 
   bool saveMode = false;
-  String walletAddress = "";
+  // String walletAddress = "";
   double fullBlance = 0;
 
   @override
@@ -32,6 +32,7 @@ class _PageWithdrawState extends State<PageWithdraw> {
     var viewModel = context.watch<MyAppViewModel>();
     saveMode = viewModel.saveMode;
     fullBlance = viewModel.fullBlance;
+    _walletController.text = viewModel.userInfo.settleWalletAddress ?? "";
     // ? Padding(
     //     padding: const EdgeInsets.only(top: 8, bottom: 16),
     //     child: MyButton(

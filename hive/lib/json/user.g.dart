@@ -108,6 +108,7 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       json['whatsappUrl'] as String?,
       json['telegramUrl'] as String?,
       json['messagerUrl'] as String?,
+      json['levelIcon'] as String?,
     );
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) {
@@ -131,6 +132,7 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) {
   writeNotNull('whatsappUrl', instance.whatsappUrl);
   writeNotNull('telegramUrl', instance.telegramUrl);
   writeNotNull('messagerUrl', instance.messagerUrl);
+  writeNotNull('levelIcon', instance.levelIcon);
   return val;
 }
 

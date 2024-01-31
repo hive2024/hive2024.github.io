@@ -99,7 +99,8 @@ class UserInfo {
       this.chartUrl,
       this.whatsappUrl,
       this.telegramUrl,
-      this.messagerUrl);
+      this.messagerUrl,
+      this.levelIcon);
 
   int uid;
   int level;
@@ -113,9 +114,10 @@ class UserInfo {
   String? whatsappUrl;
   String? telegramUrl;
   String? messagerUrl;
+  String? levelIcon;
 
   factory UserInfo.empty() =>
-      UserInfo(0, 0, "", "", "", "", "", "", "", "", "");
+      UserInfo(0, 0, "", "", "", "", "", "", "", "", "","");
   //不同的类使用不同的mixin即可
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);

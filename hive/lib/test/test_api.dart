@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
-import 'package:myhive/common/views.dart';
 
 class Result {
   bool success = true;
@@ -12,111 +10,6 @@ class Result {
   List<dynamic> dataList = [];
   bool dataBool = false;
   String error = "";
-}
-
-class PageTestApi extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var testPhone = '18612341234';
-    var otp = '1234';
-    // final userPlatform = window.navigator.platform;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: BackButton(onPressed: () => Navigator.of(context).pop()),
-        title: Text("test"),
-      ),
-      body: Center(
-        child: SizedBox(
-          width: 200,
-          child: ListView(
-            children: [
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.homeInfo(),
-                  child: Text(" 1.1 获取首页信息  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.userCheck(testPhone, 1),
-                  child: Text(" 1.2 用户检查  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.userCheck(testPhone, 0),
-                  child: Text(" 1.2 忘记密码 OTP")),
-              H16,
-              OutlinedButton(
-                  // onPressed: () => APIS.api3(, testPhone),
-                  onPressed: () => APIS.otpCheck(otp),
-                  child: Text("  1.3 验证码验证检查  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.userLogin(testPhone, '123456'),
-                  child: Text("  1.4. 用户登录  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () =>
-                      APIS.userPasswordForget(testPhone, otp, '112233'),
-                  child: Text("  1.5 用户密码忘记  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.userPasswordReset('112233'),
-                  child: Text("  1.6 用户密码重置  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.userCreat(testPhone, '123456'),
-                  child: Text("  1.7 创建用户  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.logout(),
-                  child: Text("  1.8 logout  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.actList(),
-                  child: Text("  1.9 查询活动列表  ")),
-              H16,
-              // OutlinedButton(
-              //     onPressed: () => APIS.api9(1), child: Text("  1.9 查询活动信息  ")),
-              // H16,
-              OutlinedButton(
-                  onPressed: () => APIS.taskJoin(1),
-                  child: Text("  1.12 参加活动  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () =>
-                      APIS.balanceCharge('100', "wallet_from", "wallet_to"),
-                  child: Text("  1.13 充值  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.walletBind('wallet-119'),
-                  child: Text("  1.14 绑定钱包  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.withdraw('100', 'wallet'),
-                  child: Text("  1.15 余额提现  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.advInfo(),
-                  child: Text("  1.16 获取推广页信息  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.userInfo(),
-                  child: Text("  1.17 我的信息接口  ")),
-              H16,
-              OutlinedButton(
-                  onPressed: () => APIS.userRevenue(),
-                  child: Text("  1.18 我的推广收益接口  ")),
-              H16,
-              OutlinedButton(
-                  //0、今日一级收益；1、今日二级收益；2、今日自身（三级）收益
-                  onPressed: () => APIS.revenueInfos(
-                      0, 10, 0, '2024-01-18 00:00:00', '2024-01-19 00:00:00'),
-                  child: Text("  1.19 分页查询 推广数据  ")),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 class APIS {
@@ -140,11 +33,12 @@ class APIS {
   );
 
   ///1.1
-  static Future<Result> homeInfo() async {
+  static Future<Result> homeInfo(String? inviter) async {
     var tag = "homeInfo";
     print("$tag  <<<<<");
     Response response = await dio.get(
       "v1/app/home/info",
+      queryParameters: inviter == null ? {} : {"inviter": inviter},
       options: language.option(),
     );
     print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
@@ -242,12 +136,13 @@ class APIS {
   }
 
   ///1.7. 创建用户
-  static Future<Result> userCreat(String phone, String password) async {
+  static Future<Result> userCreat(
+      String phone, String password, String inviter) async {
     var tag = "userCreat";
     print("$tag <<<<<");
     Response response = await dio.post(
       "v1/app/user/creat",
-      data: {"phone": phone, "password": password},
+      data: {"phone": phone, "password": password, "inviter": inviter},
       options: language.optionPost(),
     );
     print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
@@ -402,9 +297,10 @@ class APIS {
     } catch (e) {
       print(e);
     }
-    print("$tag Uri >> ${response?.realUri} ; ${response?.requestOptions.data??language.option()}");
+    print(
+        "$tag Uri >> ${response?.realUri} ; ${response?.requestOptions.data ?? language.option()}");
     print("$tag Response >> ${response?.data}");
-    return response!=null? handleResponse(response) : Result();
+    return response != null ? handleResponse(response) : Result();
   }
 
   ///1.18. 我的推广收益接口
@@ -473,7 +369,7 @@ extension addLanguage on String {
   Options option() {
     return Options(
       headers: {
-        HttpHeaders.acceptLanguageHeader: this,
+        HttpHeaders.acceptLanguageHeader: APIS.language,
         "Authorization": APIS.apiKey,
       },
     );
@@ -482,7 +378,7 @@ extension addLanguage on String {
   Options optionPost() {
     return Options(
       headers: {
-        HttpHeaders.acceptLanguageHeader: this,
+        HttpHeaders.acceptLanguageHeader: APIS.language,
         "Authorization": APIS.apiKey,
       },
       contentType: Headers.jsonContentType,

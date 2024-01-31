@@ -43,6 +43,7 @@
   "mining_for_revenue":"Mining for revenue",
   "your_coin_balance_is":"Your coin balance is",
   "success_exchange": "Success submit exchange",
+  "get_start": "GET START",
 
   "txtRules": "Rules",
   "txtExchange": "Exchange",
@@ -50,6 +51,7 @@
   "txtCopy": "Copy",
   "txtEdit": "Edit",
   "txtSave": "Save",
+
 
   "txtShareTitle": "Invitation and reward rules",
   "txtShareDesc": " 1. Share links to social platforms and invite friends to register. \r 2、被邀请者完成任务，则分享任务奖励的5%给邀请者。\r 3、XXXXXXXX",
