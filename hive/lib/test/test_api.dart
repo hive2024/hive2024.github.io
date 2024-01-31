@@ -30,7 +30,15 @@ class APIS {
       // The default value is [ResponseType.JSON].
       responseType: ResponseType.plain,
     ),
-  );
+  )..interceptors.add(
+      InterceptorsWrapper(
+        onError: (DioException e, handler) {
+          print("DioException >> ${e.response?.statusCode} ");
+          APIS.apiKey = "";
+          Global.saveAPIKey("");
+        },
+      ),
+    );
 
   ///1.1
   static Future<Result> homeInfo(String? inviter) async {
@@ -295,6 +303,8 @@ class APIS {
         options: language.option(),
       );
     } catch (e) {
+      print("$tag exception =====");
+      print("$tag statusCode= ${response?.statusCode}");
       print(e);
     }
     print(

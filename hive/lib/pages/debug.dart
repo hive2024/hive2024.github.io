@@ -14,13 +14,16 @@ class PageDebug extends StatelessWidget {
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
-            Text("platform=${APIS.language}"),
+            Text("language=${APIS.language}"),
+            Text("language=${AppLocalizations.of(context)!.localeName}"),
             Text("platform=${Global.platform}"),
             Text("apiKey=${APIS.apiKey}"),
             Text("shareCode=${Global.shareCode}"),
             Text("isApp = ${Global.isApp}"),
             H16,
             Text("${Global.urlParams}"),
+            H16,
+            Text("${Global.webBrowserInfo?.data}"),
           ],
         ),
       ),

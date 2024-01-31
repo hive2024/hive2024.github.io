@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         title: Global.appName,
         initialRoute: "/",
         routes: {
-          "/": (context) => Global.isApple() ? HomeTabPage2() : PageDownload(),
+          "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
         },
         onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),

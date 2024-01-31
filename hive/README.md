@@ -6,6 +6,9 @@ hivegit2024
 http://adm.splendorng.club
 admin 123456
 
+##
+https://api.genesiscapitalgs.com/
+https://app.genesiscapitalgs.com/
 ## todo
 - otpReceiver
 - Rule link

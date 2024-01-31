@@ -3,6 +3,7 @@ import 'package:myhive/common/global.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/main.dart';
 import 'package:myhive/pages/AppViewModel.dart';
+import 'package:myhive/pages/debug.dart';
 import 'package:myhive/pages/home2.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
@@ -12,7 +13,7 @@ class PageDownload extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var viewModel = context.read<MyAppViewModel>();
+    var viewModel = context.watch<MyAppViewModel>();
     viewModel.loadDownload();
     String bannerVideo = viewModel.bannerVideo;
     Widget bannerWidget;
@@ -35,12 +36,25 @@ class PageDownload extends StatelessWidget {
           children: [
             bannerWidget,
             Expanded(flex: 1, child: HomeHtmlView()),
-            IconButton(
-                onPressed: () => Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return HomeTabPage2();
-                    })),
-                icon: Icon(Icons.bug_report)),
+            Row(
+              children: [
+                FilledButton.icon(
+                    onPressed: () => Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return HomeTabPage2();
+                        })),
+                    icon: Icon(Icons.gpp_good_outlined),
+                    label: Text("跳过:")),
+                FilledButton.icon(
+                    onPressed: () => Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return PageDebug();
+                        })),
+                    icon: Icon(Icons.gpp_good_outlined),
+                    label: Text("信息")),
+              ],
+            ),
+            H4,
             MyButton(
               text: "Download",
               onPressed: () => viewModel.clickDownload(),
