@@ -175,6 +175,7 @@ class MyAppViewModel extends ChangeNotifier {
         } else {
           //user not found
           needVerifyLogin = true;
+          otpReceiver = result.data['receiver'] as String;
           otp = result.data['result'] as String;
           notifyListeners();
           whatsapp(otpReceiver, otp);

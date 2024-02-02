@@ -6,13 +6,14 @@ import 'package:myhive/pages/AppViewModel.dart';
 import 'package:myhive/pages/debug.dart';
 import 'package:myhive/pages/home2.dart';
 import 'package:provider/provider.dart';
-import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PageDownload extends StatelessWidget {
   // late AppLocalizations al;
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations al = AppLocalizations.of(context)!;
     var viewModel = context.watch<MyAppViewModel>();
     viewModel.loadDownload();
     String bannerVideo = viewModel.bannerVideo;
@@ -56,7 +57,7 @@ class PageDownload extends StatelessWidget {
             ),
             H4,
             MyButton(
-              text: "Download",
+              text: al.get_start,
               onPressed: () => viewModel.clickDownload(),
             )
           ],
