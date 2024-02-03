@@ -5,7 +5,7 @@ import 'package:webview_flutter_platform_interface/webview_flutter_platform_inte
 
 extension addHive on PlatformWebViewController {
   hiveLoad(String html) {
-    var newHtml = html.replaceAll("<img src=", "<img width='95%' src=");
+    var newHtml = html.replaceAll("<img src=", "<img width='100%' src=");
     loadHtmlString(newHtml);
   }
 }

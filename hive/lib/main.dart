@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
           useMaterial3: false,
+          scaffoldBackgroundColor: Colors.white,
           primarySwatch: mainColors,
         ),
         // home: HomeTabPage2(),
