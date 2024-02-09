@@ -85,7 +85,7 @@ class _PageLoginResetState extends State<PageLoginReset> {
                       .read<MyAppViewModel>()
                       .resetPwd(context, _pwdController.text);
                 } else {
-                  toast(context, al.password_different);
+                  toast(context, al.password_different,false);
                 }
               },
             ),

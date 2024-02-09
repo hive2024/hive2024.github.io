@@ -80,7 +80,7 @@ class _PageLoginRegState extends State<PageLoginReg> {
                       .read<MyAppViewModel>()
                       .register(context, _pwdController.text);
                 } else {
-                  toast(context, "Password different.");
+                  toast(context, "Password different.",false);
                 }
               },
             ),

@@ -78,7 +78,7 @@ class _PageTopupState extends State<PageTopup> {
                 if (_amountController.text.isNotEmpty) {
                   showTopupDialog();
                 } else {
-                  toast(context, al.input_amount);
+                  toast(context, al.input_amount, false);
                 }
               }),
           H10,
@@ -125,7 +125,8 @@ class _PageTopupState extends State<PageTopup> {
                           Clipboard.setData(
                                   ClipboardData(text: _rechargeController.text))
                               .then((value) {
-                            toast(context, "Copy: ${_rechargeController.text}");
+                            toast(context, "Copy: ${_rechargeController.text}",
+                                true);
                           });
                         },
                         child: Text(al.txtCopy, style: TextStyles.btn4)),
@@ -192,7 +193,10 @@ Widget getAmountWidget(String text, VoidCallback click) {
           backgroundColor: MaterialStateProperty.all(mainColor),
         ),
         onPressed: click,
-        child: Text(text,style: TextStyles.btn1,),
+        child: Text(
+          text,
+          style: TextStyles.btn1,
+        ),
       ),
     ),
   );

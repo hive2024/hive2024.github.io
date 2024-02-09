@@ -51,15 +51,15 @@ class PageShare extends StatelessWidget {
                   ).build(context),
                 )
               : CircularProgressIndicator(color: mainColor),
-          Text(
-            al.txtShareLink,
-            style: TextStyles.header20,
-          ),
-          Text(
-            viewModel.shareLink,
-            style: TextStyles.header14,
-          ),
-          H16,
+          // Text(
+          //   al.txtShareLink,
+          //   style: TextStyles.header20,
+          // ),
+          // Text(
+          //   viewModel.shareLink,
+          //   style: TextStyles.header14,
+          // ),
+          // H16,
           Row(
             children: [
               Expanded(
@@ -70,12 +70,12 @@ class PageShare extends StatelessWidget {
                   onPressed: () {
                     //todo tess clip on phone.
                     Clipboard.setData(
-                            ClipboardData(text: viewModel.shareCopyContent))
+                            ClipboardData(text: viewModel.shareLink))
                         .then((value) {});
                   },
                 ),
               ),
-              W16,
+              SizedBox(width: 60),
               Expanded(
                 flex: 1,
                 child: MyButton(
@@ -94,8 +94,7 @@ class PageShare extends StatelessWidget {
               ),
             ],
           ),
-          H16,
-          H16,
+          H8,
         ],
       ),
     );

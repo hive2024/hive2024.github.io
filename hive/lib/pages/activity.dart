@@ -50,7 +50,7 @@ class NewCard extends StatelessWidget {
           );
         })),
         child: Card(
-          elevation: 10.0,
+          elevation: 3.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
@@ -77,8 +77,7 @@ class NewCard extends StatelessWidget {
                   style: TextStyles.activityHeader,
                 ),
               ),
-              Container(
-                color: colorF5,
+              SizedBox(
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.only(

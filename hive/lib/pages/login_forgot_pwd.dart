@@ -75,7 +75,7 @@ class _PageLoginForgotPwdState extends State<PageLoginForgotPwd> {
                       .read<MyAppViewModel>()
                       .saveForgotPwd(context, _pwdController.text);
                 } else {
-                  toast(context, al.password_different);
+                  toast(context, al.password_different,false);
                 }
               },
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
+import 'package:myhive/common/tools.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:provider/provider.dart';
@@ -15,13 +16,8 @@ class PageHome2 extends StatelessWidget {
     Widget bannerWidget;
     if (bannerVideo.isNotEmpty) {
       print("create video $bannerVideo");
-      bannerWidget = VideoApp(url: bannerVideo);
-      // } else if (bannerImage.isNotEmpty) {
-      //   print("create image");
-      //   bannerWidget = SizedBox(
-      //     height: 200,
-      //     child: Image.network(bannerImage),
-      //   );
+      bannerWidget = HomeVideoView(videoUrl: bannerVideo);
+      // bannerWidget = HomeYTView();
     } else {
       print("create default image");
       bannerWidget = SizedBox(
@@ -29,6 +25,7 @@ class PageHome2 extends StatelessWidget {
         child: Image.network(Global.defaultBanner),
       );
     }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,6 +55,31 @@ class HomeHtmlView extends StatelessWidget {
       child: PlatformWebViewWidget(
         PlatformWebViewWidgetCreationParams(controller: controller),
       ).build(context),
+    );
+  }
+}
+
+class HomeVideoView extends StatelessWidget {
+  const HomeVideoView({super.key, required this.videoUrl});
+
+  final videoUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    // var appState = context.watch<MyAppViewModel>();
+    // var html = appState.homeVideoHtml;
+    final PlatformWebViewController controller = PlatformWebViewController(
+      const PlatformWebViewControllerCreationParams(),
+    )..loadHtmlString(getHtmlBody(videoUrl));
+
+    return Container(
+      width: double.infinity,
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: PlatformWebViewWidget(
+          PlatformWebViewWidgetCreationParams(controller: controller),
+        ).build(context),
+      ),
     );
   }
 }

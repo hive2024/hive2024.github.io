@@ -21,6 +21,7 @@ dependencies:
   # isar: ^3.1.0+1
   # isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.0.15
+  # webview_flutter: ^4.5.0
   webview_flutter_web: ^0.2.2+4
   webview_flutter_platform_interface: ^2.9.0
   toastification: ^1.1.0
@@ -32,9 +33,6 @@ dependencies:
   syncfusion_flutter_datepicker: ^24.1.45
   datetime_picker_formfield_new: ^2.1.0
   device_info_plus: ^9.1.2
-  # youtube_player_iframe: ^4.0.4
-  # share_plus: ^7.2.1
-  # flutter_html: ^2.2.1
 
 dev_dependencies:
   flutter_test:

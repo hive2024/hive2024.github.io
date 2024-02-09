@@ -36,10 +36,10 @@ class TextStyles {
   static TextStyle btn4 = TextStyle(color: color1A, fontSize: 12);
 
   static TextStyle activityHeader =
-      TextStyle(color: color3C, fontSize: 20, fontWeight: FontWeight.bold);
+      TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
 
   static TextStyle activityDesc =
-      TextStyle(color: color3C, fontSize: 14, fontWeight: FontWeight.bold);
+      TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold);
 
   static TextStyle headerTask = TextStyle(color: color3C, fontSize: 20);
 
@@ -106,3 +106,80 @@ const OutlineInputBorder disableInputBorder = OutlineInputBorder(
     color: mainColor,
   ),
 );
+
+String homeVideoHtml = '''
+<div style="padding:56.25% 0 0 0;position:relative;">
+<iframe src="https://player.vimeo.com/video/909714908?muted=1&amp;autoplay=1&amp;loop=1&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="mytest">
+</iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+''';
+// String homeVideoHtml = '''
+// <div style="padding:56.25% 0 0 0;position:relative;">
+// <iframe src="https://player.vimeo.com/video/909714908?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="mytest">
+// </iframe>
+// </div>
+// <script src="https://player.vimeo.com/api/player.js"></script>
+// ''';
+String homeVideoHtml2 = '''
+<iframe width="100%" height="275" src="https://www.youtube-nocookie.com/embed/_CCx3mXG6RE?autoplay=1&controls=1&mute=1&version=3&loop=1&playlist=_CCx3mXG6RE" title="player" frameborder="0" allow="autoplay;"></iframe>
+''';
+String homeVideoHtml3 = '''
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/909714908?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay;" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+''';
+String homeVideoHtml4 = '''
+<iframe src="https://player.vimeo.com/video/909714908?h=56356d9bc9" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay;" autoplay></iframe>
+''';
+String homeVideoHtml5 = '''
+<html>
+<head>
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+</head>
+<body>
+</body>
+<frame>
+  <div class="container">
+  <video id="player" playsinline autoplay="autoplay" loop="loop" width="400">
+    <source src="https://api.genesiscapitalgs.com/files/download?fileName=1707037748874vedio.mp4" type="video/mp4">
+  </video>
+  </div>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <p>aaaaaaaaaaaaaaaaaa</p>
+  <script>
+  // const player = new Plyr('#player'); 
+  const player = document.querySelector('video');
+  // player.play();
+  // window.player = player;
+  player.play().then(()=>{
+    console.log('auto play well');
+  })
+  .catch((e)=>{
+    
+    if (e instanceof DOMException){
+      console.log('auto play fail - 1');
+        const autoPlayAfterClick = ()=>{
+          console.log('play afrer click');
+          player.play();
+          document.removeEventListener('click', autoPlayAfterClick);
+        };
+        document.addEventListener('click', autoPlayAfterClick);
+        throw e;
+    } else {
+      console.log('auto play fail - 2');
+      throw e
+    }
+  })
+  </script>
+</frame>
+</body>
+</html>
+''';

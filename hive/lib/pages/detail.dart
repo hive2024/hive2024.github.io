@@ -36,7 +36,6 @@ class DetailHtmlView extends StatelessWidget {
     )..hiveLoad(htmlContent);
 
     return SizedBox(
-      height: 400,
       child: PlatformWebViewWidget(
         PlatformWebViewWidgetCreationParams(controller: controller),
       ).build(context),

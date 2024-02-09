@@ -17,3 +17,35 @@ class PageRules extends StatelessWidget {
     );
   }
 }
+
+// class PageRules extends StatelessWidget {
+//   const PageRules({
+//     super.key,
+//     required this.url,
+//   });
+
+//   final String url;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     var viewModel = context.watch<MyAppViewModel>();
+//     viewModel.getActDetail(eventId);
+//     var html = viewModel.activityDetail.desc;
+//     PlatformWebViewController? controller;
+//     if (html != null) {
+//       controller = PlatformWebViewController(
+//         const PlatformWebViewControllerCreationParams(),
+//       )..hiveLoad(html);
+//     }
+
+//     return Scaffold(
+//       body: SizedBox(
+//         child: controller != null
+//             ? PlatformWebViewWidget(
+//                 PlatformWebViewWidgetCreationParams(controller: controller),
+//               ).build(context)
+//             : CircularProgressIndicator(color: mainColor),
+//       ),
+//     );
+//   }
+// }

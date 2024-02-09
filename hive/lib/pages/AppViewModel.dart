@@ -11,6 +11,7 @@ import 'package:myhive/pages/login_retrieve_pwd.dart';
 import 'package:myhive/pages/withdraw.dart';
 import 'package:myhive/test/test_api.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:toastification/toastification.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'login_pwd.dart';
@@ -99,6 +100,7 @@ class MyAppViewModel extends ChangeNotifier {
   /// task
   int userLevel = 1;
   int userIntegral = 0;
+  String ruleLink = "";
   List<Task> taskList = [];
 
   void queryTask() {
@@ -106,6 +108,11 @@ class MyAppViewModel extends ChangeNotifier {
     APIS.tasksInfo().then((result) {
       userLevel = result.data['userLevel'];
       userIntegral = result.data['integral'];
+      ruleLink = (result.data['rulesPageUrl'] ?? "");
+      print("ruleLink 1 = $ruleLink");
+      int actIndex = ruleLink.indexOf("/act/");
+      ruleLink = ruleLink.substring(actIndex).replaceAll("/act/", "/rule/");
+      print("ruleLink 2 = $ruleLink");
       taskList =
           (result.data['tasks'] as List).map((e) => Task.fromJson(e)).toList();
       taskList.sort((a, b) => a.level - b.level);
@@ -129,9 +136,9 @@ class MyAppViewModel extends ChangeNotifier {
   void exchange(BuildContext context) {
     APIS.exchange().then((result) {
       if (result.success) {
-        toast(context, "Success submit exchange");
+        toast(context, AppLocalizations.of(context)!.success_exchange, true);
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -182,7 +189,7 @@ class MyAppViewModel extends ChangeNotifier {
           // toast(context, "send whatsapp for register");
         }
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -198,10 +205,10 @@ class MyAppViewModel extends ChangeNotifier {
             return PageLoginReg();
           }));
         } else {
-          toast(context, AppLocalizations.of(context)!.otp_incorrect);
+          toast(context, AppLocalizations.of(context)!.otp_incorrect, true);
         }
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -211,7 +218,7 @@ class MyAppViewModel extends ChangeNotifier {
       if (result.success) {
         Navigator.of(context).pop();
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -226,7 +233,7 @@ class MyAppViewModel extends ChangeNotifier {
           return PageLoginPwd();
         }));
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -263,7 +270,7 @@ class MyAppViewModel extends ChangeNotifier {
         whatsapp(otpReceiver, forgotOtp);
         // toast(context, "send whatsapp for register");
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -281,10 +288,10 @@ class MyAppViewModel extends ChangeNotifier {
             }),
           );
         } else {
-          toast(context, AppLocalizations.of(context)!.otp_incorrect);
+          toast(context, AppLocalizations.of(context)!.otp_incorrect, true);
         }
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -294,7 +301,7 @@ class MyAppViewModel extends ChangeNotifier {
       if (result.success) {
         Navigator.of(context).pop();
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -318,7 +325,7 @@ class MyAppViewModel extends ChangeNotifier {
       if (result.success) {
         Navigator.of(context).pop();
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -415,7 +422,7 @@ class MyAppViewModel extends ChangeNotifier {
           Navigator.of(context).pop();
         }
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -431,7 +438,7 @@ class MyAppViewModel extends ChangeNotifier {
           Navigator.of(context).pop();
         }
       } else {
-        toast(context, result.error);
+        toast(context, result.error, false);
       }
     });
   }
@@ -582,8 +589,27 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   showDebug(BuildContext context) {}
+
+  var clicked = 0;
+
+  void markClicked() {
+    clicked++;
+    print("markClicked = $clicked");
+    if (clicked == 1) {
+      notifyListeners();
+    }
+  }
 }
 
-void toast(BuildContext context, String s) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(s)));
+void toast(BuildContext context, String s, bool success) {
+  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(s)));
+  toastification.show(
+    context: context,
+    type: success ? ToastificationType.success : ToastificationType.info,
+    style: ToastificationStyle.flat,
+    title: s,
+    alignment: Alignment.center,
+    showProgressBar: false,
+    autoCloseDuration: const Duration(seconds: 2),
+  );
 }

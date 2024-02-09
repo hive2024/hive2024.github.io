@@ -10,9 +10,11 @@ class PageEvent extends StatelessWidget {
   const PageEvent({
     super.key,
     required this.eventId,
+    required this.canBack,
   });
 
   final String eventId;
+  final bool canBack;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +29,8 @@ class PageEvent extends StatelessWidget {
     }
 
     return Scaffold(
+      appBar: canBack ? getAppBar(context, "Rules") : null,
       body: SizedBox(
-        height: 400,
         child: controller != null
             ? PlatformWebViewWidget(
                 PlatformWebViewWidgetCreationParams(controller: controller),

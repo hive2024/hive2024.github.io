@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
 import 'package:myhive/common/views.dart';
@@ -20,7 +21,8 @@ class PageDownload extends StatelessWidget {
     Widget bannerWidget;
     if (bannerVideo.isNotEmpty) {
       print("create video $bannerVideo");
-      bannerWidget = VideoApp(url: bannerVideo);
+      bannerWidget = HomeVideoView(videoUrl: bannerVideo);
+      ;
     } else {
       print("create default image");
       bannerWidget = SizedBox(
@@ -28,40 +30,40 @@ class PageDownload extends StatelessWidget {
         child: Image.network(Global.defaultBanner),
       );
     }
+    // Widget yub = viewModel.clicked>0 ? HomeYTView2(): HomeYTView();
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            bannerWidget,
-            Expanded(flex: 1, child: HomeHtmlView()),
-            Row(
-              children: [
-                FilledButton.icon(
-                    onPressed: () => Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return HomeTabPage2();
-                        })),
-                    icon: Icon(Icons.gpp_good_outlined),
-                    label: Text("跳过:")),
-                FilledButton.icon(
-                    onPressed: () => Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return PageDebug();
-                        })),
-                    icon: Icon(Icons.gpp_good_outlined),
-                    label: Text("信息")),
-              ],
-            ),
-            H4,
-            MyButton(
-              text: al.get_start,
-              onPressed: () => viewModel.clickDownload(),
-            )
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          bannerWidget,
+          // HomeVideoView(),
+          // HomeYTView(),
+          Expanded(flex: 1, child: HomeHtmlView().addHP(16)),
+          Row(
+            children: [
+              FilledButton.icon(
+                  onPressed: () => Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return HomeTabPage2();
+                      })),
+                  icon: Icon(Icons.gpp_good_outlined),
+                  label: Text("跳过:")),
+              FilledButton.icon(
+                  onPressed: () => Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return PageDebug();
+                      })),
+                  icon: Icon(Icons.gpp_good_outlined),
+                  label: Text("信息")),
+            ],
+          ).addHP(16),
+          H4,
+          MyButton(
+            text: al.get_start,
+            onPressed: () => viewModel.clickDownload(),
+          ).addLRBPadding(16),
+        ],
       ),
     );
   }

@@ -10,6 +10,17 @@ extension addHive on PlatformWebViewController {
   }
 }
 
+extension addPadding on Widget {
+  addHP(double p) {
+    return Padding(padding: EdgeInsets.symmetric(horizontal: p), child: this);
+  }
+
+  addLRBPadding(double p) {
+    return Padding(
+        padding: EdgeInsets.only(left: p, right: p, bottom: p), child: this);
+  }
+}
+
 class MyTextTitle extends StatelessWidget {
   const MyTextTitle({
     super.key,
@@ -161,7 +172,7 @@ class MyOutlineButton extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Text(
                 text,
-                textAlign: textAlign??TextAlign.start,
+                textAlign: textAlign ?? TextAlign.start,
                 style: TextStyles.btn2,
               ),
             ),
@@ -283,121 +294,5 @@ class MyLiteButton extends StatelessWidget {
           onPressed: click,
           child: Text(t, style: TextStyles.btn4)),
     );
-  }
-}
-
-class VideoApp3 extends StatefulWidget {
-  const VideoApp3({super.key});
-
-  @override
-  State<VideoApp3> createState() => _VideoAppState3();
-}
-
-class _VideoAppState3 extends State<VideoApp3> {
-  late VideoPlayerController _controller;
-
-  var flag = 0;
-  final mybuttonkey = GlobalKey();
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(
-          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
-    )
-      ..setVolume(0)
-      ..setLooping(true)
-      ..initialize().then((_) {
-        Future.delayed(Duration(seconds: 1), () {
-          print("controller.play()");
-          _controller.play();
-          Future.delayed(Duration(seconds: 2), () {
-            print("controller.setVolume()");
-            _controller.setVolume(1);
-          });
-        });
-        setState(() {});
-      });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print("build.flag = $flag");
-    if (flag < 1) {}
-    flag++;
-    return MaterialApp(
-      title: 'Video Demo',
-      home: Scaffold(
-        body: Center(
-          child: _controller.value.isInitialized
-              ? Column(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _controller.value.isPlaying
-                              ? _controller.pause()
-                              : _controller.play();
-                        });
-                      },
-                      icon: Icon(
-                        _controller.value.isPlaying
-                            ? Icons.pause
-                            : Icons.play_arrow,
-                      ),
-                      key: mybuttonkey,
-                    ),
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            print(
-                                "error= ${_controller.value.errorDescription}");
-                          },
-                          icon: Icon(
-                            Icons.error,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _controller.play();
-                            });
-                          },
-                          icon: Icon(
-                            Icons.text_fields_outlined,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _controller.setVolume(1);
-                            });
-                          },
-                          icon: Icon(
-                            Icons.volume_up,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                )
-              : Container(
-                  color: Colors.amber,
-                ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 }

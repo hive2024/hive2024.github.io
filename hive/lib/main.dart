@@ -24,6 +24,7 @@ void main() {
 }
 
 RegExp eventReg = RegExp(r'^/act/([\w-]+)$');
+RegExp eventReg2 = RegExp(r'^/rule/([\w-]+)$');
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -36,12 +37,20 @@ class MyApp extends StatelessWidget {
       final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
       print("onGenerateRoute; >> PageEvent; match=$match");
       return MaterialPageRoute<void>(
-        builder: (context) => PageEvent(eventId: match ?? ""),
+        builder: (context) => PageEvent(eventId: match ?? "", canBack: false),
+        settings: settings,
+      );
+    }
+    if (eventReg2.hasMatch(path)) {
+      final firstMatch = eventReg2.firstMatch(path);
+      final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
+      print("onGenerateRoute; >> PageEvent; match=$match");
+      return MaterialPageRoute<void>(
+        builder: (context) => PageEvent(eventId: match ?? "", canBack: true),
         settings: settings,
       );
     }
     // If no match is found, [WidgetsApp.onUnknownRoute] handles it.
-    print("onGenerateRoute; >> HomeTabPage2");
     return MaterialPageRoute<void>(
       builder: (context) => HomeTabPage2(),
       settings: settings,

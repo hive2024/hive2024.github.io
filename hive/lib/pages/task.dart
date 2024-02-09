@@ -70,12 +70,16 @@ class PageTask extends StatelessWidget {
               child: MyOutlineButton(
                 textAlign: TextAlign.center,
                 text: al.txtRules,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return PageRules();
-                  }),
-                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, viewModel.ruleLink);
+                  print("ruleLink 2 = ${viewModel.ruleLink}");
+                }
+                // onPressed: () => Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) {
+                //     return PageRules();
+                //   }),
+                // ),
               ),
             ),
             W16,
@@ -152,9 +156,10 @@ class MyTaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String defaultBg = "images/vip1.webp";
+    String finalIcon = task.icon ?? "images/vip1.webp";
+    print("task card ${task.level} ; $finalIcon");
     List<Widget> views = [
-      Image.network(task.icon ?? defaultBg,
+      Image.network(finalIcon,
           width: double.infinity, fit: BoxFit.fitWidth)
     ];
     var status = task.status;
