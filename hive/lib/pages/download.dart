@@ -1,11 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
+import 'package:myhive/common/tools.dart';
 import 'package:myhive/common/views.dart';
+import 'package:myhive/json/user.dart';
 import 'package:myhive/main.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:myhive/pages/debug.dart';
 import 'package:myhive/pages/home2.dart';
+import 'package:myhive/pages/task.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -20,11 +23,11 @@ class PageDownload extends StatelessWidget {
     String bannerVideo = viewModel.bannerVideo;
     Widget bannerWidget;
     if (bannerVideo.isNotEmpty) {
-      print("create video $bannerVideo");
+      printLog("create video $bannerVideo");
       bannerWidget = HomeVideoView(videoUrl: bannerVideo);
       ;
     } else {
-      print("create default image");
+      printLog("create default image");
       bannerWidget = SizedBox(
         height: 200,
         child: Image.network(Global.defaultBanner),
@@ -40,6 +43,7 @@ class PageDownload extends StatelessWidget {
           // HomeVideoView(),
           // HomeYTView(),
           Expanded(flex: 1, child: HomeHtmlView().addHP(16)),
+          debug?
           Row(
             children: [
               FilledButton.icon(
@@ -57,8 +61,7 @@ class PageDownload extends StatelessWidget {
                   icon: Icon(Icons.gpp_good_outlined),
                   label: Text("信息")),
             ],
-          ).addHP(16),
-          H4,
+          ).addHP(16):H4,
           MyButton(
             text: al.get_start,
             onPressed: () => viewModel.clickDownload(),

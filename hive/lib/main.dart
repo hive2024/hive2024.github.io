@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:myhive/common/tools.dart';
 import 'package:myhive/pages/download.dart';
 import 'package:myhive/pages/event.dart';
 import 'package:myhive/pages/home2.dart';
@@ -31,11 +32,11 @@ class MyApp extends StatelessWidget {
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     String path = settings.name ?? "";
-    print("onGenerateRoute; path=$path");
+    printLog("onGenerateRoute; path=$path");
     if (eventReg.hasMatch(path)) {
       final firstMatch = eventReg.firstMatch(path);
       final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
-      print("onGenerateRoute; >> PageEvent; match=$match");
+      printLog("onGenerateRoute; >> PageEvent; match=$match");
       return MaterialPageRoute<void>(
         builder: (context) => PageEvent(eventId: match ?? "", canBack: false),
         settings: settings,
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
     if (eventReg2.hasMatch(path)) {
       final firstMatch = eventReg2.firstMatch(path);
       final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
-      print("onGenerateRoute; >> PageEvent; match=$match");
+      printLog("onGenerateRoute; >> PageEvent; match=$match");
       return MaterialPageRoute<void>(
         builder: (context) => PageEvent(eventId: match ?? "", canBack: true),
         settings: settings,
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userPlatform = window.navigator.platform;
-    print("userPlatform = $userPlatform");
+    printLog("userPlatform = $userPlatform");
     return ChangeNotifierProvider(
       create: (context) => MyAppViewModel(),
       child: MaterialApp(
@@ -94,7 +95,7 @@ class LoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var lc = AppLocalizations.of(context)?.localeName ?? 'en';
-    print("current language = $lc");
+    printLog("current language = $lc");
     APIS.language = lc;
     context.read<MyAppViewModel>().startLoading(context);
     return Center(

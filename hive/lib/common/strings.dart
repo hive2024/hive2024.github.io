@@ -10,6 +10,9 @@ const Color color6D = Color(0xFF6D6D78);
 const Color color1A = Color(0xFF1A1A1A);
 const Color colorF4 = Color(0xFFF4F4F4);
 const Color colorF5 = Color(0XFFf5b435);
+const Color color2169 = Color(0XFF0f2169);
+const Color colorAA3A = Color(0XFFF2AA3A);
+const Color colorx1 = Color(0X66000000);
 
 const MaterialColor mainColors = MaterialColor(0XFF113A56, {
   50: Color(0XFF113A56),

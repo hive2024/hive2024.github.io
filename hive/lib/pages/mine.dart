@@ -73,18 +73,18 @@ class PageMine extends StatelessWidget {
               context.read<MyAppViewModel>().logout(context);
             },
           ),
-          H16,
-          MyOutlineButton(
-            text: 'Debug Info',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return PageDebug();
-                }),
-              );
-            },
-          ),
+          // H16,
+          // MyOutlineButton(
+          //   text: 'Debug Info',
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) {
+          //         return PageDebug();
+          //       }),
+          //     );
+          //   },
+          // ),
           H10,
           Text("Contect US", style: TextStyles.header20),
           H10,

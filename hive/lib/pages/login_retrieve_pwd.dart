@@ -25,7 +25,6 @@ class _PageRetrievePwdState extends State<PageRetrievePwd> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print("PageLogin.didChangeDependencies()");
     al = AppLocalizations.of(context)!;
     var appState = context.watch<MyAppViewModel>();
     verifyWidget = appState.forgotOtpSent

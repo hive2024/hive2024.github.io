@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myhive/common/strings.dart';
+import 'package:myhive/common/tools.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/json/user.dart';
 import 'package:myhive/pages/AppViewModel.dart';
@@ -186,14 +187,14 @@ void showTopupDialog(BuildContext c) {
             selectionMode: DateRangePickerSelectionMode.range,
             showTodayButton: true,
             onSubmit: (p0) {
-              print("onSubmit $p0");
+              printLog("onSubmit $p0");
               Navigator.of(context).pop();
               if (p0 is PickerDateRange) {
                 c.read<MyAppViewModel>().updateDate(p0);
               }
             },
             onCancel: () {
-              print("onCancel");
+              printLog("onCancel");
               Navigator.of(context).pop();
             },
           ),

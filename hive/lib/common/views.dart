@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myhive/common/strings.dart';
+import 'package:myhive/common/tools.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
 
@@ -240,7 +241,7 @@ class _VideoAppState extends State<VideoApp> {
   @override
   void initState() {
     super.initState();
-    print("_controller.play() ${widget.url}");
+    printLog("_controller.play() ${widget.url}");
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
       ..setLooping(true)
       ..setVolume(0)

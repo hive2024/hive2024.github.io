@@ -57,17 +57,8 @@ flutter:
   assets:
     - images/room_open.webp
     - images/success.webp
+    - images/success4.webp
     - images/vip1.webp
-    - images/vip2.webp
-    - images/vip3.webp
-    - images/vip4.webp
-    - images/vip5.webp
-    - images/vip6.webp
-    - images/only2.webp
-    - images/only3.webp
-    - images/only4.webp
-    - images/only5.webp
-    - images/only6.webp
     - images/share_logo.webp
     - images/avatar.webp
     - images/vip_fill.webp

@@ -75,5 +75,7 @@
   "txtExtensionCenter": "中文Extension center",
   "txtPromotionDetails": "中文Promotion details",
   "contect_us":"中文Contect US",
+  "yours_are_ready":"Your computers are ready",
+  "yours_ard_matched":"Your computers are being matched",
   "txtTaskRule": "中文Recharge instructions: Y中文ou need to recharge USDT, please make sure to transfer the money The package address is the same as the wallet address bound to the user account. Recharge will arrive at the latest 24 hours, please wait patiently, if not, please contact customer service"
 }

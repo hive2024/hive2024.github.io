@@ -1,9 +1,11 @@
 import 'package:url_launcher/url_launcher.dart';
 
+var debug = true;
+
 Future<void> whatsapp(String target, String content) async {
   // var url = 'https://wa.me/+6586161190/?text=hello-world';
   var url = 'https://wa.me/$target/?text=$content';
-  print("whatsapp>> $url");
+  printLog("whatsapp>> $url");
   if (!await launchUrl(Uri.parse(url))) {
     throw Exception('Could not launch');
   }
@@ -19,6 +21,20 @@ String getHtmlBody(String url) {
 </div>
 <script src="https://player.vimeo.com/api/player.js"></script>
 ''';
-  print("getHtmlBody>> $html");
+  printLog("getHtmlBody>> $html");
   return html;
+}
+
+void printLog(Object? v) {
+  if (debug) {
+    print(v);
+  }
+}
+
+String getInnerUrl(String source, int from) {
+  int actIndex = source.indexOf("/act/");
+  printLog("getInnerUrl[$from] source>> $source; $actIndex");
+  String result = (actIndex > -1 ? source.substring(actIndex) : source)
+      .replaceAll("/act/", "/rule/");
+  return result;
 }

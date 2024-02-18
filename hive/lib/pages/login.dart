@@ -30,13 +30,11 @@ class _PageLoginState extends State<PageLogin> {
   @override
   void initState() {
     super.initState();
-    print("PageLogin.initState()");
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print("PageLogin.didChangeDependencies()");
     al = AppLocalizations.of(context)!;
     var appState = context.watch<MyAppViewModel>();
     buttons = [

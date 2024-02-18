@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
 import 'package:myhive/common/strings.dart';
+import 'package:myhive/common/tools.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/json/user.dart';
 import 'package:myhive/pages/AppViewModel.dart';
@@ -40,7 +41,7 @@ class PageTask extends StatelessWidget {
         r3.add(Expanded(flex: 1, child: MyTaskCard(task: tasks[5])));
       }
     } catch (e) {
-      print(e);
+      printLog(e);
     }
 
     Widget taskList = Column(
@@ -68,19 +69,11 @@ class PageTask extends StatelessWidget {
             Expanded(
               flex: 1,
               child: MyOutlineButton(
-                textAlign: TextAlign.center,
-                text: al.txtRules,
-                onPressed: () {
-                  Navigator.pushNamed(context, viewModel.ruleLink);
-                  print("ruleLink 2 = ${viewModel.ruleLink}");
-                }
-                // onPressed: () => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) {
-                //     return PageRules();
-                //   }),
-                // ),
-              ),
+                  textAlign: TextAlign.center,
+                  text: al.txtRules,
+                  onPressed: () {
+                    Navigator.pushNamed(context, viewModel.ruleLink);
+                  }),
             ),
             W16,
             Expanded(
@@ -94,7 +87,7 @@ class PageTask extends StatelessWidget {
             ),
           ],
         ),
-        // button
+        // MyButton(text: "test", onPressed: () => showTopupDialog(context, 1))
       ],
     );
 
@@ -115,19 +108,20 @@ void showTopupDialog(BuildContext context, int id) {
     barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor: color2169,
         insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-        contentPadding: EdgeInsets.all(20),
+        // contentPadding: EdgeInsets.all(20),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         content: Column(
           children: [
             Expanded(
-              flex: 25,
-              child: Image.asset("images/success.webp"),
+              flex: 1,
+              child: Image.asset("images/success4.webp"),
             ),
             Expanded(
-              flex: 15,
+              flex: 1,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -157,58 +151,96 @@ class MyTaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String finalIcon = task.icon ?? "images/vip1.webp";
-    print("task card ${task.level} ; $finalIcon");
+    printLog("task card ${task.level} ; $finalIcon");
     List<Widget> views = [
-      Image.network(finalIcon,
-          width: double.infinity, fit: BoxFit.fitWidth)
+      Image.network(finalIcon, width: double.infinity, fit: BoxFit.fitWidth)
     ];
     var status = task.status;
     if (status == 0) {
-      views.add(Positioned(
-          bottom: 15,
-          child: Text("Start",
-              style: TextStyle(
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 2
-                  ..color = Colors.white,
-                fontSize: 26,
-              ))));
-      views.add(Positioned(
-          bottom: 15,
-          child: Text("Start",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 26,
-              ))));
+      //   views.add(Positioned(
+      //       bottom: 15,
+      //       child: Text("Start",
+      //           style: TextStyle(
+      //             foreground: Paint()
+      //               ..style = PaintingStyle.stroke
+      //               ..strokeWidth = 2
+      //               ..color = Colors.white,
+      //             fontSize: 26,
+      //           ))));
+      //   views.add(Positioned(
+      //       bottom: 15,
+      //       child: Text("Start",
+      //           style: TextStyle(
+      //             color: Colors.black,
+      //             fontSize: 26,
+      //           ))));
     }
     if (status == 1) {
       views.add(Positioned(
-          bottom: 15,
-          child: Text("Working",
-              style: TextStyle(
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 2
-                  ..color = Colors.white,
-                fontSize: 26,
-              ))));
+          child: Container(
+        color: colorx1,
+      )));
       views.add(Positioned(
-          bottom: 15,
-          child: Text("Working",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 26,
-              ))));
-    }
-    if (status == 2) {
-      views.add(Image.asset(
-        "images/only${(task.level <= 6) ? task.level : 6}.webp",
-        width: double.infinity,
-        height: double.infinity,
-        fit: BoxFit.fitWidth,
+        top: 8,
+        right: 8,
+        child: SizedBox(
+          width: 26,
+          height: 26,
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.grey[200],
+            valueColor: AlwaysStoppedAnimation(Colors.blue),
+          ),
+        ),
       ));
     }
+    if (status == 2) {
+      views.add(Positioned(
+          child: Container(
+        color: Color(0XBB000000),
+      )));
+      views.add(Positioned(
+          top: 8,
+          right: 8,
+          child: Icon(
+            Icons.lock_outline,
+            color: Colors.white,
+            size: 32,
+          )));
+    }
+    views.add(Positioned(
+        top: 8,
+        child: Text(task.title ?? "",
+            style: TextStyle(
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 2
+                ..color = Colors.white,
+              fontSize: 28,
+            ))));
+    views.add(Positioned(
+        top: 8,
+        child: Text(task.title ?? "",
+            style: TextStyle(
+              color: colorF5,
+              fontSize: 28,
+            ))));
+    views.add(Positioned(
+        bottom: 15,
+        child: Text(task.desc ?? "",
+            style: TextStyle(
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 2
+                ..color = Colors.white,
+              fontSize: 22,
+            ))));
+    views.add(Positioned(
+        bottom: 15,
+        child: Text(task.desc ?? "",
+            style: TextStyle(
+              color: colorF5,
+              fontSize: 22,
+            ))));
     return Card(
       elevation: 20.0,
       shape: RoundedRectangleBorder(
@@ -256,6 +288,7 @@ class _MyWorkProgressState extends State<MyWorkProgress>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   var finish = false;
+  late AppLocalizations al;
 
   @override
   void initState() {
@@ -265,33 +298,63 @@ class _MyWorkProgressState extends State<MyWorkProgress>
     );
     _animationController.forward();
     _animationController.addListener(() => setState(() => {}));
+    al = AppLocalizations.of(context)!;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget actionView = (_animationController.value >= 1)
-        ? Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: MyButton(
-                text: AppLocalizations.of(context)!.txtSuccess,
-                onPressed: () {
-                  context
-                      .read<MyAppViewModel>()
-                      .clickTask(context, widget.taskId);
-                }),
-          )
-        : getProgress();
-
-    return actionView;
+    List<Widget> views = [];
+    if (_animationController.value >= 1) {
+      views = [
+        Text(
+          al.txtSuccess,
+          style: TextStyle(
+            color: colorAA3A,
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(al.yours_are_ready,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 36,
+            )),
+        H8,
+        Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: MyButton(
+              text: AppLocalizations.of(context)!.txtSuccess,
+              onPressed: () {
+                context
+                    .read<MyAppViewModel>()
+                    .clickTask(context, widget.taskId);
+              }),
+        ),
+      ];
+    } else {
+      views = [
+        getProgress(),
+        H4,
+        Text(al.yours_ard_matched,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 36,
+            )),
+      ];
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: views,
+    );
   }
 
   Widget getProgress() {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: LinearProgressIndicator(
-        backgroundColor: Colors.grey[200],
-        valueColor: AlwaysStoppedAnimation(mainColor),
+        backgroundColor: color2169,
+        valueColor: AlwaysStoppedAnimation(Colors.white),
         value: _animationController.value,
       ),
     );

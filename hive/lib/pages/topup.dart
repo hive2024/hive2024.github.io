@@ -22,7 +22,6 @@ class _PageTopupState extends State<PageTopup> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print("PageLogin.didChangeDependencies()");
     al = AppLocalizations.of(context)!;
     var appState = context.watch<MyAppViewModel>();
     _rechargeController.text = appState.userInfo.chargeWalletAddress ?? "";

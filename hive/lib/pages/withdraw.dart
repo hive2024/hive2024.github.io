@@ -27,7 +27,6 @@ class _PageWithdrawState extends State<PageWithdraw> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print("PageLogin.didChangeDependencies()");
     al = AppLocalizations.of(context)!;
     var viewModel = context.watch<MyAppViewModel>();
     saveMode = viewModel.saveMode;

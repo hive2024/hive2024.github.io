@@ -15,11 +15,11 @@ class PageHome2 extends StatelessWidget {
     String bannerVideo = appState.bannerVideo;
     Widget bannerWidget;
     if (bannerVideo.isNotEmpty) {
-      print("create video $bannerVideo");
+      printLog("create video $bannerVideo");
       bannerWidget = HomeVideoView(videoUrl: bannerVideo);
       // bannerWidget = HomeYTView();
     } else {
-      print("create default image");
+      printLog("create default image");
       bannerWidget = SizedBox(
         height: 200,
         child: Image.network(Global.defaultBanner),

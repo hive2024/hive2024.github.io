@@ -22,7 +22,7 @@ class MyAppViewModel extends ChangeNotifier {
   var loading = true;
 
   void startLoading(BuildContext context) {
-    print("startLoading");
+    printLog("startLoading");
     if (loading) {
       APIS.homeInfo(Global.shareCode).then((result) {
         if (result.success) {
@@ -36,13 +36,17 @@ class MyAppViewModel extends ChangeNotifier {
           selectedPage = 1;
           notifyListeners();
         } else {
-          showEmpty();
+          if (result.errorPage.isNotEmpty) {
+            Navigator.pushNamed(context, result.errorPage);
+          } else {
+            showEmpty();
+          }
         }
       });
       if (APIS.apiKey.isNotEmpty) {
         queryActivityList();
         queryUserInfo();
-        queryTask();
+        queryTask(context);
       }
     }
     loading = false;
@@ -81,7 +85,7 @@ class MyAppViewModel extends ChangeNotifier {
       queryUserInfo();
     }
     if (index == 5) {
-      queryTask();
+      queryTask(context);
     }
   }
 
@@ -103,25 +107,29 @@ class MyAppViewModel extends ChangeNotifier {
   String ruleLink = "";
   List<Task> taskList = [];
 
-  void queryTask() {
-    print("queryTask");
+  void queryTask(BuildContext context) {
+    printLog("queryTask");
     APIS.tasksInfo().then((result) {
-      userLevel = result.data['userLevel'];
-      userIntegral = result.data['integral'];
-      ruleLink = (result.data['rulesPageUrl'] ?? "");
-      print("ruleLink 1 = $ruleLink");
-      int actIndex = ruleLink.indexOf("/act/");
-      ruleLink = ruleLink.substring(actIndex).replaceAll("/act/", "/rule/");
-      print("ruleLink 2 = $ruleLink");
-      taskList =
-          (result.data['tasks'] as List).map((e) => Task.fromJson(e)).toList();
-      taskList.sort((a, b) => a.level - b.level);
-      for (var task in taskList) {
-        if (task.level < 2 && task.status == 2) {
-          task.status = 0;
+      if (result.success) {
+        userLevel = result.data['userLevel'] ?? 0;
+        userIntegral = result.data['integral'] ?? 0;
+        // ruleLink = (result.data['rulesPageUrl'] ?? "");
+        // int actIndex = ruleLink.indexOf("/act/");
+        // ruleLink = ruleLink.substring(actIndex).replaceAll("/act/", "/rule/");
+        ruleLink = getInnerUrl(result.data['rulesPageUrl'] ?? "", 1);
+        taskList = (result.data['tasks'] as List)
+            .map((e) => Task.fromJson(e))
+            .toList();
+        taskList.sort((a, b) => a.level - b.level);
+        for (var task in taskList) {
+          if (task.level < 2 && task.status == 2) {
+            task.status = 0;
+          }
         }
+        notifyListeners();
+      } else if (result.errorPage.isNotEmpty) {
+        Navigator.pushNamed(context, result.errorPage);
       }
-      notifyListeners();
     });
   }
 
@@ -148,12 +156,12 @@ class MyAppViewModel extends ChangeNotifier {
   String shareCopyContent = "";
 
   void queryShareInfo() {
-    print("queryShareInfo");
+    printLog("queryShareInfo");
     APIS.advInfo().then((result) {
       if (result.success) {
         shareLink = result.data['url'] + "?sc=${userInfo.uid}";
         shareCopyContent = result.data['contents'];
-        print(shareCopyContent);
+        printLog(shareCopyContent);
         notifyListeners();
       }
     });
@@ -167,12 +175,12 @@ class MyAppViewModel extends ChangeNotifier {
   String currentPhone = "";
 
   void tryLogin(String phone, BuildContext context) {
-    print("tryLogin $phone");
+    printLog("tryLogin $phone");
     currentPhone = phone;
     APIS.userCheck(phone, 0).then((result) {
       if (result.success) {
         bool exist = result.data['exist'] as bool;
-        print("tryLogin $phone = $exist");
+        printLog("tryLogin $phone = $exist");
         if (exist) {
           //use exist
           Navigator.pushReplacement(context,
@@ -195,7 +203,7 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   void verify(String phone, BuildContext context) {
-    print("verify $phone");
+    printLog("verify $phone");
     APIS.otpCheck(phone).then((result) {
       if (result.success) {
         if (result.dataBool) {
@@ -224,7 +232,7 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   void register(BuildContext context, String pwd) {
-    print("register pwd=$pwd ");
+    printLog("register pwd=$pwd ");
     APIS.userCreat(currentPhone, pwd, Global.shareCode).then((result) {
       if (result.success) {
         // Navigator.of(context).pop();
@@ -257,12 +265,13 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   void retrieveForgotOtp(String phone, BuildContext context) {
-    print("retrieveForgotOtp $phone");
+    printLog("retrieveForgotOtp $phone");
     forgotPhone = phone;
 
     APIS.userCheck(phone, 1).then((result) {
       if (result.success) {
-        print("retrieveForgotOtp $forgotOtp");
+        printLog("retrieveForgotOtp $forgotOtp");
+        otpReceiver = result.data['receiver'] as String;
         forgotOtp = result.data['result'] as String;
         // forgotOtp = "1234";
         forgotOtpSent = true;
@@ -276,7 +285,7 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   void verifyForgotOtp(String phone, BuildContext context) {
-    print("verify $phone");
+    printLog("verify $phone");
     APIS.otpCheck(phone).then((result) {
       if (result.success) {
         if (result.dataBool) {
@@ -356,7 +365,7 @@ class MyAppViewModel extends ChangeNotifier {
     try {
       launchUrl(Uri.parse(userInfo.whatsappUrl ?? ""));
     } catch (e) {
-      print(e);
+      printLog(e);
     }
   }
 
@@ -364,7 +373,7 @@ class MyAppViewModel extends ChangeNotifier {
     try {
       launchUrl(Uri.parse(userInfo.messagerUrl ?? ""));
     } catch (e) {
-      print(e);
+      printLog(e);
     }
   }
 
@@ -372,7 +381,7 @@ class MyAppViewModel extends ChangeNotifier {
     try {
       launchUrl(Uri.parse(userInfo.telegramUrl ?? ""));
     } catch (e) {
-      print(e);
+      printLog(e);
     }
   }
 
@@ -410,12 +419,12 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   void withDrawCopy(BuildContext context) {
-    print("withDrawCopy");
+    printLog("withDrawCopy");
     Clipboard.setData(ClipboardData(text: walletAddress)).then((value) {});
   }
 
   void withDraw(BuildContext context, String amount) {
-    print("withDraw");
+    printLog("withDraw");
     APIS.withdraw(amount, userInfo.settleWalletAddress ?? "").then((result) {
       if (result.success) {
         if (fromTopup) {
@@ -428,7 +437,7 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   void saveWallet(BuildContext context, String newWallet) {
-    print("saveWallet");
+    printLog("saveWallet");
     APIS.walletBind(newWallet).then((result) {
       if (result.success) {
         saveMode = false;
@@ -447,7 +456,7 @@ class MyAppViewModel extends ChangeNotifier {
   UserRevenue userRevenue = UserRevenue.empty();
 
   void copyShareLink(BuildContext context) {
-    print("copyShareLink");
+    printLog("copyShareLink");
     Clipboard.setData(ClipboardData(text: shareLink)).then((value) {});
   }
 
@@ -544,11 +553,11 @@ class MyAppViewModel extends ChangeNotifier {
 
   void getActDetail(String actId) {
     if (actId == currentActId) {
-      print("same event $actId");
+      printLog("same event $actId");
       return;
     }
     currentActId = actId;
-    print("getActDetail $actId");
+    printLog("getActDetail $actId");
     APIS.actInfo(actId).then((result) {
       activityDetail = Activity.fromJson(result.data);
       notifyListeners();
@@ -561,7 +570,7 @@ class MyAppViewModel extends ChangeNotifier {
   //download
   int loadTime = 0;
   void loadDownload() {
-    print("loadDownload = $loadTime");
+    printLog("loadDownload = $loadTime");
     if (loadTime > 0) {
       return;
     }
@@ -584,7 +593,7 @@ class MyAppViewModel extends ChangeNotifier {
     try {
       launchUrl(Uri.parse(appUrl));
     } catch (e) {
-      print(e);
+      printLog(e);
     }
   }
 
@@ -594,7 +603,7 @@ class MyAppViewModel extends ChangeNotifier {
 
   void markClicked() {
     clicked++;
-    print("markClicked = $clicked");
+    printLog("markClicked = $clicked");
     if (clicked == 1) {
       notifyListeners();
     }

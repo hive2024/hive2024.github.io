@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:myhive/common/global.dart';
+import 'package:myhive/common/tools.dart';
 
 class Result {
   bool success = true;
@@ -10,6 +12,7 @@ class Result {
   List<dynamic> dataList = [];
   bool dataBool = false;
   String error = "";
+  String errorPage = "";
 }
 
 class APIS {
@@ -33,7 +36,7 @@ class APIS {
   )..interceptors.add(
       InterceptorsWrapper(
         onError: (DioException e, handler) {
-          print("DioException >> ${e.response?.statusCode} ");
+          printLog("DioException >> ${e.response?.statusCode} ");
           APIS.apiKey = "";
           Global.saveAPIKey("");
         },
@@ -43,69 +46,74 @@ class APIS {
   ///1.1
   static Future<Result> homeInfo(String? inviter) async {
     var tag = "homeInfo";
-    print("$tag  <<<<<");
+    printLog("$tag  <<<<<");
     Response response = await dio.get(
       "v1/app/home/info",
       queryParameters: inviter == null ? {} : {"inviter": inviter},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.2
   static Future<Result> userCheck(String phone, int type) async {
     var tag = "userCheck";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/user/check",
       queryParameters: {"phone": phone, "type": type},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.3. 验证码验证检查
   static Future<Result> otpCheck(String phone) async {
     var tag = "checkOtp";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/otp/check",
       queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.3. 积分兑换
   static Future<Result> exchange() async {
     var tag = "exchange";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/exchange",
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.4. 用户登录
   static Future<Result> userLogin(String username, String pwd) async {
     var tag = "userLogin";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.post(
       "v1/app/user/login",
       data: {"pwd": pwd, "username": username},
       options: language.optionPost(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     var result = handleResponse(response);
     if (result.success) {
       APIS.apiKey = result.data['apiKey'];
@@ -118,28 +126,30 @@ class APIS {
   static Future<Result> userPasswordForget(
       String phone, String otp, String newPwd) async {
     var tag = "userPasswordForget";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.post(
       "v1/app/user/password/forget",
       data: {"phone": phone, "otp": otp, "newPwd": newPwd},
       options: language.optionPost(),
     );
-    print("$tag Uri >> ${response.realUri}  ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri}  ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.6 用户密码重置
   static Future<Result> userPasswordReset(String newPwd) async {
     var tag = "userPasswordReset";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.post(
       "v1/app/user/password/reset",
       data: {"newPwd": newPwd},
       options: language.optionPost(),
     );
-    print("$tag Uri >> ${response.realUri}  ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri}  ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
@@ -147,69 +157,73 @@ class APIS {
   static Future<Result> userCreat(
       String phone, String password, String inviter) async {
     var tag = "userCreat";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.post(
       "v1/app/user/creat",
       data: {"phone": phone, "password": password, "inviter": inviter},
       options: language.optionPost(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.7 logout
   static Future<void> logout() async {
     var tag = "logout";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/logout",
       // queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
   }
 
   ///1.8 查询活动列表
   static Future<Result> actList() async {
     var tag = "actList";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/act/list",
       // queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.11. 查询用户任务
   static Future<Result> actInfo(String id) async {
     var tag = "actInfo";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/act/info",
       queryParameters: {"id": id},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   static Future<Result> tasksInfo() async {
     var tag = "tasksInfo";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     try {
       Response response = await dio.get(
         "v1/app/tasks/info",
         options: language.option(),
       );
-      print(
+      printLog(
           "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-      print("$tag Response >> ${response.data}");
+      printLog("$tag Response >> ${response.data}");
       return handleResponse(response);
     } catch (e) {
       return Result()..success = false;
@@ -219,14 +233,15 @@ class APIS {
   ///1.12. 参加活动
   static Future<Result> taskJoin(int taskId) async {
     var tag = "task/join";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/task/join",
       queryParameters: {"taskId": taskId},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
@@ -234,7 +249,7 @@ class APIS {
   static Future<Result> balanceCharge(
       String amount, String fromWallet, String targetWallet) async {
     var tag = "balanceCharge";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.post(
       "v1/app/balance/charge",
       data: {
@@ -244,57 +259,61 @@ class APIS {
       },
       options: language.optionPost(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.14. 绑定钱包
   static Future<Result> walletBind(String walletAddr) async {
     var tag = "walletBind";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.post(
       "v1/app/user/wallet/bind",
       data: {"walletAddr": walletAddr},
       options: language.optionPost(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.15. 余额提现
   static Future<Result> withdraw(String amount, String targetWallet) async {
     var tag = "withdraw";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.post(
       "v1/app/balance/settl",
       data: {"amount": amount, "targetWallet": targetWallet},
       options: language.optionPost(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.16. 获取推广页信息
   static Future<Result> advInfo() async {
     var tag = "advInfo";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/adv/info",
       // queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
   ///1.17. 我的信息接口
   static Future<Result> userInfo() async {
     var tag = "userInfo";
-    print("$tag <<<<< ${APIS.apiKey}");
+    printLog("$tag <<<<< ${APIS.apiKey}");
     Response? response;
     try {
       response = await dio.get(
@@ -303,27 +322,28 @@ class APIS {
         options: language.option(),
       );
     } catch (e) {
-      print("$tag exception =====");
-      print("$tag statusCode= ${response?.statusCode}");
-      print(e);
+      printLog("$tag exception =====");
+      printLog("$tag statusCode= ${response?.statusCode}");
+      printLog(e);
     }
-    print(
+    printLog(
         "$tag Uri >> ${response?.realUri} ; ${response?.requestOptions.data ?? language.option()}");
-    print("$tag Response >> ${response?.data}");
+    printLog("$tag Response >> ${response?.data}");
     return response != null ? handleResponse(response) : Result();
   }
 
   ///1.18. 我的推广收益接口
   static Future<Result> userRevenue() async {
     var tag = "userRevenue";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/user/revenue",
       // queryParameters: {"phone": phone},
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
@@ -331,7 +351,7 @@ class APIS {
   static Future<Result> revenueInfos(int page, int pageSize, int type,
       String startTime, String endTime) async {
     var tag = "revenueInfos";
-    print("$tag <<<<<");
+    printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/user/revenue/infos",
       queryParameters: {
@@ -343,8 +363,9 @@ class APIS {
       },
       options: language.option(),
     );
-    print("$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
-    print("$tag Response >> ${response.data}");
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
   }
 
@@ -364,12 +385,16 @@ class APIS {
         if (respMap['data'] is bool) {
           result.dataBool = respMap['data'] as bool;
         }
+      } else {
+        if (respCode == 123) {
+          result.errorPage = getInnerUrl(respMap['message'] ?? "", 0);
+        }
       }
       result.error = respMap['message'];
     } catch (e) {
       result.success = false;
       result.error = e.toString();
-      print(e);
+      printLog(e);
     }
     return result;
   }
