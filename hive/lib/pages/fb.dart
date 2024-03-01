@@ -33,7 +33,7 @@ class PageFacebook extends StatelessWidget {
                         icon: Icon(Icons.gpp_good_outlined),
                         label: Text("SKIP:")),
                     FilledButton.icon(
-                        onPressed: () => (),
+                        onPressed: () => {checkLogin()},
                         icon: Icon(Icons.gpp_good_outlined),
                         label: Text("INFO")),
                   ],
@@ -53,12 +53,21 @@ class PageFacebook extends StatelessWidget {
   Future<void> loginFB() async {
     // by default we request the email and the public profile
     LoginResult result = await FacebookAuth.i.login();
+    print(result.status);
+    print(result.message);
     if (result.status == LoginStatus.success) {
       // you are logged
       final AccessToken accessToken = result.accessToken!;
-    } else {
-      print(result.status);
-      print(result.message);
+      print("you are logged $accessToken");
     }
+  }
+}
+
+Future<void> checkLogin() async {
+  final AccessToken? accessToken = await FacebookAuth.instance.accessToken;
+ print("checkLogin = $accessToken");
+// or FacebookAuth.i.accessToken
+  if (accessToken != null) {
+    // user is logged
   }
 }
