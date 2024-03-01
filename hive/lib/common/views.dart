@@ -227,57 +227,57 @@ class MySettingButton extends StatelessWidget {
   }
 }
 
-class VideoApp extends StatefulWidget {
-  const VideoApp({super.key, required this.url});
-  final String url;
+// class VideoApp extends StatefulWidget {
+//   const VideoApp({super.key, required this.url});
+//   final String url;
 
-  @override
-  State<VideoApp> createState() => _VideoAppState();
-}
+//   @override
+//   State<VideoApp> createState() => _VideoAppState();
+// }
 
-class _VideoAppState extends State<VideoApp> {
-  late VideoPlayerController _controller;
+// class _VideoAppState extends State<VideoApp> {
+//   late VideoPlayerController _controller;
 
-  @override
-  void initState() {
-    super.initState();
-    printLog("_controller.play() ${widget.url}");
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
-      ..setLooping(true)
-      ..setVolume(0)
-      ..initialize().then((_) {
-        Future.delayed(Duration(seconds: 1), () {
-          print("_controller.play()");
-          _controller.play();
-        });
-        setState(() {});
-      });
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     printLog("_controller.play() ${widget.url}");
+//     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
+//       ..setLooping(true)
+//       ..setVolume(0)
+//       ..initialize().then((_) {
+//         Future.delayed(Duration(seconds: 1), () {
+//           print("_controller.play()");
+//           _controller.play();
+//         });
+//         setState(() {});
+//       });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: _controller.value.isInitialized
-          ? AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
-            )
-          : Container(
-              color: Colors.white,
-              width: 200,
-              height: 200,
-              child: CircularProgressIndicator(color: mainColor),
-            ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 200,
+//       child: _controller.value.isInitialized
+//           ? AspectRatio(
+//               aspectRatio: _controller.value.aspectRatio,
+//               child: VideoPlayer(_controller),
+//             )
+//           : Container(
+//               color: Colors.white,
+//               width: 200,
+//               height: 200,
+//               child: CircularProgressIndicator(color: mainColor),
+//             ),
+//     );
+//   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-}
+//   @override
+//   void dispose() {
+//     super.dispose();
+//     _controller.dispose();
+//   }
+// }
 
 class MyLiteButton extends StatelessWidget {
   const MyLiteButton({super.key, required this.t, required this.click});

@@ -22,7 +22,7 @@ class _PageWithdrawState extends State<PageWithdraw> {
 
   bool saveMode = false;
   // String walletAddress = "";
-  double fullBlance = 0;
+  String fullBlance = "0";
 
   @override
   void didChangeDependencies() {
@@ -30,7 +30,7 @@ class _PageWithdrawState extends State<PageWithdraw> {
     al = AppLocalizations.of(context)!;
     var viewModel = context.watch<MyAppViewModel>();
     saveMode = viewModel.saveMode;
-    fullBlance = viewModel.fullBlance;
+    fullBlance = viewModel.userInfo.balance??"0";
     _walletController.text = viewModel.userInfo.settleWalletAddress ?? "";
     // ? Padding(
     //     padding: const EdgeInsets.only(top: 8, bottom: 16),

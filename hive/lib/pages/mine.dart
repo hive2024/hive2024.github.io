@@ -150,7 +150,7 @@ class MyProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewModel = context.watch<MyAppViewModel>();
-    double blance = viewModel.fullBlance;
+    String balance = viewModel.userInfo.balance??"0";
     var userIcon = viewModel.userInfo.icon;
     var levelIcon = viewModel.userInfo.levelIcon;
     return Padding(
@@ -205,7 +205,7 @@ class MyProfileView extends StatelessWidget {
                             width: 24,
                           ),
                     H16,
-                    Text("Blacnce:$blance"),
+                    Text("Blacnce:$balance"),
                   ],
                 ),
               ),

@@ -57,15 +57,17 @@ Map<String, dynamic> _$ActivityToJson(Activity instance) {
 Promotion _$PromotionFromJson(Map<String, dynamic> json) => Promotion(
       json['uid'] as String,
       json['level'] as int,
+      json['phone'] as String,
       json['income'] as String,
-      json['allIncome'] as String,
+      json['adIncome'] as String,
     );
 
 Map<String, dynamic> _$PromotionToJson(Promotion instance) => <String, dynamic>{
       'uid': instance.uid,
       'level': instance.level,
+      'phone': instance.phone,
       'income': instance.income,
-      'allIncome': instance.allIncome,
+      'adIncome': instance.adIncome,
     };
 
 Task _$TaskFromJson(Map<String, dynamic> json) => Task(

@@ -367,6 +367,11 @@ class APIS {
         "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
     printLog("$tag Response >> ${response.data}");
     return handleResponse(response);
+    // Result result = Result();
+    // result.success = true;
+    // var respMap = jsonDecode('{"code":100,"data":[{"uid":"16","level":0,"income":"0.111","adIncome":"0.222"}]}');
+    // result.dataList = respMap['data'] as List<dynamic>;
+    // return result;
   }
 
   static Result handleResponse(Response response) {

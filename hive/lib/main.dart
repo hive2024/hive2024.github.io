@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:myhive/common/tools.dart';
 import 'package:myhive/pages/download.dart';
 import 'package:myhive/pages/event.dart';
+import 'package:myhive/pages/fb.dart';
 import 'package:myhive/pages/home2.dart';
 import 'package:myhive/pages/mine.dart';
 import 'package:myhive/pages/share.dart';
@@ -17,10 +19,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:html';
 import 'common/global.dart';
 import 'pages/activity.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // GetIt getIt = GetIt.instance;
 
-void main() {
+void main() async {
+  print("kIsWeb = $kIsWeb");
+  if (kIsWeb) {
+    // initialiaze the facebook javascript SDK
+    await FacebookAuth.i.webAndDesktopInitialize(
+      appId: "814806589053271",
+      cookie: true,
+      xfbml: true,
+      version: "v15.0",
+    );
+  }
   Global.init().then((e) => runApp(MyApp()));
 }
 
@@ -68,7 +81,8 @@ class MyApp extends StatelessWidget {
         title: Global.appName,
         initialRoute: "/",
         routes: {
-          "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
+          // "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
+          "/": (context) => PageFacebook(),
         },
         onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),

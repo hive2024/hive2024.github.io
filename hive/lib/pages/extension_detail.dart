@@ -73,7 +73,7 @@ class PageExtensionDetail extends StatelessWidget {
                   ],
                 ),
                 FloatingActionButton(
-                  onPressed: () => viewModel.search(0),
+                  onPressed: () => viewModel.search(1),
                   elevation: 0,
                   child: Icon(
                     Icons.search,
@@ -141,7 +141,7 @@ class PromotionInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('${al.promotion_id} ${info.uid}', style: TextStyles.header14),
+          Text('${al.promotion_id} ${info.phone}', style: TextStyles.header14),
           H10,
           Row(
             children: [
@@ -161,7 +161,7 @@ class PromotionInfo extends StatelessWidget {
                   flex: 3,
                   child: SizedBox(
                       width: double.infinity,
-                      child: Text('${al.promotion_income} ${info.allIncome}',
+                      child: Text('${al.promotion_income} ${info.adIncome}',
                           style: TextStyles.header14))),
             ],
           )

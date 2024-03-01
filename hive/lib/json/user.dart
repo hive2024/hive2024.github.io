@@ -56,13 +56,14 @@ class Activity {
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)
 class Promotion {
-  Promotion(this.uid, this.level, this.income, this.allIncome);
+  Promotion(this.uid, this.level, this.phone, this.income, this.adIncome);
   String uid;
   int level;
+  String phone;
   String income;
-  String allIncome;
+  String adIncome;
 
-  factory Promotion.empty() => Promotion("", 0, "", "");
+  factory Promotion.empty() => Promotion("", 0, "", "", "");
   //不同的类使用不同的mixin即可
   factory Promotion.fromJson(Map<String, dynamic> json) =>
       _$PromotionFromJson(json);
@@ -117,7 +118,7 @@ class UserInfo {
   String? levelIcon;
 
   factory UserInfo.empty() =>
-      UserInfo(0, 0, "", "", "", "", "", "", "", "", "","");
+      UserInfo(0, 0, "", "", "", "", "", "", "", "", "", "");
   //不同的类使用不同的mixin即可
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);

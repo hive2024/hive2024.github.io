@@ -30,7 +30,7 @@ class PageDownload extends StatelessWidget {
       printLog("create default image");
       bannerWidget = SizedBox(
         height: 200,
-        child: Image.network(Global.defaultBanner),
+        child: Image.asset("images/avatar.webp"),
       );
     }
     // Widget yub = viewModel.clicked>0 ? HomeYTView2(): HomeYTView();
@@ -43,25 +43,27 @@ class PageDownload extends StatelessWidget {
           // HomeVideoView(),
           // HomeYTView(),
           Expanded(flex: 1, child: HomeHtmlView().addHP(16)),
-          debug?
-          Row(
-            children: [
-              FilledButton.icon(
-                  onPressed: () => Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return HomeTabPage2();
-                      })),
-                  icon: Icon(Icons.gpp_good_outlined),
-                  label: Text("跳过:")),
-              FilledButton.icon(
-                  onPressed: () => Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return PageDebug();
-                      })),
-                  icon: Icon(Icons.gpp_good_outlined),
-                  label: Text("信息")),
-            ],
-          ).addHP(16):H4,
+          debug
+              ? Row(
+                  children: [
+                    FilledButton.icon(
+                        onPressed: () => Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return HomeTabPage2();
+                            })),
+                        icon: Icon(Icons.gpp_good_outlined),
+                        label: Text("SKIP:")),
+                    FilledButton.icon(
+                        onPressed: () => Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return PageDebug();
+                            })),
+                        icon: Icon(Icons.gpp_good_outlined),
+                        label: Text("INFO")),
+                  ],
+                ).addHP(16)
+              : H4,
+          TestTV(),
           MyButton(
             text: al.get_start,
             onPressed: () => viewModel.clickDownload(),
@@ -69,5 +71,29 @@ class PageDownload extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class TestTV extends StatefulWidget with WidgetsBindingObserver{
+  const TestTV({
+    super.key,
+  });
+
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    super.didChangeLocales(locales);
+    printLog("didChangeLocales >> $locales");
+  }
+
+  @override
+  State<TestTV> createState() => _TestTVState();
+}
+
+class _TestTVState extends State<TestTV> {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Text("----");
   }
 }

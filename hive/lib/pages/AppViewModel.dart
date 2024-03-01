@@ -21,6 +21,14 @@ class MyAppViewModel extends ChangeNotifier {
 
   var loading = true;
 
+  void checkErrorPage(BuildContext context, Result result) {
+    if (!result.success) {
+      if (result.errorPage.isNotEmpty) {
+        Navigator.pushNamed(context, result.errorPage);
+      }
+    }
+  }
+
   void startLoading(BuildContext context) {
     printLog("startLoading");
     if (loading) {
@@ -36,16 +44,15 @@ class MyAppViewModel extends ChangeNotifier {
           selectedPage = 1;
           notifyListeners();
         } else {
-          if (result.errorPage.isNotEmpty) {
-            Navigator.pushNamed(context, result.errorPage);
-          } else {
+          checkErrorPage(context, result);
+          if (!result.errorPage.isNotEmpty) {
             showEmpty();
           }
         }
       });
       if (APIS.apiKey.isNotEmpty) {
-        queryActivityList();
-        queryUserInfo();
+        queryActivityList(context, false);
+        queryUserInfo(context);
         queryTask(context);
       }
     }
@@ -76,13 +83,13 @@ class MyAppViewModel extends ChangeNotifier {
     selectedPage = index;
     notifyListeners();
     if (index == 2) {
-      queryActivityList();
+      queryActivityList(context, true);
     }
     if (index == 3) {
-      queryShareInfo();
+      queryUserInfo(context);
     }
     if (index == 4) {
-      queryUserInfo();
+      queryUserInfo(context);
     }
     if (index == 5) {
       queryTask(context);
@@ -93,17 +100,20 @@ class MyAppViewModel extends ChangeNotifier {
 
   List<Activity> activityList = [];
 
-  void queryActivityList() {
+  void queryActivityList(BuildContext context, bool needCheck) {
     APIS.actList().then((result) {
       var al = result.dataList.map((e) => Activity.fromJson(e)).toList();
       activityList = al;
+      if (needCheck) {
+        checkErrorPage(context, result);
+      }
       notifyListeners();
     });
   }
 
   /// task
   int userLevel = 1;
-  int userIntegral = 0;
+  String userIntegral = "0.0";
   String ruleLink = "";
   List<Task> taskList = [];
 
@@ -127,8 +137,8 @@ class MyAppViewModel extends ChangeNotifier {
           }
         }
         notifyListeners();
-      } else if (result.errorPage.isNotEmpty) {
-        Navigator.pushNamed(context, result.errorPage);
+      } else {
+        checkErrorPage(context, result);
       }
     });
   }
@@ -159,7 +169,11 @@ class MyAppViewModel extends ChangeNotifier {
     printLog("queryShareInfo");
     APIS.advInfo().then((result) {
       if (result.success) {
-        shareLink = result.data['url'] + "?sc=${userInfo.uid}";
+        String oriUrl = result.data['url'] ?? "";
+        shareLink = oriUrl +
+            (oriUrl.contains("?")
+                ? "&sc=${userInfo.uid}"
+                : "?sc=${userInfo.uid}");
         shareCopyContent = result.data['contents'];
         printLog(shareCopyContent);
         notifyListeners();
@@ -318,13 +332,15 @@ class MyAppViewModel extends ChangeNotifier {
   ///Mine
   UserInfo userInfo = UserInfo.empty();
 
-  void queryUserInfo() {
+  void queryUserInfo(BuildContext context) {
     APIS.userInfo().then((result) {
       if (result.success) {
         userInfo = UserInfo.fromJson(result.data);
         userLevel = userInfo.level;
         notifyListeners();
         queryShareInfo();
+      } else {
+        checkErrorPage(context, result);
       }
     });
   }
@@ -357,6 +373,9 @@ class MyAppViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  //'https://wa.me/${receiver}/?text=hello'
+// 'http://m.me/${receiver}'
+// 'https://telegram.me/${receiver}'
   Future<void> contectWhatsapp() async {
     // if (!await launchUrl(
     //     Uri.parse('https://wa.me/${Global.appName}/?text=hello'))) {
@@ -427,9 +446,9 @@ class MyAppViewModel extends ChangeNotifier {
     printLog("withDraw");
     APIS.withdraw(amount, userInfo.settleWalletAddress ?? "").then((result) {
       if (result.success) {
-        if (fromTopup) {
-          Navigator.of(context).pop();
-        }
+        queryUserInfo(context);
+        Navigator.of(context).pop();
+        toast(context, "Success", true);
       } else {
         toast(context, result.error, false);
       }
@@ -477,7 +496,7 @@ class MyAppViewModel extends ChangeNotifier {
   // TextEditingController detailDateEnd = TextEditingController();
   DateTime? start = DateTime.now();
   DateTime? end;
-  int page = 0;
+  int page = 1;
   String type = "0";
 
   void updateDate(PickerDateRange p0) {
@@ -507,6 +526,9 @@ class MyAppViewModel extends ChangeNotifier {
     //     List<Promotion>.generate(10, (i) => Promotion("uid-$i", i, "$i", "$i"));
     // detailList.addAll(news);
     // notifyListeners();
+    if(!detailHasLoadmore){
+      return;
+    }
     search(page + 1);
   }
 
@@ -532,7 +554,7 @@ class MyAppViewModel extends ChangeNotifier {
         .then((result) {
       if (result.success) {
         var rs = result.dataList.map((e) => Promotion.fromJson(e)).toList();
-        if (page == 0) {
+        if (page == 1) {
           detailList = rs;
         } else {
           detailList.addAll(rs);
