@@ -37,8 +37,9 @@ class PageFacebook extends StatelessWidget {
         children: [
           H16,
           H16,
-          Text("1.1").addHP(16),
-          Text("814806589053271").addHP(16),
+          Text("1.2").addHP(16),
+          Text("942398130788099").addHP(16),
+          Text("sdk isWebSdkInitialized = ${FacebookAuth.instance.isWebSdkInitialized}").addHP(16),
           H16,
           debug
               ? Row(
