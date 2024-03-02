@@ -33,6 +33,7 @@ void main() async {
       xfbml: true,
       version: "v15.0",
     );
+    print("sdk isWebSdkInitialized = ${FacebookAuth.instance.isWebSdkInitialized}");
   }
   Global.init().then((e) => runApp(MyApp()));
 }
