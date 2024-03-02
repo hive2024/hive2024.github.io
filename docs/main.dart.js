@@ -27967,7 +27967,7 @@ aGf(){var s=0,r=A.T(t.z)
 var $async$aGf=A.U(function(a,b){if(a===1)return A.Q(b,r)
 while(true)switch(s){case 0:A.al("kIsWeb = true")
 s=2
-return A.X($.a8g().a.Lz("942398130788099",!0,"v15.0",!0),$async$aGf)
+return A.X($.a8g().a.Lz("814806589053271",!0,"v15.0",!0),$async$aGf)
 case 2:$.a8g()
 A.al("sdk isWebSdkInitialized = false")
 A.aHV().b_(new A.aGi(),t.H)
@@ -96094,8 +96094,8 @@ D(a){var s,r,q,p,o=null,n=A.cC(a,B.aI,t.A)
 n.toString
 A.cR(a,!0,t.b)
 A.al("\u6bcf\u6708\u8fd8\u6b3e\u989d\uff1a$"+B.c.aw(5104.5*Math.pow(1.0041666666666667,348)/(Math.pow(1.0041666666666667,348)-1),2))
-s=A.bi("1.0",o,o,o,o,o,o,o)
-r=A.bi("942398130788099",o,o,o,o,o,o,o)
+s=A.bi("1.1",o,o,o,o,o,o,o)
+r=A.bi("814806589053271",o,o,o,o,o,o,o)
 q=t.p
 p=A.cS(A.a([A.aQ1(A.d2(B.pT,o,o,o),A.bi("SKIP:",o,o,o,o,o,o,o),new A.al6()),A.aQ1(A.d2(B.pT,o,o,o),A.bi("INFO",o,o,o,o,o,o,o),new A.al7())],q),B.G,B.L,B.J)
 return A.io(o,A.d6(A.a([B.P,B.P,new A.bb(new A.am(16,0,16,0),s,o),new A.bb(new A.am(16,0,16,0),r,o),B.P,new A.bb(new A.am(16,0,16,0),p,o),B.P,new A.bb(new A.am(16,0,16,16),new A.eD(n.gM3(),new A.al8(this),o),o)],q),B.bC,B.L,B.J),o,o,o)},
