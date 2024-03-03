@@ -25,17 +25,17 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
   print("kIsWeb = $kIsWeb");
-  // if (kIsWeb) {
-  //   // initialiaze the facebook javascript SDK
-  //   await FacebookAuth.instance.webAndDesktopInitialize(
-  //     // appId: "814806589053271",
-  //     appId: "942398130788099",
-  //     cookie: true,
-  //     xfbml: true,
-  //     version: "v15.0",
-  //   );
-  //   print("sdk isWebSdkInitialized = ${FacebookAuth.instance.isWebSdkInitialized}");
-  // }
+  if (kIsWeb) {
+    // initialiaze the facebook javascript SDK
+    await FacebookAuth.instance.webAndDesktopInitialize(
+      // appId: "814806589053271",
+      appId: "1120211638995535",
+      cookie: true,
+      xfbml: true,
+      version: "v15.0",
+    );
+    print("sdk isWebSdkInitialized = ${FacebookAuth.instance.isWebSdkInitialized}");
+  }
   Global.init().then((e) => runApp(MyApp()));
 }
 
@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           // "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
-          "/": (context) => SignInDemo(),
+          "/": (context) => PageFacebook(),
         },
         onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),
