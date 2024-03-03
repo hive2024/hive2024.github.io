@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:myhive/common/tools.dart';
 import 'package:myhive/pages/download.dart';
 import 'package:myhive/pages/event.dart';
 import 'package:myhive/pages/fb.dart';
+import 'package:myhive/pages/gg.dart';
 import 'package:myhive/pages/home2.dart';
 import 'package:myhive/pages/mine.dart';
 import 'package:myhive/pages/share.dart';
@@ -21,21 +23,19 @@ import 'common/global.dart';
 import 'pages/activity.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-// GetIt getIt = GetIt.instance;
-
 void main() async {
   print("kIsWeb = $kIsWeb");
-  if (kIsWeb) {
-    // initialiaze the facebook javascript SDK
-    await FacebookAuth.instance.webAndDesktopInitialize(
-      // appId: "814806589053271",
-      appId: "942398130788099",
-      cookie: true,
-      xfbml: true,
-      version: "v15.0",
-    );
-    print("sdk isWebSdkInitialized = ${FacebookAuth.instance.isWebSdkInitialized}");
-  }
+  // if (kIsWeb) {
+  //   // initialiaze the facebook javascript SDK
+  //   await FacebookAuth.instance.webAndDesktopInitialize(
+  //     // appId: "814806589053271",
+  //     appId: "942398130788099",
+  //     cookie: true,
+  //     xfbml: true,
+  //     version: "v15.0",
+  //   );
+  //   print("sdk isWebSdkInitialized = ${FacebookAuth.instance.isWebSdkInitialized}");
+  // }
   Global.init().then((e) => runApp(MyApp()));
 }
 
@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           // "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
-          "/": (context) => PageFacebook(),
+          "/": (context) => SignInDemo(),
         },
         onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),

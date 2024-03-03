@@ -28,3 +28,13 @@ https://app.genesiscapitalgs.com/
     flutter run -d chrome --web-hostname localhost --web-port 5050
     
 
+flutter run -d chrome --web-renderer html --web-hostname localhost --web-port 60884
+flutter run -d chrome --web-renderer canvaskit --web-hostname localhost --web-port 60884
+
+flutter build web --web-renderer html
+flutter build web --web-renderer canvaskit
+
+
+
+Google:
+879523859407-atvo96rci9vpb89k4gkkbs17rpr8enrv.apps.googleusercontent.com
