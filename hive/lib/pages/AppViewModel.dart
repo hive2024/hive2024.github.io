@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -183,12 +185,22 @@ class MyAppViewModel extends ChangeNotifier {
 
   ///login
 
+  TextEditingController loginPhoneTEC = TextEditingController();
+  TextEditingController loginOtpTEC = TextEditingController();
+
   var needVerifyLogin = false;
   String otp = "";
   String otpReceiver = "";
   String currentPhone = "";
+  bool checkboxSelected = false;
 
-  void tryLogin(String phone, BuildContext context) {
+  void clickCheckBox() {
+    checkboxSelected = !checkboxSelected;
+    notifyListeners();
+  }
+
+  void tryLogin(BuildContext context) {
+    String phone = loginPhoneTEC.text;
     printLog("tryLogin $phone");
     currentPhone = phone;
     APIS.userCheck(phone, 0).then((result) {
@@ -207,7 +219,11 @@ class MyAppViewModel extends ChangeNotifier {
           otpReceiver = result.data['receiver'] as String;
           otp = result.data['result'] as String;
           notifyListeners();
-          whatsapp(otpReceiver, otp);
+          // whatsapp(otpReceiver, otp);
+          // Navigator.pushReplacement(context,
+          //     MaterialPageRoute(builder: (context) {
+          //   return PageLoginOtp();
+          // }));
           // toast(context, "send whatsapp for register");
         }
       } else {
@@ -216,7 +232,38 @@ class MyAppViewModel extends ChangeNotifier {
     });
   }
 
-  void verify(String phone, BuildContext context) {
+  var period = const Duration(seconds: 1);
+  var otpTimer = 0;
+  var maxTimer = 10;
+
+  void sendLoginOTP(BuildContext context) {
+    String phone = loginPhoneTEC.text;
+    doSendOTP(phone, context);
+  }
+
+  void doSendOTP(String phone, BuildContext context) {
+    if (otpTimer > 0) {
+      return;
+    }
+    APIS.sendOTP(phone).then((result) {
+      if (result.success) {
+        otpTimer = maxTimer;
+        Timer.periodic(period, (t) {
+          print('timer= $otpTimer');
+          otpTimer--;
+          notifyListeners();
+          if (otpTimer <= 0) {
+            t.cancel();
+          }
+        });
+      } else {
+        toast(context, result.error, false);
+      }
+    });
+  }
+
+  void verify(BuildContext context) {
+    String phone = loginPhoneTEC.text;
     printLog("verify $phone");
     APIS.otpCheck(phone).then((result) {
       if (result.success) {
@@ -262,14 +309,16 @@ class MyAppViewModel extends ChangeNotifier {
 
   ///forgot
 
+  TextEditingController forgotPhoneTEC = TextEditingController();
+  TextEditingController forgotOtpTEC = TextEditingController();
   var forgotOtpSent = false;
-  var forgotOtpVerify = false;
+  // var forgotOtpVerify = false;
   String forgotOtp = "";
   String forgotPhone = "";
 
   void clickForgot(BuildContext context) {
     forgotOtpSent = false;
-    forgotOtpVerify = false;
+    // forgotOtpVerify = false;
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
@@ -278,32 +327,38 @@ class MyAppViewModel extends ChangeNotifier {
     );
   }
 
-  void retrieveForgotOtp(String phone, BuildContext context) {
+  void sendForgotOtp(BuildContext context) {
+    String phone = forgotPhoneTEC.text;
     printLog("retrieveForgotOtp $phone");
     forgotPhone = phone;
-
-    APIS.userCheck(phone, 1).then((result) {
+    if (otpTimer > 0) {
+      return;
+    }
+    APIS.sendOTP(phone).then((result) {
       if (result.success) {
-        printLog("retrieveForgotOtp $forgotOtp");
-        otpReceiver = result.data['receiver'] as String;
-        forgotOtp = result.data['result'] as String;
-        // forgotOtp = "1234";
         forgotOtpSent = true;
-        notifyListeners();
-        whatsapp(otpReceiver, forgotOtp);
-        // toast(context, "send whatsapp for register");
+        otpTimer = maxTimer;
+        Timer.periodic(period, (t) {
+          print('timer= $otpTimer');
+          otpTimer--;
+          notifyListeners();
+          if (otpTimer <= 0) {
+            t.cancel();
+          }
+        });
       } else {
         toast(context, result.error, false);
       }
     });
   }
 
-  void verifyForgotOtp(String phone, BuildContext context) {
+  void verifyForgotOtp(BuildContext context) {
+    String phone = forgotPhoneTEC.text;
     printLog("verify $phone");
     APIS.otpCheck(phone).then((result) {
       if (result.success) {
         if (result.dataBool) {
-          forgotOtpVerify = true;
+          // forgotOtpVerify = true;
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) {
@@ -493,7 +548,6 @@ class MyAppViewModel extends ChangeNotifier {
   TextEditingController detailTeam = TextEditingController();
   TextEditingController detailDateStart = TextEditingController()
     ..text = formater.format(DateTime.now());
-  // TextEditingController detailDateEnd = TextEditingController();
   DateTime? start = DateTime.now();
   DateTime? end;
   int page = 1;
@@ -526,7 +580,7 @@ class MyAppViewModel extends ChangeNotifier {
     //     List<Promotion>.generate(10, (i) => Promotion("uid-$i", i, "$i", "$i"));
     // detailList.addAll(news);
     // notifyListeners();
-    if(!detailHasLoadmore){
+    if (!detailHasLoadmore) {
       return;
     }
     search(page + 1);

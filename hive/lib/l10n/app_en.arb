@@ -17,7 +17,8 @@
   "verify_retrieve": "Verify and retrieve",
   "enter_new_pwd": "Enter new password",
   "save_pwd": "Save password",
-  "send_whatsapp": "Send Verify Code",
+  "send_verify_code": "Send Verify Code",
+  "input_verify_code": "Input Verify Code",
   "verify": "Verify",
   "otp_incorrect": "otp incorrect",
   "password_different": "Password different.",
@@ -84,6 +85,7 @@
   "contect_us":"Contect US",
   "yours_are_ready":"Your computers are ready",
   "yours_ard_matched":"Your computers are being matched",
+  "input_otp":"Input Otp",
 
   "txtTaskRule":"Recharge instructions: You need to recharge USDT, please make sure to transfer the money The package address is the same as the wallet address bound to the user account. Recharge will arrive at the latest 24 hours, please wait patiently, if not, please contact customer service"
 }

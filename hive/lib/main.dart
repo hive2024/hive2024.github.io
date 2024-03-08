@@ -10,6 +10,7 @@ import 'package:myhive/pages/event.dart';
 import 'package:myhive/pages/fb.dart';
 import 'package:myhive/pages/gg.dart';
 import 'package:myhive/pages/home2.dart';
+import 'package:myhive/pages/login_retrieve_pwd.dart';
 import 'package:myhive/pages/mine.dart';
 import 'package:myhive/pages/share.dart';
 import 'package:myhive/pages/task.dart';
@@ -24,18 +25,18 @@ import 'pages/activity.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
-  print("kIsWeb = $kIsWeb");
-  if (kIsWeb) {
-    // initialiaze the facebook javascript SDK
-    await FacebookAuth.instance.webAndDesktopInitialize(
-      // appId: "814806589053271",
-      appId: "1120211638995535",
-      cookie: true,
-      xfbml: true,
-      version: "v15.0",
-    );
-    print("sdk isWebSdkInitialized = ${FacebookAuth.instance.isWebSdkInitialized}");
-  }
+  // print("kIsWeb = $kIsWeb");
+  // if (kIsWeb) {
+  //   // initialiaze the facebook javascript SDK
+  //   await FacebookAuth.instance.webAndDesktopInitialize(
+  //     // appId: "814806589053271",
+  //     appId: "1120211638995535",
+  //     cookie: true,
+  //     xfbml: true,
+  //     version: "v15.0",
+  //   );
+  //   print("sdk isWebSdkInitialized = ${FacebookAuth.instance.isWebSdkInitialized}");
+  // }
   Global.init().then((e) => runApp(MyApp()));
 }
 
@@ -84,7 +85,7 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           // "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
-          "/": (context) => PageFacebook(),
+          "/": (context) => PageRetrievePwd(),
         },
         onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),

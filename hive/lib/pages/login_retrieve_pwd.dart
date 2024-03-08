@@ -5,46 +5,13 @@ import 'package:myhive/pages/AppViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class PageRetrievePwd extends StatefulWidget {
-  @override
-  State<PageRetrievePwd> createState() => _PageRetrievePwdState();
-}
-
-class _PageRetrievePwdState extends State<PageRetrievePwd> {
-  TextEditingController _phoneController = TextEditingController();
-  late Widget verifyWidget;
-  late AppLocalizations al;
-  // bool _nameAutoFocus = true;
-
-  @override
-  void initState() {
-    // 自动填充上次登录的用户名，填充后将焦点定位到密码输入框
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    al = AppLocalizations.of(context)!;
-    var appState = context.watch<MyAppViewModel>();
-    verifyWidget = appState.forgotOtpSent
-        ? Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 16),
-            child: MyButton(
-              text: al.verify,
-              onPressed: () {
-                context
-                    .read<MyAppViewModel>()
-                    .verifyForgotOtp(_phoneController.text, context);
-              },
-            ),
-          )
-        : H16;
-  }
-
+class PageRetrievePwd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations al = AppLocalizations.of(context)!;
+    MyAppViewModel viewModel = context.watch<MyAppViewModel>();
+    int ot = viewModel.otpTimer;
+    String ots = ot > 0 ? " ($ot)" : "";
     return Scaffold(
       appBar: getAppBar(context, al.forgot_pwd),
       body: Padding(
@@ -60,7 +27,7 @@ class _PageRetrievePwdState extends State<PageRetrievePwd> {
             H16,
             //phone number
             TextField(
-              controller: _phoneController,
+              controller: viewModel.forgotPhoneTEC,
               decoration: InputDecoration(
                 hintText: al.hint_phone_number,
                 focusedBorder: forcedInputBorder,
@@ -71,13 +38,29 @@ class _PageRetrievePwdState extends State<PageRetrievePwd> {
             H16,
             // button
             MyButton(
-                text: al.send_whatsapp,
+                text: "${al.send_verify_code} $ots",
                 onPressed: () {
-                  context
-                      .read<MyAppViewModel>()
-                      .retrieveForgotOtp(_phoneController.text, context);
+                  context.read<MyAppViewModel>().sendForgotOtp(context);
                 }),
-            verifyWidget,
+
+            if (viewModel.forgotOtpSent) ...[
+              H16,
+              TextFormField(
+                controller: viewModel.forgotOtpTEC,
+                decoration: InputDecoration(
+                  hintText: al.input_verify_code,
+                  focusedBorder: forcedInputBorder,
+                  enabledBorder: enableInputBorder,
+                ),
+              ),
+              H16,
+              MyButton(
+                text: al.verify,
+                onPressed: () {
+                  viewModel.verifyForgotOtp(context);
+                },
+              ),
+            ],
           ],
         ),
       ),

@@ -73,6 +73,20 @@ class APIS {
     return handleResponse(response);
   }
 
+  static Future<Result> sendOTP(String phone) async {
+    var tag = "smsSend";
+    printLog("$tag <<<<<");
+    Response response = await dio.get(
+      "v1/app/user/sms/send",
+      queryParameters: {"phone": phone},
+      options: language.option(),
+    );
+    printLog(
+        "$tag Uri >> ${response.realUri} ; ${response.requestOptions.data}");
+    printLog("$tag Response >> ${response.data}");
+    return handleResponse(response);
+  }
+
   ///1.3. 验证码验证检查
   static Future<Result> otpCheck(String phone) async {
     var tag = "checkOtp";
