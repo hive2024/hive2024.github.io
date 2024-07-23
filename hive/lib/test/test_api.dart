@@ -88,12 +88,12 @@ class APIS {
   }
 
   ///1.3. 验证码验证检查
-  static Future<Result> otpCheck(String phone) async {
+  static Future<Result> otpCheck(String phone,String otp) async {
     var tag = "checkOtp";
     printLog("$tag <<<<<");
     Response response = await dio.get(
       "v1/app/otp/check",
-      queryParameters: {"phone": phone},
+      queryParameters: {"phone": phone, "otp": otp},
       options: language.option(),
     );
     printLog(

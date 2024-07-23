@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myhive/common/strings.dart';
+import 'package:myhive/common/tools.dart';
 import 'package:myhive/common/views.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:myhive/pages/mine.dart';
@@ -62,7 +63,10 @@ class _PageTopupState extends State<PageTopup> {
             focusNode: _amountFocus,
             controller: _amountController,
             keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            inputFormatters: [
+              MyNumberTextInputFormatter(digit: 2),
+              FilteringTextInputFormatter(RegExp("[0-9.]"), allow: true),
+            ],
             decoration: InputDecoration(
               hintText: al.txtOtherAmount,
               focusedBorder: forcedInputBorder,

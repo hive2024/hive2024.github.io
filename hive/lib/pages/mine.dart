@@ -153,6 +153,7 @@ class MyProfileView extends StatelessWidget {
     String balance = viewModel.userInfo.balance??"0";
     var userIcon = viewModel.userInfo.icon;
     var levelIcon = viewModel.userInfo.levelIcon;
+    var phone = viewModel.userInfo.phone;
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
       child: Container(
@@ -178,34 +179,21 @@ class MyProfileView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    // Container(
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     crossAxisAlignment: CrossAxisAlignment.center,
-                    //     mainAxisSize: MainAxisSize.max,
-                    //     children: [
-                    //       Image.asset(
-                    //         "images/vip_fill.webp",
-                    //         height: 24,
-                    //         width: 24,
-                    //       ),
-                    //       Flexible(
-                    //         flex: 1,
-                    //         child: Center(
-                    //             child: Text("VIP ${viewModel.userInfo.level}")),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    levelIcon != null
-                        ? Image.network(levelIcon, height: 24, width: 24)
-                        : Image.asset(
-                            "images/vip_fill.webp",
-                            height: 24,
-                            width: 24,
-                          ),
+                    Row(
+                      children: [
+                        levelIcon != null
+                            ? Image.network(levelIcon, height: 24, width: 24)
+                            : Image.asset(
+                                "images/vip_fill.webp",
+                                height: 24,
+                                width: 24,
+                              ),
+                              W16,
+                             Text("$phone",style: TextStyles.header16B,), 
+                      ],
+                    ),
                     H16,
-                    Text("Blacnce:$balance"),
+                    Text("Blacnce:$balance",style: TextStyles.header16B,),
                   ],
                 ),
               ),

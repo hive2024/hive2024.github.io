@@ -84,8 +84,8 @@ class MyApp extends StatelessWidget {
         title: Global.appName,
         initialRoute: "/",
         routes: {
-          // "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
-          "/": (context) => PageRetrievePwd(),
+          "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
+          // "/": (context) => HomeTabPage2(),
         },
         onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),

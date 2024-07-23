@@ -153,15 +153,15 @@ class MyAppViewModel extends ChangeNotifier {
     });
   }
 
-  void exchange(BuildContext context) {
-    APIS.exchange().then((result) {
-      if (result.success) {
-        toast(context, AppLocalizations.of(context)!.success_exchange, true);
-      } else {
-        toast(context, result.error, false);
-      }
-    });
-  }
+  // void exchange(BuildContext context) {
+  //   APIS.exchange().then((result) {
+  //     if (result.success) {
+  //       toast(context, AppLocalizations.of(context)!.success_exchange, true);
+  //     } else {
+  //       toast(context, result.error, false);
+  //     }
+  //   });
+  // }
 
   /// share
   String shareLink = "";
@@ -189,8 +189,6 @@ class MyAppViewModel extends ChangeNotifier {
   TextEditingController loginOtpTEC = TextEditingController();
 
   var needVerifyLogin = false;
-  String otp = "";
-  String otpReceiver = "";
   String currentPhone = "";
   bool checkboxSelected = false;
 
@@ -216,8 +214,6 @@ class MyAppViewModel extends ChangeNotifier {
         } else {
           //user not found
           needVerifyLogin = true;
-          otpReceiver = result.data['receiver'] as String;
-          otp = result.data['result'] as String;
           notifyListeners();
           // whatsapp(otpReceiver, otp);
           // Navigator.pushReplacement(context,
@@ -238,10 +234,6 @@ class MyAppViewModel extends ChangeNotifier {
 
   void sendLoginOTP(BuildContext context) {
     String phone = loginPhoneTEC.text;
-    doSendOTP(phone, context);
-  }
-
-  void doSendOTP(String phone, BuildContext context) {
     if (otpTimer > 0) {
       return;
     }
@@ -265,7 +257,7 @@ class MyAppViewModel extends ChangeNotifier {
   void verify(BuildContext context) {
     String phone = loginPhoneTEC.text;
     printLog("verify $phone");
-    APIS.otpCheck(phone).then((result) {
+    APIS.otpCheck(phone,loginOtpTEC.text).then((result) {
       if (result.success) {
         if (result.dataBool) {
           needVerifyLogin = false;
@@ -313,7 +305,6 @@ class MyAppViewModel extends ChangeNotifier {
   TextEditingController forgotOtpTEC = TextEditingController();
   var forgotOtpSent = false;
   // var forgotOtpVerify = false;
-  String forgotOtp = "";
   String forgotPhone = "";
 
   void clickForgot(BuildContext context) {
@@ -355,7 +346,7 @@ class MyAppViewModel extends ChangeNotifier {
   void verifyForgotOtp(BuildContext context) {
     String phone = forgotPhoneTEC.text;
     printLog("verify $phone");
-    APIS.otpCheck(phone).then((result) {
+    APIS.otpCheck(phone, forgotOtpTEC.text).then((result) {
       if (result.success) {
         if (result.dataBool) {
           // forgotOtpVerify = true;
@@ -375,7 +366,7 @@ class MyAppViewModel extends ChangeNotifier {
   }
 
   void saveForgotPwd(BuildContext context, String pwd) {
-    APIS.userPasswordForget(forgotPhone, forgotOtp, pwd).then((result) {
+    APIS.userPasswordForget(forgotPhone, forgotOtpTEC.text, pwd).then((result) {
       if (result.success) {
         Navigator.of(context).pop();
       } else {

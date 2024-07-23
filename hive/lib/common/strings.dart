@@ -49,6 +49,7 @@ class TextStyles {
   static TextStyle header20 = TextStyle(color: color3C, fontSize: 20);
   static TextStyle header14 = TextStyle(color: color3C, fontSize: 14);
   static TextStyle header16 = TextStyle(color: color3C, fontSize: 16);
+  static TextStyle header16B = TextStyle(color: color3C, fontSize: 16, fontWeight: FontWeight.bold);
 }
 
 const MaterialColor MColor4C = MaterialColor(0xFFD2EBED, {

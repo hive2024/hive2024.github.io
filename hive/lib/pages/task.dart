@@ -6,6 +6,7 @@ import 'package:myhive/common/views.dart';
 import 'package:myhive/json/user.dart';
 import 'package:myhive/pages/AppViewModel.dart';
 import 'package:myhive/pages/rules.dart';
+import 'package:myhive/pages/topup.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -60,7 +61,7 @@ class PageTask extends StatelessWidget {
         Row(children: r3),
         H16,
         Text(
-          "${al.your_coin_balance_is} ${viewModel.userIntegral}",
+          "Blacnce: ${viewModel.userInfo.balance??"0"}",
           style: TextStyles.headerTask,
         ),
         H16,
@@ -79,9 +80,14 @@ class PageTask extends StatelessWidget {
             Expanded(
               flex: 1,
               child: MyButton(
-                text: al.txtExchange,
+                text: al.txtRecharge,
                 onPressed: () {
-                  viewModel.exchange(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return PageTopup();
+                    }),
+                  );
                 },
               ),
             ),
@@ -288,7 +294,6 @@ class _MyWorkProgressState extends State<MyWorkProgress>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   var finish = false;
-  late AppLocalizations al;
 
   @override
   void initState() {
@@ -298,12 +303,12 @@ class _MyWorkProgressState extends State<MyWorkProgress>
     );
     _animationController.forward();
     _animationController.addListener(() => setState(() => {}));
-    al = AppLocalizations.of(context)!;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations al = AppLocalizations.of(context)!;
     List<Widget> views = [];
     if (_animationController.value >= 1) {
       views = [
@@ -324,7 +329,7 @@ class _MyWorkProgressState extends State<MyWorkProgress>
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: MyButton(
-              text: AppLocalizations.of(context)!.txtSuccess,
+              text: al.txtSuccess,
               onPressed: () {
                 context
                     .read<MyAppViewModel>()
