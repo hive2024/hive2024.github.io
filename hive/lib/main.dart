@@ -24,6 +24,8 @@ import 'common/global.dart';
 import 'pages/activity.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+import 'pages/home_gantt.dart';
+
 void main() async {
   // print("kIsWeb = $kIsWeb");
   // if (kIsWeb) {
@@ -46,33 +48,34 @@ RegExp eventReg2 = RegExp(r'^/rule/([\w-]+)$');
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    String path = settings.name ?? "";
-    printLog("onGenerateRoute; path=$path");
-    if (eventReg.hasMatch(path)) {
-      final firstMatch = eventReg.firstMatch(path);
-      final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
-      printLog("onGenerateRoute; >> PageEvent; match=$match");
-      return MaterialPageRoute<void>(
-        builder: (context) => PageEvent(eventId: match ?? "", canBack: false),
-        settings: settings,
-      );
-    }
-    if (eventReg2.hasMatch(path)) {
-      final firstMatch = eventReg2.firstMatch(path);
-      final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
-      printLog("onGenerateRoute; >> PageEvent; match=$match");
-      return MaterialPageRoute<void>(
-        builder: (context) => PageEvent(eventId: match ?? "", canBack: true),
-        settings: settings,
-      );
-    }
-    // If no match is found, [WidgetsApp.onUnknownRoute] handles it.
-    return MaterialPageRoute<void>(
-      builder: (context) => HomeTabPage2(),
-      settings: settings,
-    );
-  }
+  // static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+  //   String path = settings.name ?? "";
+  //   printLog("onGenerateRoute; path=$path");
+  //   if (eventReg.hasMatch(path)) {
+  //     final firstMatch = eventReg.firstMatch(path);
+  //     final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
+  //     printLog("onGenerateRoute; >> PageEvent; match=$match");
+  //     return MaterialPageRoute<void>(
+  //       builder: (context) => PageEvent(eventId: match ?? "", canBack: false),
+  //       settings: settings,
+  //     );
+  //   }
+  //   if (eventReg2.hasMatch(path)) {
+  //     final firstMatch = eventReg2.firstMatch(path);
+  //     final match = (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
+  //     printLog("onGenerateRoute; >> PageEvent; match=$match");
+  //     return MaterialPageRoute<void>(
+  //       builder: (context) => PageEvent(eventId: match ?? "", canBack: true),
+  //       settings: settings,
+  //     );
+  //   }
+  //   // If no match is found, [WidgetsApp.onUnknownRoute] handles it.
+  //   return MaterialPageRoute<void>(
+  //     // builder: (context) => HomeTabPage2(),
+  //     builder: (context) => HomeGantt(),
+  //     settings: settings,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +87,10 @@ class MyApp extends StatelessWidget {
         title: Global.appName,
         initialRoute: "/",
         routes: {
-          "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
-          // "/": (context) => HomeTabPage2(),
+          // "/": (context) => Global.isApp ? HomeTabPage2() : PageDownload(),
+          "/": (context) => HomeGantt(),
         },
-        onGenerateRoute: onGenerateRoute,
+        // onGenerateRoute: onGenerateRoute,
         // locale: const Locale('en', 'US'),
         // locale: Locale('es'),
         localizationsDelegates: [
